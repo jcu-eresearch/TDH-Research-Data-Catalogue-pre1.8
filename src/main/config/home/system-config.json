@@ -10,7 +10,7 @@
     "urlBase": "${server.url.base}",
     "email": "DO_NOT_CHANGE",
     "sso": {
-        "plugins": [],
+        "plugins": ["Shibboleth"],
         "urlExclusions": {
             "startsWith": ["css/", "feed/", "images/", "js/", "flowplayer/"],
             "endsWith": [".ico"],
@@ -18,6 +18,12 @@
         },
         "trustTokens": {
         }
+    },
+    "shibboleth":{
+        "username_attribute":"eppn", //auEduPersonSharedToken
+        "cn_attribute":"cn",
+        "shib_session_attribute":"Shib_Session_ID",
+        "ship_idp_attribute":"Shib_Identity_Provide"
     },
     "accesscontrol": {
         "type": "derby",

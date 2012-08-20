@@ -13,7 +13,7 @@
     <parent>
         <groupId>com.googlecode.redbox-mint</groupId>
         <artifactId>redbox</artifactId>
-        <version>1.5</version>
+        <version>1.5.1</version>
     </parent>
 
     <properties>
@@ -21,6 +21,25 @@
         <redbox.version>${project.parent.version}</redbox.version>
         <project.home>${project.build.directory}/deploy</project.home>
     </properties>
+
+    <repositories>
+        <repository>
+            <id>fascinator-snapshots</id>
+            <url>http://dev.redboxresearchdata.com.au/nexus/content/repositories/central-snapshots/</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+             <snapshots>
+                 <enabled>true</enabled>
+             </snapshots>
+         </repository>
+
+        <repository>
+            <id>ReDBoxNexus</id>
+            <name>ReDBox Community Nexus Server</name>
+            <url>http://dev.redboxresearchdata.com.au/nexus/content/groups/public/</url>
+        </repository>
+    </repositories>
 
     <dependencies>
         <dependency>
@@ -54,11 +73,6 @@
             <groupId>fascinator-shibboleth</groupId>
             <artifactId>fascinator-shibboleth</artifactId>
             <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mortbay.jetty</groupId>
-            <artifactId>jetty-ajp</artifactId>
-            <version>6.1.24</version>
         </dependency>
     </dependencies>
 

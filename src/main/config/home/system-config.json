@@ -19,11 +19,23 @@
         "trustTokens": {
         }
     },
-    "shibboleth":{
-        "username_attribute":"eppn", //auEduPersonSharedToken
-        "cn_attribute":"cn",
-        "shib_session_attribute":"Shib_Session_ID",
-        "ship_idp_attribute":"Shib_Identity_Provide"
+    "Shibboleth":{
+        "useHeaders": "false",
+        "username_attribute":"auEduPersonSharedToken",
+        "cn_attribute":"displayName",
+        "session_attribute":"Shib-Session-ID",
+        "idp_attribute":"Shib-Identity-Provider",
+        "attributes":["eduPersonAffiliation", "commonName"],
+        "delimiter":";",
+        "rolePlugins":["SimpleShibbolethRoleManager"],
+        "SimpleShibbolethRoleManager":{
+            "reviewer":[
+                ["affiliation","is","member@edu.au"]
+            ],
+            "jcu":[
+                ["Shib-Identity-Provider","is","https://elara.jcu.edu.au:8443/idp/shibboleth"]
+            ]
+        }
     },
     "accesscontrol": {
         "type": "derby",
@@ -423,6 +435,6 @@
             "allowOlder": false,
             "failOnMissing": false
         },
-        "migrationScript": "${fascinator.home}/restore/redboxMigration1.2.py"
+        "migrationScript": "${fascinator.home}/restore/redboxMigration1.5.py"
     }
 }

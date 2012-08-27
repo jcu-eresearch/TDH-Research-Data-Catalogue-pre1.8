@@ -20,19 +20,20 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <redbox.version>${project.parent.version}</redbox.version>
         <project.home>${project.build.directory}/deploy</project.home>
+        <icons.dir>target/aaf_icons</icons.dir>
     </properties>
 
     <repositories>
-        <repository>
-            <id>fascinator-snapshots</id>
-            <url>http://dev.redboxresearchdata.com.au/nexus/content/repositories/central-snapshots/</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-             <snapshots>
-                 <enabled>true</enabled>
-             </snapshots>
-         </repository>
+        <!--<repository>-->
+            <!--<id>fascinator-snapshots</id>-->
+            <!--<url>http://dev.redboxresearchdata.com.au/nexus/content/repositories/central-snapshots/</url>-->
+            <!--<releases>-->
+                <!--<enabled>false</enabled>-->
+            <!--</releases>-->
+            <!--<snapshots>-->
+                <!--<enabled>true</enabled>-->
+            <!--</snapshots>-->
+        <!--</repository>-->
 
         <repository>
             <id>ReDBoxNexus</id>
@@ -234,6 +235,28 @@
                             </resources>
                         </configuration>
                     </execution>
+                    <!-- Copy Icons -->
+                    <execution>
+                        <id>copy-icons</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${dir.portal}/default/redbox/images/aaf/</outputDirectory>
+                            <includeEmptyDirs>false</includeEmptyDirs>
+                            <overwrite>true</overwrite>
+                            <resources>
+                                <resource>
+                                    <directory>${icons.dir}/aaf_service_buttons</directory>
+                                    <filtering>false</filtering>
+                                    <includes>
+                                        <include>**/**.png</include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
                     <!-- Server files -->
                     <execution>
                         <id>copy-server</id>
@@ -304,8 +327,10 @@
             <!-- Set executable attribute for shell scripts -->
             <plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.7</version>
                 <executions>
                     <execution>
+                        <id>perms</id>
                         <phase>process-resources</phase>
                         <configuration>
                             <tasks>
@@ -316,8 +341,31 @@
                             <goal>run</goal>
                         </goals>
                     </execution>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <id>aaf_logos</id>
+                        <configuration>
+                            <target>
+                                <mkdir dir="${icons.dir}"/>
+                                <get skipexisting="true"
+                                     src="http://www.aaf.edu.au/wp-content/uploads/2010/08/aaf_service_buttons.zip"
+                                     dest="target/aaf_service_buttons.zip"/>
+                                <unzip src="target/aaf_service_buttons.zip"
+                                       dest="${icons.dir}">
+                                    <patternset>
+                                        <include name="aaf_service_buttons/aaf_200x50.png"/>
+                                    </patternset>
+                                </unzip>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+
                 </executions>
             </plugin>
+
         </plugins>
     </build>
 </project>

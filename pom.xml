@@ -77,7 +77,7 @@
         <dependency>
             <groupId>com.googlecode.the-fascinator.plugins</groupId>
             <artifactId>plugin-harvester-directoryName</artifactId>
-            <version>1.2-SNAPSHOT</version>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
 

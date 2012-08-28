@@ -19,7 +19,6 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <redbox.version>${project.parent.version}</redbox.version>
-        <project.home>${project.build.directory}/deploy</project.home>
         <icons.dir>target/aaf_icons</icons.dir>
     </properties>
 
@@ -117,8 +116,29 @@
     </profiles>
 
     <build>
-
         <plugins>
+            <plugin>
+                <groupId>org.codehaus.gmaven</groupId>
+                <artifactId>gmaven-plugin</artifactId>
+                <version>1.4</version>
+                <executions>
+                    <execution>
+                        <id>ensure_project_home</id>
+                        <phase>initialize</phase>
+                        <goals><goal>execute</goal></goals>
+                        <configuration>
+                            <source>
+                                println()
+                                if(!("project.home" in properties))
+                                {
+                                    fail("project.home is not set. Please specify -Dproject.home on the command line.")
+                                }
+                            </source>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>properties-maven-plugin</artifactId>
@@ -362,10 +382,8 @@
                             <goal>run</goal>
                         </goals>
                     </execution>
-
                 </executions>
             </plugin>
-
         </plugins>
     </build>
 </project>

@@ -3,7 +3,8 @@
         "type": "directory",
         "directory": {
             "targets": [ {
-                "baseDir": "${fascinator.home}/data/Edgar"
+                "baseDir": "${fascinator.home}/data/Edgar",
+                "recordIDPrefix": "jcu.edu.au/tdh/collection/"
             } ]
         },
         "file-system": {

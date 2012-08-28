@@ -131,7 +131,7 @@
                                 println()
                                 if(!("project.home" in properties))
                                 {
-                                    fail("project.home is not set. Please specify -Dproject.home on the command line.")
+                                    fail("project.home is not set. Please specify -Dproject.home=&lt;deploy path&gt; on the command line.")
                                 }
                             </source>
                         </configuration>

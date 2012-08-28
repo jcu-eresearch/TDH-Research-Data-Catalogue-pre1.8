@@ -128,8 +128,7 @@
                         <goals><goal>execute</goal></goals>
                         <configuration>
                             <source>
-                                println()
-                                if(!("project.home" in properties))
+                                if(project.properties["project.home"] == null)
                                 {
                                     fail("project.home is not set. Please specify -Dproject.home=&lt;deploy path&gt; on the command line.")
                                 }

@@ -359,6 +359,12 @@
                 "frequency": "3600",
                 "jobs": [
                     {
+                        "name": "harvestEdgar",
+                        "type": "harvest",
+                        "configFile": "${fascinator.home}/harvest/directoryNames-Edgar.json",
+                        "timing": "0 0 6 * * ?"
+                    },
+                    {
                         "name": "alerts-poll",
                         "type": "external",
                         "url": "http://localhost:${jetty.port}/redbox/default/hkjobs/alerts.script",

@@ -25,6 +25,11 @@
         "alreadyCurated": false
     },
     "transformerOverrides": {
+        "jsonVelocity": {
+            "id": "jsonVelocity",
+            "sourcePayload": "metadata.json",
+            "templatesPath": "${fascinator.home}/templates"
+        }
     },
     "indexer": {
         "script": {
@@ -32,8 +37,8 @@
             "rules": "directoryNames.py"
         },
         "params": {
-            "repository.name": "Directory",
-            "repository.type": "Names"
+            "repository.name": "ReDBox",
+            "repository.type": "Metadata Registry"
         }
     }
 }

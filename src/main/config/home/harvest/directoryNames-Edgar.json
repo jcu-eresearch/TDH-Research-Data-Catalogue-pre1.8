@@ -20,6 +20,10 @@
             {"type" : "suitability"}
         ]
     },
+    "transformer": {
+        "curation": [],
+        "metadata": ["jsonVelocity"]
+    },  
     "curation": {
         "neverPublish": false,
         "alreadyCurated": false

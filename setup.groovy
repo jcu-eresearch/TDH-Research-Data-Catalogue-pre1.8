@@ -1,10 +1,10 @@
 String projectHome = project.properties["project.home"];
 if (projectHome == null) {
-    projectHome = project.basedir.parentFile.absolutePath;
-    projectHome = projectHome.replace("\\", "/");
-    project.properties["project.home"] = projectHome;
+    String userHome = System.getProperty("user.home");
+    File redboxHome = new File(userHome, "jcu-redbox");
+    project.properties["project.home"] = redboxHome.absolutePath;
 }
-println "Project will be deployed to: " + projectHome;
+println "Project will be deployed to: " + project.properties["project.home"];
 
 java.net.InetAddress address = InetAddress.getByName(System.getenv("COMPUTERNAME"));
 project.properties["ip.address"] = address.getHostAddress();

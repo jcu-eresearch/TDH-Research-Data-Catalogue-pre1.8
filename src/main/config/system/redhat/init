@@ -65,7 +65,7 @@ case "$1" in
         su - $USER  -c ${REDBOX_HOME}/server/tf.sh\ status
         ;;
    *)
-        echo $"Usage: nfs {start|stop|status|restart|reload|force-reload|condrestart|try-restart|condstop}"
+        echo $"Usage: redbox {start|stop|status|restart}"
         RETVAL=2
         ;;
 esac

@@ -51,6 +51,7 @@ case "$1" in
         echo -n "Waiting for service to become available"
         while [ -z `netstat -tpln | grep ${LOCAL_PORT} | cut -f 1 -d " "` ]; do echo -n "."; sleep 1; done
         echo ""
+        sleep 5
         nohup wget --header="Host: ${REDBOX_HOSTNAME}" http://localhost:${LOCAL_PORT}/${REDBOX_CONTEXT}/default/home -O /dev/null &> /dev/null &
         ;;
   stop)

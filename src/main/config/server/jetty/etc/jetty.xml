@@ -65,7 +65,7 @@
           <Set name="acceptors">100</Set>
           <Set name="acceptQueueSize">400</Set>
           <Set name="forwarded">true</Set>
-          <Set name="maxIdleTime">30000</Set>
+          <Set name="maxIdleTime">5000</Set>
           <Set name="statsOn">false</Set>
         </New>
       </Arg>

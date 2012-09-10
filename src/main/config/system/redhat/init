@@ -48,6 +48,8 @@ uid=`id | cut -d\( -f1 | cut -d= -f2`
 case "$1" in
   start)
         su - $USER  -c ${REDBOX_HOME}/server/tf.sh\ start
+        sleep 10
+        wget --header="Host: ${REDBOX_HOSTNAME}" http://localhost:${LOCAL_PORT}/${REDBOX_CONTEXT}/default/home -O /dev/null
         ;;
   stop)
         su - $USER  -c ${REDBOX_HOME}/server/tf.sh\ stop

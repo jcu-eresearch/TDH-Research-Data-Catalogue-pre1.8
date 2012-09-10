@@ -11,7 +11,7 @@
 
 ### BEGIN INIT INFO
 # Provides: redbox
-# Required-Start: $local_fs $network
+# Required-Start: $local_fs $network $httpd
 # Required-Stop: $local_fs $network
 # Default-Stop: 0 1 6
 # Short-Description: Start up the ReDBoX Server
@@ -52,7 +52,7 @@ case "$1" in
         while [ -z `netstat -tpln | grep ${LOCAL_PORT} | cut -f 1 -d " "` ]; do echo -n "."; sleep 1; done
         echo ""
         sleep 10
-        nohup wget --header="Host: ${REDBOX_HOSTNAME}" http://localhost:${LOCAL_PORT}/${REDBOX_CONTEXT}/default/home -O /dev/null &> /dev/null &
+        nohup ${REDBOX_HOME}/server/initserver.sh ${REDBOX_HOSTNAME} ${LOCAL_PORT} ${REDBOX_CONTEXT} &> /dev/null
         ;;
   stop)
         su - $USER  -c ${REDBOX_HOME}/server/tf.sh\ stop

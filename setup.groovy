@@ -3,6 +3,7 @@ if (projectHome == null) {
     String userHome = System.getProperty("user.home");
     File redboxHome = new File(userHome, "jcu-redbox");
     project.properties["project.home"] = redboxHome.absolutePath;
+    new File(redboxHome, "system").mkdirs();
 }
 println "Project will be deployed to: " + project.properties["project.home"];
 

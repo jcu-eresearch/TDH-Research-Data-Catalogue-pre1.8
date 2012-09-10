@@ -291,6 +291,36 @@
                             </resources>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>copy-system-scripts</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${dir.system}</outputDirectory>
+                            <includeEmptyDirs>true</includeEmptyDirs>
+                            <overwrite>true</overwrite>
+                            <resources>
+                                <!-- Resolve some paths in our control scripts -->
+                                <resource>
+                                    <directory>src/main/config/system</directory>
+                                    <filtering>false</filtering>
+                                    <includes>
+                                        <include>**/init</include>
+                                    </includes>
+                                </resource>
+                                <resource>
+                                    <directory>src/main/config/system</directory>
+                                    <filtering>true</filtering>
+                                    <excludes>
+                                        <exclude>**/init</exclude>
+                                    </excludes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+
                     <!-- Solr logging -->
                     <execution>
                         <id>copy-solr</id>

@@ -352,7 +352,7 @@
                         <configuration>
                             <tasks>
                                 <chmod file="${dir.server}/*.sh" perm="741"/>
-                                <chmod dir="${dir.system}" includes="**/init" perm="751"/>
+                                <chmod dir="${dir.system}" includes="**/init" perm="754"/>
 
                             </tasks>
                         </configuration>

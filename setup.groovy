@@ -1,7 +1,7 @@
 String projectHome = project.properties["project.home"];
 if (projectHome == null) {
     String userHome = System.getProperty("user.home");
-    File redboxHome = new File(userHome, "jcu-redbox");
+    File redboxHome = new File(new File(userHome, "doployment"), "jcu-redbox");
     project.properties["project.home"] = redboxHome.absolutePath;
     new File(redboxHome, "system").mkdirs();
 }

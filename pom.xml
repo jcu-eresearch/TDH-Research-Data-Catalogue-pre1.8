@@ -1,43 +1,36 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.googlecode.redbox-mint</groupId>
-    <artifactId>redbox-local-curation-demo</artifactId>
-    <version>1.5.1</version>
-    <packaging>pom</packaging>
-    <name>ReDBox - Local Curation Demo</name>
+
+    <groupId>au.edu.jcu.redbox.build</groupId>
+    <artifactId>redbox-jcu</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>JCU ReDBox institutional Build</name>
+    <url>http://www.redboxresearchdata.com.au/</url>
+
     <parent>
         <groupId>com.googlecode.redbox-mint</groupId>
         <artifactId>redbox</artifactId>
         <version>1.5.1</version>
     </parent>
-    <properties>
-        <!-- Used in build -->
-        <redbox.version>1.5.1</redbox.version>
 
-        <!-- Runtime values, will replace placeholders
-             in config and control scripts -->
-        <server.port>9000</server.port>
-        <amq.port>9101</amq.port>
-        <amq.stomp.port>9102</amq.stomp.port>
-        <server.url.base>http://${ip.address}:${server.port}/redbox/</server.url.base>
-        <mint.proxy.server>http://localhost:9001</mint.proxy.server>
-        <mint.amq.broker>tcp://localhost:9201</mint.amq.broker>
-        <dir.home>${project.home}/home</dir.home>
-        <dir.portal>${project.home}/portal</dir.portal>
-        <dir.server>${project.home}/server</dir.server>
-        <dir.solr>${project.home}/solr</dir.solr>
-        <dir.storage>${project.home}/storage</dir.storage>
-        <smtp.host>localhost</smtp.host>
-        <admin.email>admin@localhost</admin.email>
-        <!-- Control scripts try to auto-detect proxy. Use this value if you
-             want Java to specifically exclude certain hosts from proxying. -->
-        <non.proxy.hosts>localhost</non.proxy.hosts>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <redbox.version>${project.parent.version}</redbox.version>
+        <icons.dir>target/aaf_icons</icons.dir>
     </properties>
+
+    <repositories>
+        <repository>
+            <id>ReDBoxNexus</id>
+            <name>ReDBox Community Nexus Server</name>
+            <url>http://dev.redboxresearchdata.com.au/nexus/content/groups/public/</url>
+        </repository>
+    </repositories>
+
     <dependencies>
-        <!-- ReDBox Core - We want to explicitly define versions here because
-             ReDBox is listed as both a dependency and a parent. Some odd
-             consequences of using ${project.version} can result -->
         <dependency>
             <groupId>com.googlecode.redbox-mint</groupId>
             <artifactId>redbox-project</artifactId>
@@ -65,19 +58,19 @@
             <artifactId>plugin-transaction-curation-redbox</artifactId>
             <version>${redbox.version}</version>
         </dependency>
-        <!-- Local Curation Plugin (from Mint) -->
         <dependency>
-            <groupId>com.googlecode.redbox-mint</groupId>
-            <artifactId>plugin-transformer-local</artifactId>
-            <version>${redbox.version}</version>
+            <groupId>fascinator-shibboleth</groupId>
+            <artifactId>fascinator-shibboleth</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.googlecode.the-fascinator</groupId>
-            <artifactId>fascinator-portal</artifactId>
-            <type>warpath</type>
-            <version>1.1.1</version>
+            <groupId>com.googlecode.the-fascinator.plugins</groupId>
+            <artifactId>plugin-harvester-directoryName</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
+
+
     <profiles>
         <profile>
             <id>build-package</id>
@@ -111,24 +104,27 @@
         </profile>
     </profiles>
 
-    <!-- The standard build/deploy process for making a server -->
     <build>
-        <resources>
-            <resource>
-                <directory>src/main/config/home</directory>
-            </resource>
-            <resource>
-                <directory>src/main/config/portal</directory>
-            </resource>
-            <resource>
-                <directory>src/main/config/server</directory>
-            </resource>
-            <resource>
-                <directory>src/main/config/solr</directory>
-            </resource>
-        </resources>
-
         <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>properties-maven-plugin</artifactId>
+                <version>1.0-alpha-2</version>
+                <executions>
+                    <execution>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>read-project-properties</goal>
+                        </goals>
+                        <configuration>
+                            <files>
+                                <file>build.properties</file>
+                            </files>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
             <!-- 1st - Unpack Generic Mint setup -->
             <plugin>
                 <artifactId>maven-dependency-plugin</artifactId>
@@ -151,6 +147,26 @@
                             </artifactItems>
                         </configuration>
                     </execution>
+                    <!-- Shibboleth Resources -->
+                    <execution>
+                        <id>unpack-shib-conf</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.home}</outputDirectory>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>fascinator-shibboleth</groupId>
+                                    <artifactId>fascinator-shibboleth</artifactId>
+                                    <classifier>redbox-config</classifier>
+                                    <type>zip</type>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+
                 </executions>
             </plugin>
 
@@ -206,6 +222,28 @@
                             </resources>
                         </configuration>
                     </execution>
+                    <!-- Copy Icons -->
+                    <execution>
+                        <id>copy-icons</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${dir.portal}/default/redbox/images/aaf/</outputDirectory>
+                            <includeEmptyDirs>false</includeEmptyDirs>
+                            <overwrite>true</overwrite>
+                            <resources>
+                                <resource>
+                                    <directory>${icons.dir}/aaf_service_buttons</directory>
+                                    <filtering>false</filtering>
+                                    <includes>
+                                        <include>**/**.png</include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
                     <!-- Server files -->
                     <execution>
                         <id>copy-server</id>
@@ -253,6 +291,36 @@
                             </resources>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>copy-system-scripts</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${dir.system}</outputDirectory>
+                            <includeEmptyDirs>true</includeEmptyDirs>
+                            <overwrite>true</overwrite>
+                            <resources>
+                                <!-- Resolve some paths in our control scripts -->
+                                <resource>
+                                    <directory>src/main/config/system</directory>
+                                    <filtering>false</filtering>
+                                    <includes>
+                                        <include>**/init</include>
+                                    </includes>
+                                </resource>
+                                <resource>
+                                    <directory>src/main/config/system</directory>
+                                    <filtering>true</filtering>
+                                    <excludes>
+                                        <exclude>**/init</exclude>
+                                    </excludes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+
                     <!-- Solr logging -->
                     <execution>
                         <id>copy-solr</id>
@@ -276,13 +344,38 @@
             <!-- Set executable attribute for shell scripts -->
             <plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.7</version>
                 <executions>
                     <execution>
+                        <id>perms</id>
                         <phase>process-resources</phase>
                         <configuration>
                             <tasks>
-                                <chmod file="${dir.server}/*.sh" perm="740" />
+                                <chmod file="${dir.server}/*.sh" perm="754"/>
+                                <chmod dir="${dir.system}" includes="**/init" perm="754"/>
+
                             </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <id>aaf_logos</id>
+                        <configuration>
+                            <target>
+                                <mkdir dir="${icons.dir}"/>
+                                <get skipexisting="true"
+                                     src="http://www.aaf.edu.au/wp-content/uploads/2010/08/aaf_service_buttons.zip"
+                                     dest="target/aaf_service_buttons.zip"/>
+                                <unzip src="target/aaf_service_buttons.zip"
+                                       dest="${icons.dir}">
+                                    <patternset>
+                                        <include name="aaf_service_buttons/aaf_200x50.png"/>
+                                    </patternset>
+                                </unzip>
+                            </target>
                         </configuration>
                         <goals>
                             <goal>run</goal>
@@ -292,25 +385,4 @@
             </plugin>
         </plugins>
     </build>
-    <scm>
-        <url>https://redbox-mint.googlecode.com/svn/redbox/builds/dev-local/tags/redbox-local-curation-demo-1.5.1</url>
-        <connection>scm:svn:http://redbox-mint.googlecode.com/svn/redbox/builds/dev-local/tags/redbox-local-curation-demo-1.5.1</connection>
-        <developerConnection>scm:svn:https://redbox-mint.googlecode.com/svn/redbox/builds/dev-local/tags/redbox-local-curation-demo-1.5.1</developerConnection>
-    </scm>
-    <repositories>
-        <repository>
-            <id>fascinator-snapshots</id>
-            <url>http://dev.redboxresearchdata.com.au/nexus/content/repositories/central-snapshots/</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>redbox-nexus</id>
-            <url>http://dev.redboxresearchdata.com.au/nexus/content/groups/public/</url>
-        </repository>
-    </repositories>
 </project>

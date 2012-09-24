@@ -2,21 +2,43 @@
     "version": "1.1.0.1",
     "redbox.version.string": "${redbox.version}",
     "redbox.identity": {
-        "institution": "University of Examples",
-        "RIF-CS Group": "The University of Examples, Australia",
+        "institution": "James Cook University",
+        "RIF-CS Group": "James Cook University",
         "internalGrantString": "urn:uoe:internal"
     },
     "configured": true,
     "urlBase": "${server.url.base}",
     "email": "DO_NOT_CHANGE",
     "sso": {
-        "plugins": [],
+        "plugins": ["Shibboleth"],
         "urlExclusions": {
             "startsWith": ["css/", "feed/", "images/", "js/", "flowplayer/"],
             "endsWith": [".ico"],
             "equals": ["css"]
         },
         "trustTokens": {
+        }
+    },
+    "Shibboleth":{
+        "use_headers":"false",
+        "username_attribute":"auEduPersonSharedToken",
+        "cn_attribute":"displayName",
+        "session_attribute":"Shib-Session-ID",
+        "idp_attribute":"Shib-Identity-Provider",
+        "attributes":["eduPersonAffiliation", "commonName"],
+        "delimiter":";",
+        "rolePlugins":["SimpleShibbolethRoleManager"],
+        "SimpleShibbolethRoleManager":{
+            "reviewer":[
+                [
+                    ["affiliation", "is", "member@edu.au"]
+                ]
+            ],
+            "jcu":[
+                [
+                    ["Shib-Identity-Provider", "is", "https://elara.jcu.edu.au:8443/idp/shibboleth"]
+                ]
+            ]
         }
     },
     "accesscontrol": {
@@ -340,6 +362,12 @@
                 "desktop": true,
                 "frequency": "3600",
                 "jobs": [
+                    {
+                        "name": "harvestEdgar",
+                        "type": "harvest",
+                        "configFile": "${fascinator.home}/harvest/directoryNames-Edgar.json",
+                        "timing": "0 0 6 * * ?"
+                    },
                     {
                         "name": "alerts-poll",
                         "type": "external",

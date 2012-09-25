@@ -111,8 +111,7 @@ class IndexData:
 
         ####Global setting for processing data
         ####These will need to be changed based on you system installation.
-        theMintHost = "http://localhost:9001"
-        redboxHost  = "localhost:9000"
+        theMintHost = "http://localhost:9001/mint"
         collectionRelationTypesFilePath = FascinatorHome.getPath() + "/../portal/default/redbox/workflows/forms/data/"
 
         ###Using the species name, obtained from the directory name, to replace the text in the Title
@@ -124,9 +123,12 @@ class IndexData:
 
         self.utils.add(self.index, "dc_type", data.get("type"))
         self.utils.add(self.index, "dc:type", data.get("type"))
+        self.utils.add(self.index, "dc:type.rdf:PlainLiteral", data.get("type"))
+        self.utils.add(self.index, "dc:type.skos:prefLabel", data.get("type"))
         self.utils.add(self.index, "dc:created", time.strftime("%Y-%m-%d", time.gmtime()))
         self.utils.add(self.index, "dc:modified", "")
-        self.utils.add(self.index, "dc:language", "")
+        self.utils.add(self.index, "dc_language", "English")
+        self.utils.add(self.index, "dc:language.skos:prefLabel", "English")
         self.utils.add(self.index, "dc:coverage.vivo:DateTimeInterval.vivo:start", data.get("temporalCoverage").get("dateFrom"))
         self.utils.add(self.index, "dc:coverage.vivo:DateTimeInterval.vivo:end", data.get("temporalCoverage").get("dateTo"))
         self.utils.add(self.index, "dc:coverage.redbox:timePeriod", "")
@@ -220,7 +222,7 @@ class IndexData:
                 #Using the email address to obtain the Party details from The Mint
                 #For testing, hard coded email address
                 #email = "paul.james@example.edu.au"
-                sock = urllib.urlopen(theMintHost + "/mint/default/opensearch/lookup?count=999&searchTerms=Email:" + email)
+                sock = urllib.urlopen(theMintHost + "/default/opensearch/lookup?count=999&searchTerms=Email:" + email)
                 mintData = sock.read()
                 sock.close()
                 jsonSimple = JsonSimple(mintData)
@@ -233,8 +235,8 @@ class IndexData:
                     creator = allData.get("all")
                     whoType = party.get("who").get("type")
                     if ((creator is not None) and (whoType == 'people')):
-                        self.utils.add(self.index, "dc:creator.foaf:Person." + str(i) + ".dc:identifier", creator.get("dc:identifier")[0])
-                        self.utils.add(self.index, "dc:creator.foaf:Person." + str(i) + ".foaf:name", creator.get("dc:title"))
+                        self.utils.add(self.index, "dc:creator.foaf:Person." + str(i) + ".dc:identifier", creator.get("dc_identifier")[0])
+                        self.utils.add(self.index, "dc:creator.foaf:Person." + str(i) + ".foaf:name", creator.get("dc_title"))
                         self.utils.add(self.index, "dc:creator.foaf:Person." + str(i) + ".foaf:title", creator.get("Honorific")[0])
                         self.utils.add(self.index, "dc:creator.foaf:Person." + str(i) + ".redbox:isCoPrimaryInvestigator", "off")
                         self.utils.add(self.index, "dc:creator.foaf:Person." + str(i) + ".redbox:isPrimaryInvestigator", "on")
@@ -247,7 +249,7 @@ class IndexData:
         #Using the email address to obtain details from The Mint
         #For testing, hard coded email address
         #contactInfoEmail = "paul.james@example.edu.au"
-        sock = urllib.urlopen(theMintHost + "/mint/default/opensearch/lookup?count=999&searchTerms=Email:" + contactInfoEmail)
+        sock = urllib.urlopen(theMintHost + "/default/opensearch/lookup?count=999&searchTerms=Email:" + contactInfoEmail)
         mintData = sock.read()
         sock.close()
         jsonSimple = JsonSimple(mintData)
@@ -275,7 +277,7 @@ class IndexData:
         for i in range(len(anzsrcFOR)):
             anzsrc = anzsrcFOR[i]
             #Querying against The Mint, but only using the first 4 numbers from anzsrc, this ensure a result
-            sock = urllib.urlopen(theMintHost + "/mint/ANZSRC_FOR/opensearch/lookup?count=999&level=http://purl.org/asc/1297.0/2008/for/" + anzsrc[:4])
+            sock = urllib.urlopen(theMintHost + "/ANZSRC_FOR/opensearch/lookup?count=999&level=http://purl.org/asc/1297.0/2008/for/" + anzsrc[:4])
             mintData = sock.read()
             sock.close()
             jsonSimple = JsonSimple(mintData)
@@ -296,7 +298,7 @@ class IndexData:
         for i in range(len(anzsrcSEO)):
             anzsrc = anzsrcSEO[i]
             #Querying against The Mint, but only using the first 4 numbers from anzsrc, this ensure a result
-            sock = urllib.urlopen(theMintHost + "/mint/ANZSRC_SEO/opensearch/lookup?count=999&level=http://purl.org/asc/1297.0/2008/seo/" + anzsrc[:4])
+            sock = urllib.urlopen(theMintHost + "/ANZSRC_SEO/opensearch/lookup?count=999&level=http://purl.org/asc/1297.0/2008/seo/" + anzsrc[:4])
             mintData = sock.read()
             sock.close()
             jsonSimple = JsonSimple(mintData)
@@ -314,7 +316,6 @@ class IndexData:
 
         ###Processing 'keyword' metadata                        
         keyword = data.get("keyword")
-        print("Jay keyword: " + keyword.toString())
         self.utils.add(self.index, "keywords", keyword.toString())
         for i in range(len(keyword)):
             self.utils.add(self.index, "dc:subject.vivo:keyword." + str(i) + ".rdf:PlainLiteral", keyword[i])
@@ -341,7 +342,7 @@ class IndexData:
         for i in range(len(organisationalGroup)):
             organisation = organisationalGroup[i]
             #Querying against The Mint
-            sock = urllib.urlopen(theMintHost + "/mint/Parties_Groups/opensearch/lookup?count=9999&searchTerms=ID:" + organisation)
+            sock = urllib.urlopen(theMintHost + "/Parties_Groups/opensearch/lookup?count=9999&searchTerms=ID:" + organisation)
             mintData = sock.read()
             sock.close()
             jsonSimple = JsonSimple(mintData)
@@ -436,21 +437,9 @@ class IndexData:
             displayType = "package-dataset"
             initialStep = 1
 
-        print("Jay: stages[0]: " + stages[0].toString())
-        print("Jay: stages[1]: " + stages[1].toString())
-        print("Jay: stages[2]: " + stages[2].toString())
-        print("Jay: stages[3]: " + stages[3].toString())
-        print("Jay: stages[4]: " + stages[4].toString())
-        print("Jay: stages[5]: " + stages[5].toString())
-        print("Jay: pageTitle: " + pageTitle)
-        print("Jay: displayType: " + displayType)
-        print("Jay: initialStep: " + str(initialStep))
-
         try:
             wfMeta = self.__getJsonPayload("workflow.metadata")
             wfMeta.getJsonObject().put("pageTitle", pageTitle)
-
-            print("Jay: workflow.metadata exists")
 
             # Are we indexing because of a workflow progression?
             targetStep = wfMeta.getString(None, ["targetStep"])
@@ -474,8 +463,6 @@ class IndexData:
         except StorageException:
             # No workflow payload, time to create
             
-            print("Jay: exception: creating workflow.metadata")
-
             initialStage = stages.get(initialStep).getString(None, ["name"])
             wfChanged = True
             wfMeta = JsonSimple()
@@ -491,17 +478,12 @@ class IndexData:
                     workflow_security = stage.getStringList(["security"])
                     self.message_list = stage.getStringList(["message"])
 
-        print("Jay: wfMetaObj: " + wfMetaObj.toString())
-        print("Jay: wfChanged: " + str(wfChanged))
-
         # Has the workflow metadata changed?
         if wfChanged == True:
             inStream = IOUtils.toInputStream(wfMeta.toString(True), "UTF-8")
             try:
                 StorageUtils.createOrUpdatePayload(self.object, "workflow.metadata", inStream)
-                print("Jay: added workflow.metadata to payload")                
             except StorageException:        
-                print("Jay: exception workflow.metadata not added")
                 print(" ERROR updating dataset payload")
 
         #Date must be of the format "%Y-%m-%dT%H:%M:%SZ" for the Solr Index
@@ -557,7 +539,6 @@ class IndexData:
                 "redbox:formVersion": self.redboxVersion,
                 "redbox:newForm": "true"
             }
-            print("Jay formData.tfpackage: " + str(data))
             package = JsonSimple(JsonObject(data))
             # Store it
             inStream = IOUtils.toInputStream(package.toString(True), "UTF-8")

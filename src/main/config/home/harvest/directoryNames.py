@@ -38,7 +38,7 @@ class IndexData:
         self.packagePid = None
         pidList = self.object.getPayloadIdList()
         for pid in pidList:
-            if pid.endswith("metadata.json"):
+            if pid.endswith(".tfpackage"):
                 self.packagePid = pid
 
         # Real metadata
@@ -91,6 +91,8 @@ class IndexData:
             self.utils.add(self.index, "published", "true")
 
     def __metadata(self):
+        self.title = None
+        self.dcType = None
 
         self.__checkMetadataPayload()
 
@@ -113,62 +115,84 @@ class IndexData:
         ####These will need to be changed based on you system installation.
         theMintHost = "http://localhost:9001/mint"
         collectionRelationTypesFilePath = FascinatorHome.getPath() + "/../portal/default/redbox/workflows/forms/data/"
+        descriptionTypesFilePath = FascinatorHome.getPath() + "/../portal/default/local/workflows/forms/data/"
+
+        ###Allocating space to create the formData.tfpackage
+        tfpackageData = {}
 
         ###Using the species name, obtained from the directory name, to replace the text in the Title
         species = data.get("species")
         title = data.get("title")
         title = title.replace("%NAME_OF_FOLDER%", species)
         self.utils.add(self.index, "dc_title", title)
-        self.utils.add(self.index, "dc:title", title)
+        tfpackageData["dc:title"] = title
+        tfpackageData["title"] = title
 
         self.utils.add(self.index, "dc_type", data.get("type"))
-        self.utils.add(self.index, "dc:type", data.get("type"))
-        self.utils.add(self.index, "dc:type.rdf:PlainLiteral", data.get("type"))
-        self.utils.add(self.index, "dc:type.skos:prefLabel", data.get("type"))
-        self.utils.add(self.index, "dc:created", time.strftime("%Y-%m-%d", time.gmtime()))
-        self.utils.add(self.index, "dc:modified", "")
+        tfpackageData["dc:type"] = data.get("type")
+        tfpackageData["dc:type.rdf:PlainLiteral"] = data.get("type")
+        tfpackageData["dc:type.skos:prefLabel"] = data.get("type")
+        tfpackageData["dc:created"] = time.strftime("%Y-%m-%d", time.gmtime())
+        tfpackageData["dc:modified"] = ""
         self.utils.add(self.index, "dc_language", "English")
-        self.utils.add(self.index, "dc:language.skos:prefLabel", "English")
-        self.utils.add(self.index, "dc:coverage.vivo:DateTimeInterval.vivo:start", data.get("temporalCoverage").get("dateFrom"))
-        self.utils.add(self.index, "dc:coverage.vivo:DateTimeInterval.vivo:end", data.get("temporalCoverage").get("dateTo"))
-        self.utils.add(self.index, "dc:coverage.redbox:timePeriod", "")
+        tfpackageData["dc:language.skos:prefLabel"] = "English"
+        tfpackageData["dc:coverage.vivo:DateTimeInterval.vivo:start"] = data.get("temporalCoverage").get("dateFrom")
+        
+        dateTo = data.get("temporalCoverage").get("dateTo")
+        if dateTo is not None:
+            tfpackageData["dc:coverage.vivo:DateTimeInterval.vivo:end"] = dateTo
+        
+        tfpackageData["dc:coverage.redbox:timePeriod"] = ""
 
         ###Processing the 'spatialCoverage' metadata.
         spatialCoverage = data.get("spatialCoverage")
         for i in range(len(spatialCoverage)):
             location = spatialCoverage[i]
             if  location["type"] == "text":
-                self.utils.add(self.index, "dc:coverage.vivo:GeographicLocation." + str(i) + ".type", location["type"])
-                self.utils.add(self.index, "dc:coverage.vivo:GeographicLocation." + str(i) + ".redbox:wktRaw", location["value"])
-                self.utils.add(self.index, "dc:coverage.vivo:GeographicLocation." + str(i) + ".rdf:PlainLiteral", location["value"])
+                tfpackageData["dc:coverage.vivo:GeographicLocation." + str(i + 1) + ".dc:type"] = location["type"]
+                tfpackageData["dc:coverage.vivo:GeographicLocation." + str(i + 1) + ".redbox:wktRaw"] = location["value"]
+                tfpackageData["dc:coverage.vivo:GeographicLocation." + str(i + 1) + ".rdf:PlainLiteral"] = location["value"]
 
         ###Processing the 'description' metadata.
+        #Reading the file here, so we only do it once.
+        file = open(descriptionTypesFilePath + "descriptionTypes.json")
+        descriptionData = file.read()
+        file.close()
         description = data.get("description")
         for i in range(len(description)):
             desc = description[i]
             tempDesc = desc.get("value")
             tempDesc = tempDesc.replace("%NAME_OF_FOLDER%", species)
             if  i == 0:
-                self.utils.add(self.index, "dc:description", tempDesc)
-            self.utils.add(self.index, "rif:description." + str(i) + ".type", desc["type"])
-            self.utils.add(self.index, "rif:description." + str(i) + ".value", tempDesc)
+                tfpackageData["dc:description"] = tempDesc
+            tfpackageData["rif:description." + str(i + 1) + ".type"] = desc["type"]
+            tfpackageData["rif:description." + str(i + 1) + ".value"] = tempDesc
+            jsonSimple = JsonSimple(descriptionData)
+            jsonObj = jsonSimple.getJsonObject()
+            results = jsonObj.get("results")
+            #ensuring the Description Type exist
+            if  results:
+                for j in range(len(results)):
+                    descriptionType = results[j]
+                    if  (desc["type"] == descriptionType.get("id")):
+                        tfpackageData["rif:description." + str(i + 1) + ".label"] = descriptionType.get("label")
 
         ###Processing the 'relatedPublication' metadata
         relatedPublication = data.get("relatedPublication")
         if relatedPublication is not None:
             for i in range(len(relatedPublication)):
                 publication = relatedPublication[i]
-                self.utils.add(self.index, "dc:relation.swrc:Publication." + str(i) + ".dc:identifier", publication["url"])
-                self.utils.add(self.index, "dc:relation.swrc:Publication." + str(i) + ".dc:title", publication["title"])
+                tfpackageData["dc:relation.swrc:Publication." + str(i + 1) + ".dc:identifier"] = publication["doi"]
+                tfpackageData["dc:relation.swrc:Publication." + str(i + 1) + ".dc:title"] = publication["title"]
 
         ###Processing the 'relatedWebsite' metadata
         relatedWebsite = data.get("relatedWebsite")
         count = 0
         for i in range(len(relatedWebsite)):
             website = relatedWebsite[i]
-            self.utils.add(self.index, "dc:relation.bibo:Website." + str(i) + ".dc:identifier" , website["url"])
-            self.utils.add(self.index, "dc:relation.bibo:Website." + str(i) + ".dc:title" , website["notes"])
-            count = i
+            tfpackageData["dc:relation.bibo:Website." + str(i + 1) + ".dc:identifier"] = website["url"]
+            tfpackageData["dc:relation.bibo:Website." + str(i + 1) + ".dc:title"] = website["notes"]
+            count = i + 1
 
         ###Processing the 'data_source_website' metadata (override metadata)
         dataSourceWebsites = data.get("data_source_website")
@@ -178,8 +202,8 @@ class IndexData:
                 type = website.get("identifier").get("type")
                 if type == "uri":
                     count += 1 
-                    self.utils.add(self.index, "dc:relation.bibo:Website." + str(count) + ".dc:identifier" , website.get("identifier").get("value"))
-                    self.utils.add(self.index, "dc:relation.bibo:Website." + str(count) + ".dc:title" , website["notes"])
+                    tfpackageData["dc:relation.bibo:Website." + str(count) + ".dc:identifier"] = website.get("identifier").get("value")
+                    tfpackageData["dc:relation.bibo:Website." + str(count) + ".dc:title"] = website["notes"]
 
         ###Processing the 'relatedCollection' metadata
         #Reading the file here, so we only do it once.
@@ -194,13 +218,14 @@ class IndexData:
                 tempIdentifier = tempIdentifier.replace("%NAME_OF_FOLDER%", species)
             else:
                 tempIdentifier = ""
-            self.utils.add(self.index, "dc:relation.vivo:Dataset." + str(i) + ".dc:identifier", tempIdentifier)
+            tfpackageData["dc:relation.vivo:Dataset." + str(i + 1) + ".dc:identifier"] = tempIdentifier
             tempTitle = collection.get("title")
             tempTitle = tempTitle.replace("%NAME_OF_FOLDER%", species)
-            self.utils.add(self.index, "dc:relation.vivo:Dataset." + str(i) + ".dc:title", tempTitle)
-            self.utils.add(self.index, "dc:relation.vivo:Dataset." + str(i) + ".vivo.Relationship.rdf.PlainLiteral", collection["relationship"])
-            self.utils.add(self.index, "dc:relation.vivo:Dataset." + str(i) + ".redbox:origin", "on")
-            self.utils.add(self.index, "dc:relation.vivo:Dataset." + str(i) + ".redbox:publish", "on")
+            tfpackageData["dc:relation.vivo:Dataset." + str(i + 1) + ".dc:title"] = tempTitle
+            tfpackageData["dc:relation.vivo:Dataset." + str(i + 1) + ".vivo:Relationship.rdf:PlainLiteral"] = collection["relationship"]
+            if  tempIdentifier == "":
+                tfpackageData["dc:relation.vivo:Dataset." + str(i + 1) + ".redbox:origin"] = "on"
+            tfpackageData["dc:relation.vivo:Dataset." + str(i + 1) + ".redbox:publish"] =  "on"
             #Using the collection data as a lookup to obtain the 'label'
             relationShip = collection.get("relationship")
             jsonSimple = JsonSimple(collectionData)
@@ -211,7 +236,7 @@ class IndexData:
                 for j in range(len(results)):
                     relation = results[j]
                     if  (relationShip == relation.get("id")):
-                        self.utils.add(self.index, "dc:relation.vivo:Dataset." + str(i) + ".vivo.Relationship.skos:prefLabel", relation.get("label"))
+                        tfpackageData["dc:relation.vivo:Dataset." + str(i + 1) + ".vivo:Relationship.skos:prefLabel"] = relation.get("label")
 
         ###Processing the 'associatedParty' metadata
         associatedParty = data.get("associatedParty")
@@ -235,14 +260,14 @@ class IndexData:
                     creator = allData.get("all")
                     whoType = party.get("who").get("type")
                     if ((creator is not None) and (whoType == 'people')):
-                        self.utils.add(self.index, "dc:creator.foaf:Person." + str(i) + ".dc:identifier", creator.get("dc_identifier")[0])
-                        self.utils.add(self.index, "dc:creator.foaf:Person." + str(i) + ".foaf:name", creator.get("dc_title"))
-                        self.utils.add(self.index, "dc:creator.foaf:Person." + str(i) + ".foaf:title", creator.get("Honorific")[0])
-                        self.utils.add(self.index, "dc:creator.foaf:Person." + str(i) + ".redbox:isCoPrimaryInvestigator", "off")
-                        self.utils.add(self.index, "dc:creator.foaf:Person." + str(i) + ".redbox:isPrimaryInvestigator", "on")
-                        self.utils.add(self.index, "dc:creator.foaf:Person." + str(i) + ".foaf:givenName", creator.get("Given_Name")[0])
-                        self.utils.add(self.index, "dc:creator.foaf:Person." + str(i) + ".foaf:familyName", creator.get("Family_Name")[0])
-                        self.utils.add(self.index, "dc:creator", creator.get("Given_Name")[0] + " " + creator.get("Family_Name")[0])                        
+                        tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".dc:identifier"] = creator.get("dc_identifier")[0]
+                        tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".foaf:name"] = creator.get("dc_title")
+                        tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".foaf:title"] = creator.get("Honorific")[0]
+                        tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".redbox:isCoPrimaryInvestigator"] = "off"
+                        tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".redbox:isPrimaryInvestigator"] = "on"
+                        tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".foaf:givenName"] = creator.get("Given_Name")[0]
+                        tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".foaf:familyName"] = creator.get("Family_Name")[0]
+                        tfpackageData["dc:creator"] = creator.get("Given_Name")[0] + " " + creator.get("Family_Name")[0]
 
         ###Processing 'contactInfo.email' metadata
         contactInfoEmail = data.get("contactInfo").get("email")
@@ -261,16 +286,16 @@ class IndexData:
             allData = resultMetadata.get("result-metadata")
             creator = allData.get("all")
             if (creator is not None):
-                self.utils.add(self.index, "locrel:prc.foaf:Person.dc:identifier", creator.get("dc:identifier").toString())
-                self.utils.add(self.index, "locrel:prc.foaf:Person.foaf:name", creator.get("dc:title"))
-                self.utils.add(self.index, "locrel:prc.foaf:Person.foaf:title", creator.get("Honorific").toString())
-                self.utils.add(self.index, "locrel:prc.foaf:Person.foaf:givenName", creator.get("Given_Name").toString())
-                self.utils.add(self.index, "locrel:prc.foaf:Person.foaf:familyName", creator.get("Family_Name").toString())
+                tfpackageData["locrel:prc.foaf:Person.dc:identifier"] = creator.get("dc:identifier").toString()
+                tfpackageData["locrel:prc.foaf:Person.foaf:name"] = creator.get("dc:title")
+                tfpackageData["locrel:prc.foaf:Person.foaf:title"] = creator.get("Honorific").toString()
+                tfpackageData["locrel:prc.foaf:Person.foaf:givenName"] = creator.get("Given_Name").toString()
+                tfpackageData["locrel:prc.foaf:Person.foaf:familyName"] = creator.get("Family_Name").toString()
 
         ###Processing 'coinvestigators' metadata
         coinvestigators = data.get("coinvestigators")
         for i in range(len(coinvestigators)):
-            self.utils.add(self.index, "dc:contributor.loclrel:clb." + str(i) + ".foaf:Agent" , coinvestigators[i])            
+            tfpackageData["dc:contributor.loclrel:clb." + str(i + 1) + ".foaf:Agent"] = coinvestigators[i]
 
         ###Processing 'anzsrcFOR' metadata
         anzsrcFOR = data.get("anzsrcFOR")
@@ -290,8 +315,8 @@ class IndexData:
                     rdfAbout = result.get("rdf:about")
                     target = "http://purl.org/asc/1297.0/2008/for/" + anzsrc
                     if  (rdfAbout == target):
-                        self.utils.add(self.index, "dc:subject.anzsrc:for." + str(i) + ".skos:prefLabel" , result.get("skos:prefLabel"))            
-                        self.utils.add(self.index, "dc:subject.anzsrc:for." + str(i) + ".rdf:resource" , rdfAbout)            
+                        tfpackageData["dc:subject.anzsrc:for." + str(i + 1) + ".skos:prefLabel"] = result.get("skos:prefLabel")
+                        tfpackageData["dc:subject.anzsrc:for." + str(i + 1) + ".rdf:resource"] = rdfAbout
 
         ###Processing 'anzsrcSEO' metadata                        
         anzsrcSEO = data.get("anzsrcSEO")
@@ -311,31 +336,31 @@ class IndexData:
                     rdfAbout = result.get("rdf:about")
                     target = "http://purl.org/asc/1297.0/2008/seo/" + anzsrc
                     if  (rdfAbout == target):
-                        self.utils.add(self.index, "dc:subject.anzsrc:seo." + str(i) + ".skos:prefLabel" , result.get("skos:prefLabel"))            
-                        self.utils.add(self.index, "dc:subject.anzsrc:seo." + str(i) + ".rdf:resource" , rdfAbout)            
+                        tfpackageData["dc:subject.anzsrc:seo." + str(i + 1) + ".skos:prefLabel"] = result.get("skos:prefLabel")
+                        tfpackageData["dc:subject.anzsrc:seo." + str(i + 1) + ".rdf:resource"] = rdfAbout
 
         ###Processing 'keyword' metadata                        
         keyword = data.get("keyword")
         self.utils.add(self.index, "keywords", keyword.toString())
         for i in range(len(keyword)):
-            self.utils.add(self.index, "dc:subject.vivo:keyword." + str(i) + ".rdf:PlainLiteral", keyword[i])
+            tfpackageData["dc:subject.vivo:keyword." + str(i + 1) + ".rdf:PlainLiteral"] = keyword[i]
 
-        self.utils.add(self.index, "dc:accessRights.skos:prefLabel", data.get("accessRights"))
-        self.utils.add(self.index, "dc:license.dc:identifier", data.get("license").get("url"))
-        self.utils.add(self.index, "dc:license.skos:prefLabel", data.get("license").get("label"))
-        self.utils.add(self.index, "dc:identifier.redbox:origin", "internal")
+        tfpackageData["dc:accessRights.skos:prefLabel"] = data.get("accessRights")
+        tfpackageData["dc:license.dc:identifier"] = data.get("license").get("url")
+        tfpackageData["dc:license.skos:prefLabel"] = data.get("license").get("label")
+        tfpackageData["dc:identifier.redbox:origin"] = "internal"
 
         dataLocation = data.get("dataLocation")
         dataLocation = dataLocation.replace("%NAME_OF_FOLDER%", species)
-        self.utils.add(self.index, "bibo:Website.1.dc:identifier", dataLocation)
+        tfpackageData["bibo:Website.0.dc:identifier"] = dataLocation
 
         #The following have been intentionally set to blank. No mapping is required for these fields.
-        self.utils.add(self.index, "vivo:Location", "")
-        self.utils.add(self.index, "redbox:retentionPeriod", data.get("retentionPeriod"))
-        self.utils.add(self.index, "dc:extent", "unknown")
-        self.utils.add(self.index, "redbox:disposalDate", "")
-        self.utils.add(self.index, "locrel:own.foaf:Agent.1:foaf_name", "")
-        self.utils.add(self.index, "locrel:dtm.foaf:Agent.foaf_name", "")
+        tfpackageData["vivo:Location"] = ""
+        tfpackageData["redbox:retentionPeriod"] = data.get("retentionPeriod")
+        tfpackageData["dc:extent"] = "unknown"
+        tfpackageData["redbox:disposalDate"] = ""
+        tfpackageData["locrel:own.foaf:Agent.0.foaf:name"] = ""
+        tfpackageData["locrel:dtm.foaf:Agent.foaf:name"] = ""
 
         ###Processing 'organizationalGroup' metadata
         organisationalGroup = data.get("organizationalGroup")
@@ -353,17 +378,18 @@ class IndexData:
                 resultMetadata = JsonObject(results.get(0))
                 allData = resultMetadata.get("result-metadata")
                 orgGroup = allData.get("all")
-                self.utils.add(self.index, "foaf:Organization.dc:identifier", orgGroup.get("dc_identifier")[0])
-                self.utils.add(self.index, "foaf:Organization.skos:prefLabel", orgGroup.get("Name")[0])
+                tfpackageData["foaf:Organization.dc:identifier"] = orgGroup.get("dc_identifier")[0]
+                tfpackageData["foaf:Organization.skos:prefLabel"] = orgGroup.get("Name")[0]
 
-        self.utils.add(self.index, "foaf:fundedBy.foaf:Agent", "")
-        self.utils.add(self.index, "foaf:fundedBy.vivo:Grant", "")
-        self.utils.add(self.index, "swrc:ResearchProject.dc:title", "")
-        self.utils.add(self.index, "locrel:dpt.foaf:Person.foaf:name", "")
-        self.utils.add(self.index, "dc:SizeOrDuration", "")
-        self.utils.add(self.index, "dc:Policy", "")
-        self.utils.add(self.index, "redbox:ManagementPlan", "")
+        tfpackageData["foaf:fundedBy.foaf:Agent"] = ""
+        tfpackageData["foaf:fundedBy.vivo:Grant"] = ""
+        tfpackageData["swrc:ResearchProject.dc:title"] = ""
+        tfpackageData["locrel:dpt.foaf:Person.foaf:name"] = ""
+        tfpackageData["dc:SizeOrDuration"] = ""
+        tfpackageData["dc:Policy"] = ""
+        tfpackageData["redbox:ManagementPlan"] = ""
 
+        self.__updateMetadataPayload(tfpackageData)
         self.__workflow()
     
     def __security(self):
@@ -486,8 +512,69 @@ class IndexData:
             except StorageException:        
                 print(" ERROR updating dataset payload")
 
-        #Date must be of the format "%Y-%m-%dT%H:%M:%SZ" for the Solr Index
-        self.utils.add(self.index, "date_created", time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()))                            
+        # Form processing
+        coreFields = ["title", "description", "manifest", "metaList", "relationships", "responses"]
+        formData = wfMeta.getObject(["formData"])
+        if formData is not None:
+            formData = JsonSimple(formData)
+            # Core fields
+            description = formData.getStringList(["description"])
+            if description:
+                self.descriptionList = description
+            # Non-core fields
+            data = formData.getJsonObject()
+            for field in data.keySet():
+                if field not in coreFields:
+                    self.customFields[field] = formData.getStringList([field])
+
+        # Manifest processing (formData not present in wfMeta)
+        manifest = self.__getJsonPayload(self.packagePid)
+        formTitles = manifest.getStringList(["title"])
+        if formTitles:
+            for formTitle in formTitles:
+                if self.title is None:
+                    self.title = formTitle
+        self.descriptionList = [manifest.getString("", ["description"])]
+        formData = manifest.getJsonObject()
+        for field in formData.keySet():
+            if field not in coreFields:
+                value = formData.get(field)
+                if value is not None and value.strip() != "":
+                    self.utils.add(self.index, field, value)
+                    # We want to sort by date of creation, so it
+                    # needs to be indexed as a date (ie. 'date_*')
+                    if field == "dc:created":
+                        parsedTime = time.strptime(value, "%Y-%m-%d")   
+                        solrTime = time.strftime("%Y-%m-%dT%H:%M:%SZ", parsedTime)
+                        self.utils.add(self.index, "date_created", solrTime)
+                    # try to extract some common fields for faceting
+                    if field.startswith("dc:") and \
+                            not (field.endswith(".dc:identifier.rdf:PlainLiteral") \
+                              or field.endswith(".dc:identifier") \
+                              or field.endswith(".rdf:resource")):
+                        # index dublin core fields for faceting
+                        basicField = field.replace("dc:", "dc_")
+                        dot = field.find(".")
+                        if dot > 0:
+                            facetField = basicField[:dot]
+                        else:
+                            facetField = basicField
+                        #print "Indexing DC field '%s':'%s'" % (field, facetField)
+                        if facetField == "dc_title":
+                            if self.title is None:
+                                self.title = value
+                        elif facetField == "dc_type":
+                            if self.dcType is None:
+                                self.dcType = value
+                        elif facetField == "dc_creator":
+                            if basicField.endswith("foaf_name"):
+                                self.utils.add(self.index, "dc_creator", value)
+                        else:
+                            self.utils.add(self.index, facetField, value)
+                        # index keywords for lookup
+                        if field.startswith("dc:subject.vivo:keyword."):
+                            self.utils.add(self.index, "keywords", value)
+
         self.utils.add(self.index, "display_type", displayType)
 
         # Workflow processing
@@ -548,3 +635,25 @@ class IndexData:
             except StorageException, e:
                 self.log.error("Error creating 'formData.tfpackage' payload for object '{}'", self.oid, e)
                 raise Exception("Error creating package payload: ", e)
+
+    def __updateMetadataPayload(self, data):
+        # Get and parse
+        payload = self.object.getPayload("formData.tfpackage")
+        json = JsonSimple(payload.open())
+        payload.close()
+
+        # Basic test for a mandatory field
+        title = json.getString(None, ["dc:title"])
+        if title is not None:
+            # We've done this before
+            return
+
+        # Merge
+        json.getJsonObject().putAll(data)
+
+        # Store it
+        inStream = IOUtils.toInputStream(json.toString(True), "UTF-8")
+        try:
+            self.object.updatePayload("formData.tfpackage", inStream)
+        except StorageException, e:
+            self.log.error("Error updating 'formData.tfpackage' payload for object '{}'", self.oid, e)

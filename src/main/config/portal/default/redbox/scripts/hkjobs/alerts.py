@@ -390,4 +390,11 @@ class AlertsData:
         return self.__alertsFilePath("success", file)
 
     def __alertsFilePath(self, subdirectory, file):
-        return os.path.join(self.alertsPath, subdirectory, file)
+        directory = os.path.join(self.alertsPath, subdirectory)
+        if not os.path.exists(directory):
+            try:
+                os.makedirs(directory)
+            except OSError, exception:
+                if exception.errno != errno.EEXIST:
+                    raise
+        return os.path.join(directory, file)

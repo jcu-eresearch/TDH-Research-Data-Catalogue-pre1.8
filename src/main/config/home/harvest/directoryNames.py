@@ -150,7 +150,8 @@ class IndexData:
             location = spatialCoverage[i]
             if  location["type"] == "text":
                 tfpackageData["dc:coverage.vivo:GeographicLocation." + str(i + 1) + ".dc:type"] = location["type"]
-                tfpackageData["dc:coverage.vivo:GeographicLocation." + str(i + 1) + ".redbox:wktRaw"] = location["value"]
+                if  (location["value"].startswith("POLYGON")):
+                    tfpackageData["dc:coverage.vivo:GeographicLocation." + str(i + 1) + ".redbox:wktRaw"] = location["value"]
                 tfpackageData["dc:coverage.vivo:GeographicLocation." + str(i + 1) + ".rdf:PlainLiteral"] = location["value"]
 
         ###Processing the 'description' metadata.
@@ -295,7 +296,7 @@ class IndexData:
         ###Processing 'coinvestigators' metadata
         coinvestigators = data.get("coinvestigators")
         for i in range(len(coinvestigators)):
-            tfpackageData["dc:contributor.loclrel:clb." + str(i + 1) + ".foaf:Agent"] = coinvestigators[i]
+            tfpackageData["dc:contributor.locrel:clb." + str(i + 1) + ".foaf:Agent"] = coinvestigators[i]
 
         ###Processing 'anzsrcFOR' metadata
         anzsrcFOR = data.get("anzsrcFOR")
@@ -352,7 +353,7 @@ class IndexData:
 
         dataLocation = data.get("dataLocation")
         dataLocation = dataLocation.replace("%NAME_OF_FOLDER%", species)
-        tfpackageData["bibo:Website.0.dc:identifier"] = dataLocation
+        tfpackageData["bibo:Website.1.dc:identifier"] = dataLocation
 
         #The following have been intentionally set to blank. No mapping is required for these fields.
         tfpackageData["vivo:Location"] = ""

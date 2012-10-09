@@ -83,6 +83,8 @@
                                     <input type="text" placeholder="family name" size="25"
                                            class="nameLookup-name creatorFamilyName creatorName familyName"
                                            id="dc:creator.foaf:Person.0.foaf:familyName" />
+                                    <input type="hidden" id="dc:creator.foaf:Person.0.redbox:isCoPrimaryInvestigator" />
+                                    <input type="hidden" id="dc:creator.foaf:Person.0.redbox:isPrimaryInvestigator" />
                                 </td>
                             </tr>
                             <tr>

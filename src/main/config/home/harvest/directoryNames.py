@@ -4,6 +4,7 @@
 import time
 import urllib
 import httplib
+import java, os
 
 from com.googlecode.fascinator.api.storage import StorageException
 from com.googlecode.fascinator.common import JsonObject
@@ -113,7 +114,7 @@ class IndexData:
 
         ####Global setting for processing data
         ####These will need to be changed based on you system installation.
-        theMintHost = "http://localhost:9001/mint"
+        theMintHost = java.lang.System.getProperty("mint.proxy.url")
         collectionRelationTypesFilePath = FascinatorHome.getPath() + "/../portal/default/redbox/workflows/forms/data/"
         descriptionTypesFilePath = FascinatorHome.getPath() + "/../portal/default/local/workflows/forms/data/"
 
@@ -129,7 +130,6 @@ class IndexData:
         tfpackageData["title"] = title
 
         self.utils.add(self.index, "dc_type", data.get("type"))
-        tfpackageData["dc:type"] = data.get("type")
         tfpackageData["dc:type.rdf:PlainLiteral"] = data.get("type")
         tfpackageData["dc:type.skos:prefLabel"] = data.get("type")
         tfpackageData["dc:created"] = time.strftime("%Y-%m-%d", time.gmtime())
@@ -356,11 +356,10 @@ class IndexData:
         tfpackageData["bibo:Website.1.dc:identifier"] = dataLocation
 
         #The following have been intentionally set to blank. No mapping is required for these fields.
-        tfpackageData["vivo:Location"] = ""
         tfpackageData["redbox:retentionPeriod"] = data.get("retentionPeriod")
         tfpackageData["dc:extent"] = "unknown"
         tfpackageData["redbox:disposalDate"] = ""
-        tfpackageData["locrel:own.foaf:Agent.0.foaf:name"] = ""
+        tfpackageData["locrel:own.foaf:Agent.1.foaf:name"] = ""
         tfpackageData["locrel:dtm.foaf:Agent.foaf:name"] = ""
 
         ###Processing 'organizationalGroup' metadata
@@ -382,13 +381,10 @@ class IndexData:
                 tfpackageData["foaf:Organization.dc:identifier"] = orgGroup.get("dc_identifier")[0]
                 tfpackageData["foaf:Organization.skos:prefLabel"] = orgGroup.get("Name")[0]
 
-        tfpackageData["foaf:fundedBy.foaf:Agent"] = ""
-        tfpackageData["foaf:fundedBy.vivo:Grant"] = ""
         tfpackageData["swrc:ResearchProject.dc:title"] = ""
         tfpackageData["locrel:dpt.foaf:Person.foaf:name"] = ""
         tfpackageData["dc:SizeOrDuration"] = ""
         tfpackageData["dc:Policy"] = ""
-        tfpackageData["redbox:ManagementPlan"] = ""
 
         self.__updateMetadataPayload(tfpackageData)
         self.__workflow()

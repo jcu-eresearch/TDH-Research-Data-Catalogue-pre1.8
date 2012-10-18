@@ -164,7 +164,7 @@ class IndexData:
             desc = description[i]
             tempDesc = desc.get("value")
             tempDesc = tempDesc.replace("%NAME_OF_FOLDER%", species)
-            if  i == 0:
+            if  (desc["type"] == "brief"):
                 tfpackageData["dc:description"] = tempDesc
             tfpackageData["rif:description." + str(i + 1) + ".type"] = desc["type"]
             tfpackageData["rif:description." + str(i + 1) + ".value"] = tempDesc
@@ -212,11 +212,13 @@ class IndexData:
         collectionData = file.read()
         file.close()
         relatedCollection = data.get("relatedCollection")
+        recordIdentifier = ""
         for i in range(len(relatedCollection)):
             collection = relatedCollection[i]
             tempIdentifier = collection["identifier"]
             if tempIdentifier is not None:
                 tempIdentifier = tempIdentifier.replace("%NAME_OF_FOLDER%", species)
+                recordIdentifier = tempIdentifier
             else:
                 tempIdentifier = ""
             tfpackageData["dc:relation.vivo:Dataset." + str(i + 1) + ".dc:identifier"] = tempIdentifier
@@ -268,7 +270,6 @@ class IndexData:
                         tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".redbox:isPrimaryInvestigator"] = "on"
                         tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".foaf:givenName"] = creator.get("Given_Name")[0]
                         tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".foaf:familyName"] = creator.get("Family_Name")[0]
-                        tfpackageData["dc:creator"] = creator.get("Given_Name")[0] + " " + creator.get("Family_Name")[0]
 
         ###Processing 'contactInfo.email' metadata
         contactInfoEmail = data.get("contactInfo").get("email")
@@ -349,7 +350,12 @@ class IndexData:
         tfpackageData["dc:accessRights.skos:prefLabel"] = data.get("accessRights")
         tfpackageData["dc:license.dc:identifier"] = data.get("license").get("url")
         tfpackageData["dc:license.skos:prefLabel"] = data.get("license").get("label")
-        tfpackageData["dc:identifier.redbox:origin"] = "internal"
+
+        #identifier
+        tfpackageData["dc:identifier.redbox:origin"] = "external"
+        tfpackageData["dc:identifier.rdf:PlainLiteral"] = recordIdentifier
+        tfpackageData["dc:identifier.dc:type.rdf:PlainLiteral"] = "uri"
+        tfpackageData["dc:identifier.dc:type.skos:prefLabel"] = "Uniform Resource Identifier"
 
         dataLocation = data.get("dataLocation")
         dataLocation = dataLocation.replace("%NAME_OF_FOLDER%", species)

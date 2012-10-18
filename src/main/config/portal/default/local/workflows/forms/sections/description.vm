@@ -91,7 +91,7 @@
                 </td>
                 <td>
                     <textarea rows="6" cols="120" id="rif:description.0.value" class="rif:description" style="vertical-align: text-top;"
-                            placeholder="eg. This dataset contains observational data and calibration files."></textarea>
+                            placeholder="eg. This dataset contains observational data and calibration files." onchange="copyToDesc()"></textarea>
                 </td>
             </tr>
         </tbody>
@@ -103,6 +103,8 @@
             </tr>
         </tfoot>
     </table>
+    ##requiredValidation("dc:description" "A description is required!")
+    <input type="hidden" id="dc:description" />
     </p>
     
     #fieldTitle("dc:relation.swrc:Publication" "Related Publications" false)
@@ -350,4 +352,10 @@ $(function() {
         $(this).search();
     });
 });
+
+function copyToDesc() {
+
+    description = '#rif\\:description\\.1\\.value';
+    $("#dc\\:description").val($(description).val());
+}
 </script>

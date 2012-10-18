@@ -29,11 +29,6 @@
         "alreadyCurated": false
     },
     "transformerOverrides": {
-        "jsonVelocity": {
-            "id": "jsonVelocity",
-            "sourcePayload": "metadata.json",
-            "templatesPath": "${fascinator.home}/templates"
-        }
     },
     "indexer": {
         "script": {

@@ -159,10 +159,11 @@
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="3"></td>
-                <td colspan="6">
-                    <input type="button" class="button add-another-item" value="Add person" />
+                <td></td>
+                <td colspan="2">
+                    <input type="button" class="button add-another-item" value="Add person" />                
                 </td>
+                <td colspan="6"></td>
             </tr>
         </tfoot>
     </table>

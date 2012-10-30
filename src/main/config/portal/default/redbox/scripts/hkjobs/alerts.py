@@ -306,7 +306,10 @@ class AlertsData:
             excepted = False
 
         for node in xmlNodes:
-            text = node.getTextTrim()
+            try:
+                text = node.getTextTrim()
+            except:
+                text = node.getValue()
 
             if fieldString != "" and text != "":
                 if excepted:

@@ -1,34 +1,58 @@
 {
     "comment": "This is a sample RIF-CS mapping. It is important to check this against your RIF-CS as there can be some differences across feeds etc",
     "mappings": {
-        "//rif:registryObjects/rif:registryObject/rif:collection":
-            {
-                "@type":["dc:type.rdf:PlainLiteral","dc:type.skos:prefLabel"],
-                "@dateModified": ["dc:modified"],
-                "@dateAccessioned": "dc:created"
-            },
-        "//rif:registryObjects/rif:registryObject/rif:collection/rif:name[@type='primary']/rif:namePart": ["title", "dc:title", "redbox:submissionProcess.dc:title"],
-        "//rif:registryObjects/rif:registryObject/rif:collection/rif:description[@type='full' or @type='brief' or @type='note' or @type='logo']": {
+        "/rif:registryObjects/rif:registryObject/rif:collection":{
+            "@type":["dc:type.rdf:PlainLiteral", "dc:type.skos:prefLabel"],
+            "@dateModified":["dc:modified"],
+            "@dateAccessioned":"dc:created"
+        },
+        "/rif:registryObjects/rif:registryObject/rif:collection/rif:name[@type='primary']/rif:namePart":["title", "dc:title", "redbox:submissionProcess.dc:title"],
+        "/rif:registryObjects/rif:registryObject/rif:collection/rif:description[@type='full' or @type='brief' or @type='note' or @type='logo']":{
             ".":["description.0.value", "dc:description.0.value", "redbox:submissionProcess.dc:description.0.value", "rif:description.0.value"],
             "@type":["description.0.type", "dc:description.0.type", "redbox:submissionProcess.dc:description.0.type", "rif:description.0.type"]
         },
-        "//rif:registryObjects/rif:registryObject/rif:collection/rif:description[@type='rights']": {
+        "/rif:registryObjects/rif:registryObject/rif:collection/rif:description[@type='rights']":{
             ".":["dc:accessRights.skos:prefLabel", "dc_accessRights"]
         },
 
-        "//rif:registryObjects/rif:registryObject/rif:collection/rif:subject[@type='local']": "dc:subject.vivo:keyword.0.rdf:PlainLiteral",
-        "//rif:registryObjects/rif:registryObject/rif:collection/rif:subject[@type='anzsrc-for']":
-            {
-                ".": "dc:subject.anzsrc:for.0.rdf:resource",
-                "@title": "dc:subject.anzsrc:for.0.skos:prefLabel"
-            },
-        "//rif:registryObjects/rif:registryObject/rif:collection/rif:subject[@type='anzsrc-seo']":
-            {
-                ".": "dc:subject.anzsrc:seo.0.rdf:resource",
-                "@title": "dc:subject.anzsrc:seo.0.skos:prefLabel"
-            }
+        "/rif:registryObjects/rif:registryObject/rif:collection/rif:subject[@type='local']":"dc:subject.vivo:keyword.0.rdf:PlainLiteral",
+        "/rif:registryObjects/rif:registryObject/rif:collection/rif:subject[@type='anzsrc-for']":{
+            ".":"dc:subject.anzsrc:for.0.rdf:resource",
+            "@title":"dc:subject.anzsrc:for.0.skos:prefLabel"
+        },
+        "/rif:registryObjects/rif:registryObject/rif:collection/rif:subject[@type='anzsrc-seo']":{
+            ".":"dc:subject.anzsrc:seo.0.rdf:resource",
+            "@title":"dc:subject.anzsrc:seo.0.skos:prefLabel"
+        },
+        "/rif:registryObjects/rif:registryObject/rif:collection/rif:relatedObject/rif:relation[@type='hasAssociationWith' or @type='isManagedBy' or @type='hasCollector']/..":{
+            "rif:relation/@type":"dc:creator.foaf:Person.0.jcu:relationshipType",
+            "rif:relation/@label":"dc:creator.foaf:Person.0.jcu:relationshipLabel",
+            "rif:key":"dc:creator.foaf:Person.0.dc:identifier",
+            "@Family_Name":"dc:creator.foaf:Person.0.foaf:familyName",
+            "@Given_Name":"dc:creator.foaf:Person.0.foaf:givenName",
+            "@Honorific":"dc:creator.foaf:Person.0.foaf:title",
+            "@dc_title":"dc:creator.foaf:Person.0.foaf:name",
+            "@primary_group_id":"dc:creator.foaf:Person.0.foaf:Organization.dc:identifier",
+            "@primary_group_name":"dc:creator.foaf:Person.0.foaf:Organization.skos:prefLabel"
+        },
 
-},
+        "/rif:registryObjects/rif:registryObject/rif:collection/rif:coverage/rif:spatial":{
+
+            "@type":"dc:coverage.vivo:GeographicLocation.0.dc:type",
+            ".":"dc:coverage.vivo:GeographicLocation.0.rdf:PlainLiteral"
+        },
+        "/rif:registryObjects/rif:registryObject/rif:collection/rif:location[1]/rif:address/rif:physical/rif:addressPart[@type='combined']":"vivo:Location.vivo:GeographicLocation.gn:name",
+        "/rif:registryObjects/rif:registryObject/rif:collection/rif:coverage/rif:temporal/rif:date[@type='dateFrom']":"dc:coverage.vivo:DateTimeInterval.vivo:start",
+        "/rif:registryObjects/rif:registryObject/rif:collection/rif:coverage/rif:temporal/rif:date[@type='dateTo']":"dc:coverage.vivo:DateTimeInterval.vivo:end",
+        "/rif:registryObjects/rif:registryObject/rif:collection/rif:location/rif:address/rif:electronic[@type='url']/rif:value":"bibo:Website.0.dc:identifier",
+        "/rif:registryObjects/rif:registryObject/rif:DATA_MANAGEMENT":
+        {
+            "@size":"dc:extent",
+            "@period":"redbox:retentionPeriod"
+
+        }
+
+    },
     "exceptions": {
         "output": "skos:note.0.dc:description",
         "fields": {

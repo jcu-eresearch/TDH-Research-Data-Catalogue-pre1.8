@@ -309,7 +309,7 @@ class AlertsData:
             try:
                 text = node.getTextTrim()
             except:
-                text = node.getValue()
+                text = node.getValue().strip()
 
             if fieldString != "" and text != "":
                 if excepted:

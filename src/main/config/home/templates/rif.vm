@@ -14,6 +14,7 @@
 #end
 
 #macro(showRelatedInfo $field $relatedInfoType $identifierType)
+    
     #set($valueMap = $util.getList($item, $field))
     #foreach($key in $valueMap.keySet())
         #set ($row = $valueMap.get($key))
@@ -34,6 +35,25 @@
         #end
     #end
 #end
+
+#macro(showRelatedObject $field $relatedInfoType $identifierType)
+    
+    #set($valueMap = $util.getList($item, $field))
+    #foreach($key in $valueMap.keySet())
+        #set ($row = $valueMap.get($key))
+        #set ($value = $row.get("dc:identifier"))
+        #if ("$!value" != "")
+        <rif:relatedObject>
+            <rif:key>$util.encodeXml($value)</rif:key>
+            #set ($relationship = $row.get("vivo:Relationship.rdf:PlainLiteral"))
+            #if ("$relationship" != "")
+            <rif:relation type="$relationship"/>
+            #end
+        </rif:relatedObject>
+        #end
+    #end
+#end
+
 
 #macro(geoSpatialMacro $field)
     #set($valueMap = $util.getList($item, $field))
@@ -139,13 +159,13 @@
 
         #set($dateModified = "")
         #if ($util.get($item, 'dc:modified') != "")
-            #set($rawModified = "$util.getDateTime($util.get($item, 'dc:modified'), $dateFormat)Z")
+            #set($rawModified = "$util.getDateTime($util.get($item, 'dc:modified'), $dateFormat)")
             #set($dateModified = "dateModified=${quote}${rawModified}${quote}")
         #end
 
         #set($dateAccessioned = "")
         #if ($util.get($item, "dc:created") != "")
-            #set($rawAccessioned = "$util.getDateTime($util.get($item, 'dc:created'), $dateFormat)Z")
+            #set($rawAccessioned = "$util.getDateTime($util.get($item, 'dc:created'), $dateFormat)")
             #set($dateAccessioned = "dateAccessioned=${quote}${rawAccessioned}${quote}")
         #end
 
@@ -315,7 +335,8 @@
 
         #showRelatedInfo("dc:relation.swrc:Publication", "publication", "uri")
         #showRelatedInfo("dc:relation.bibo:Website", "website", "uri")
-
+        #showRelatedInfo("dc:relation.vivo:Service", "service", "uri")
+	#showRelatedObject("dc:relation.vivo:Service", "service", "local")
         #set($showCitation = $util.get($item, "dc:biblioGraphicCitation.redbox:sendCitation"))
         #if ("$!showCitation" != "" && $showCitation == "on")
             #set($doiProperty = $systemConfig.getString($defaultOnError, "andsDoi", "doiProperty"))

@@ -3,23 +3,24 @@
 # this script sets the environment for other fascinator scripts
 #
 
-export SERVER_URL="${server.url.base}"
-export LOCAL_PORT="${server.port}"
-export PROJECT_HOME="${project.home}"
-export AMQ_PORT="${amq.port}"
-export AMQ_STOMP_PORT="${amq.stomp.port}"
-export SMTP_HOST="${smtp.host}"
-export ADMIN_EMAIL="${admin.email}"
-export MINT_SERVER="${mint.proxy.server}"
-export MINT_AMQ="${mint.amq.broker}"
-export MINT_CONTEXT="${mint.context}"
-export NON_PROXY_HOSTS="${non.proxy.hosts}"
+#export SERVER_URL="http://tdh-ms-dev.hpc.jcu.edu.au:9000/redbox/"
+export SERVER_URL="https://eresearch.jcu.edu.au/researchdata/"
+export LOCAL_PORT="9000"
+export PROJECT_HOME="/home/fascinator/base/redbox"
+export AMQ_PORT="9101"
+export AMQ_STOMP_PORT="9102"
+export SMTP_HOST="localhost"
+export ADMIN_EMAIL="admin@localhost"
+export MINT_SERVER="http://localhost:9001"
+export MINT_AMQ="tcp://localhost:9201"
+export MINT_CONTEXT="nameauthority"
+export NON_PROXY_HOSTS="localhost"
 
 # set fascinator home directory
 if [ -z "$TF_HOME" ]; then
 	export TF_HOME="$PROJECT_HOME/home"
 fi
-export REDBOX_VERSION="${redbox.version}"
+export REDBOX_VERSION="1.5RC2"
 
 # java class path
 export CLASSPATH="plugins/*:lib/*"
@@ -57,7 +58,7 @@ else
 fi
 
 # jetty settings
-JETTY_OPTS="-Djetty.port=$LOCAL_PORT -Djetty.logs=$JETTY_LOGS -Djetty.home=$PROJECT_HOME/server/jetty"
+JETTY_OPTS="-Djetty.port=$LOCAL_PORT -Djetty.logs=$JETTY_LOGS -Djetty.home=$PROJECT_HOME/server/jetty -Djava.net.preferIPv4Stack=true"
 
 # solr settings
 SOLR_OPTS="-Dsolr.solr.home=$PROJECT_HOME/solr"

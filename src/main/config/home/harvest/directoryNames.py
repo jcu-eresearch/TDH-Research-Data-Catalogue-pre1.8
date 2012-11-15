@@ -11,16 +11,19 @@ from com.googlecode.fascinator.common import JsonObject
 from com.googlecode.fascinator.common import JsonSimple
 from com.googlecode.fascinator.common.storage import StorageUtils
 from com.googlecode.fascinator.common import FascinatorHome
+from com.googlecode.fascinator.common.messaging import MessagingServices
+from com.googlecode.fascinator.messaging import TransactionManagerQueueConsumer
 
 from java.lang import Exception
 from java.lang import String
 from java.util import HashSet
 
 from org.apache.commons.io import IOUtils
+from org.apache.commons.codec.digest import DigestUtils
 
 class IndexData:
     def __init__(self):
-        pass
+        self.messaging = MessagingServices.getInstance()
 
     def __activate__(self, context):
         # Prepare variables
@@ -457,14 +460,19 @@ class IndexData:
         workflow_security = []
         self.message_list = None
         stages = self.config.getJsonSimpleList(["stages"])
-        if self.owner == "guest":
-            pageTitle = "Submission Request"
-            displayType = "submission-request"
-            initialStep = 0
-        else:
-            pageTitle = "Metadata Record"
-            displayType = "package-dataset"
-            initialStep = 1
+        #if self.owner == "guest":
+        #    pageTitle = "Submission Request"
+        #    displayType = "submission-request"
+        #    initialStep = 0
+        #else:
+        #    pageTitle = "Metadata Record"
+        #    displayType = "package-dataset"
+        #    initialStep = 1
+
+        ## Harvesting straight into the 'Published' stage
+        pageTitle = "Metadata Record"
+        displayType = "package-dataset"
+        initialStep = 4
 
         try:
             wfMeta = self.__getJsonPayload("workflow.metadata")
@@ -660,3 +668,21 @@ class IndexData:
             self.object.updatePayload("formData.tfpackage", inStream)
         except StorageException, e:
             self.log.error("Error updating 'formData.tfpackage' payload for object '{}'", self.oid, e)
+
+        self.__sendMessage(self.oid, "live")
+
+    # Send an event notification to the curation manager
+    def __sendMessage(self, oid, step):
+        message = JsonObject()
+        message.put("oid", oid)
+        if step is None:
+            message.put("eventType", "ReIndex")
+        else:
+            message.put("eventType", "NewStep : %s" % step)
+        message.put("newStep", step)
+        message.put("username", "admin")
+        message.put("context", "Workflow")
+        message.put("task", "workflow")
+        self.messaging.queueMessage(
+                TransactionManagerQueueConsumer.LISTENER_ID,
+                message.toString())

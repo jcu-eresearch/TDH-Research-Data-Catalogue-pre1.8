@@ -13,7 +13,7 @@
     <parent>
         <groupId>com.googlecode.redbox-mint</groupId>
         <artifactId>redbox</artifactId>
-        <version>1.5.1</version>
+        <version>1.5.2.2</version>
     </parent>
 
     <properties>
@@ -62,6 +62,12 @@
             <groupId>fascinator-shibboleth</groupId>
             <artifactId>fascinator-shibboleth</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+        </dependency>        
+        <!-- Local Curation Plugin (from Mint) -->
+        <dependency>
+            <groupId>com.googlecode.redbox-mint</groupId>
+            <artifactId>plugin-transformer-local</artifactId>
+            <version>${redbox.version}</version>
         </dependency>
         <dependency>
             <groupId>com.googlecode.the-fascinator.plugins</groupId>
@@ -104,6 +110,7 @@
         </profile>
     </profiles>
 
+    <!-- The standard build/deploy process for making a server -->
     <build>
         <plugins>
             <plugin>
@@ -385,4 +392,25 @@
             </plugin>
         </plugins>
     </build>
+    <scm>
+        <url>https://redbox-mint.googlecode.com/svn/redbox/builds/dev-local/tags/redbox-local-curation-demo-1.5.1</url>
+        <connection>scm:svn:http://redbox-mint.googlecode.com/svn/redbox/builds/dev-local/tags/redbox-local-curation-demo-1.5.1</connection>
+        <developerConnection>scm:svn:https://redbox-mint.googlecode.com/svn/redbox/builds/dev-local/tags/redbox-local-curation-demo-1.5.1</developerConnection>
+    </scm>
+    <repositories>
+        <repository>
+            <id>fascinator-snapshots</id>
+            <url>http://dev.redboxresearchdata.com.au/nexus/content/repositories/central-snapshots/</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>redbox-nexus</id>
+            <url>http://dev.redboxresearchdata.com.au/nexus/content/groups/public/</url>
+        </repository>
+    </repositories>
 </project>

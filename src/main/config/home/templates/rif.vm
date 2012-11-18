@@ -159,13 +159,13 @@
 
         #set($dateModified = "")
         #if ($util.get($item, 'dc:modified') != "")
-            #set($rawModified = "$util.getDateTime($util.get($item, 'dc:modified'), $dateFormat)")
+            #set($rawModified = "$util.getDateTime($util.get($item, 'dc:modified'), $dateFormat)Z")
             #set($dateModified = "dateModified=${quote}${rawModified}${quote}")
         #end
 
         #set($dateAccessioned = "")
         #if ($util.get($item, "dc:created") != "")
-            #set($rawAccessioned = "$util.getDateTime($util.get($item, 'dc:created'), $dateFormat)")
+            #set($rawAccessioned = "$util.getDateTime($util.get($item, 'dc:created'), $dateFormat)Z")
             #set($dateAccessioned = "dateAccessioned=${quote}${rawAccessioned}${quote}")
         #end
 

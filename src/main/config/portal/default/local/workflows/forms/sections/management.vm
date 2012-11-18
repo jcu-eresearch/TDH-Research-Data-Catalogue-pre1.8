@@ -23,7 +23,7 @@
         <p>The identifier for this collection. You have two options:</p>
         <ul>
             <li>(Default) Select "Use this record's ID" and the system's configured curation method will determine the best identifier to use for you.</li>
-            <li>Otherwise you can provide your own explicit identifier that fits into the <a href="http://services.ands.org.au/documentation/rifcs/1.3/vocabs/vocabularies.html#Identifier_Type" target="_blank">ANDS Controlled Vocabulary</a>.</li>
+            <li>Otherwise you can provide your own explicit identifier that fits into the <a href="services.ands.org.au/documentation/rifcs/1.3/vocabs/vocabularies.html#Identifier_Type" target="_blank">ANDS Controlled Vocabulary</a>.</li>
         </ul>
     </div>
     <div class="group">
@@ -187,7 +187,6 @@
                          "")
     </p>
 
-	
     #fieldTitle("funding_bodies" "Funding Body/s" false)
     <div class="help-content" id="help-funding_bodies">
         Select/enter the name of the research funding body, if applicable.
@@ -406,11 +405,9 @@ $(function() {
                 formatResult: function(row) { return splitFundingData(row).label; },
                 width: "40em"
             }).result(function(event, row) {
-                if(!hideFundingBodyLabel) {
                 var trElem = $(this).parent().parent();
                 var uriElem = trElem.find(".funding-body-id");
                 var labelElem = trElem.find(".funding-body-id-label");
-                
                 if (row) {
                     var uri = splitFundingData(row).uri;
                     uriElem.val(uri);
@@ -422,7 +419,6 @@ $(function() {
                 labelElem.show();
                 var clearElem = trElem.find(".clear-funding-body-id");
                 clearElem.show();
-                }
             })
         }).live("blur", function() {
             $(this).search();
@@ -434,11 +430,9 @@ $(function() {
                 var trElem = $(this).parent().parent();
                 var linkElem = trElem.find(".clear-funding-body-id");
                 var labelElem = trElem.find(".funding-body-id-label");
-                if(!hideFundingBodyLabel) {
                 linkElem.show();
                 labelElem.html("ID: '"+value+"'");
                 labelElem.show();
-            }
             }
         });
     $(".clear-funding-body-id").live("click", function() {

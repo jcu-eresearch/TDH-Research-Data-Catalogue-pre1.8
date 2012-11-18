@@ -216,35 +216,34 @@ class IndexData:
         file.close()
         relatedCollection = data.get("relatedCollection")
         recordIdentifier = ""
-        for i in range(len(relatedCollection)):
-            collection = relatedCollection[i]
-            tempIdentifier = collection["identifier"]
-            if tempIdentifier is not None:
-                tempIdentifier = tempIdentifier.replace("%NAME_OF_FOLDER%", species)
-                recordIdentifier = tempIdentifier
-            else:
-                tempIdentifier = ""
-            #if  tempIdentifier != "":
-            #    tfpackageData["dc:relation.vivo:Dataset." + str(i + 1) + ".dc:identifier"] = DigestUtils.md5Hex(tempIdentifier)
-            tfpackageData["dc:relation.vivo:Dataset." + str(i + 1) + ".dc:identifier"] = tempIdentifier
-            tempTitle = collection.get("title")
-            tempTitle = tempTitle.replace("%NAME_OF_FOLDER%", species)
-            tfpackageData["dc:relation.vivo:Dataset." + str(i + 1) + ".dc:title"] = tempTitle
-            tfpackageData["dc:relation.vivo:Dataset." + str(i + 1) + ".vivo:Relationship.rdf:PlainLiteral"] = collection["relationship"]
-            if  tempIdentifier == "":
-                tfpackageData["dc:relation.vivo:Dataset." + str(i + 1) + ".redbox:origin"] = "on"
-            tfpackageData["dc:relation.vivo:Dataset." + str(i + 1) + ".redbox:publish"] =  "on"
-            #Using the collection data as a lookup to obtain the 'label'
-            relationShip = collection.get("relationship")
-            jsonSimple = JsonSimple(collectionData)
-            jsonObj = jsonSimple.getJsonObject()
-            results = jsonObj.get("results")
-            #ensuring the Collection Relation Types exist
-            if  results:
-                for j in range(len(results)):
-                    relation = results[j]
-                    if  (relationShip == relation.get("id")):
-                        tfpackageData["dc:relation.vivo:Dataset." + str(i + 1) + ".vivo:Relationship.skos:prefLabel"] = relation.get("label")
+        if relatedCollection is not None:
+            for i in range(len(relatedCollection)):
+                collection = relatedCollection[i]
+                tempIdentifier = collection["identifier"]
+                if tempIdentifier is not None:
+                    tempIdentifier = tempIdentifier.replace("%NAME_OF_FOLDER%", species)
+                    recordIdentifier = tempIdentifier
+                else:
+                    tempIdentifier = ""
+                tfpackageData["dc:relation.vivo:Dataset." + str(i + 1) + ".dc:identifier"] = tempIdentifier
+                tempTitle = collection.get("title")
+                tempTitle = tempTitle.replace("%NAME_OF_FOLDER%", species)
+                tfpackageData["dc:relation.vivo:Dataset." + str(i + 1) + ".dc:title"] = tempTitle
+                tfpackageData["dc:relation.vivo:Dataset." + str(i + 1) + ".vivo:Relationship.rdf:PlainLiteral"] = collection["relationship"]
+                if  tempIdentifier == "":
+                    tfpackageData["dc:relation.vivo:Dataset." + str(i + 1) + ".redbox:origin"] = "on"
+                tfpackageData["dc:relation.vivo:Dataset." + str(i + 1) + ".redbox:publish"] =  "on"
+                #Using the collection data as a lookup to obtain the 'label'
+                relationShip = collection.get("relationship")
+                jsonSimple = JsonSimple(collectionData)
+                jsonObj = jsonSimple.getJsonObject()
+                results = jsonObj.get("results")
+                #ensuring the Collection Relation Types exist
+                if  results:
+                    for j in range(len(results)):
+                        relation = results[j]
+                        if  (relationShip == relation.get("id")):
+                            tfpackageData["dc:relation.vivo:Dataset." + str(i + 1) + ".vivo:Relationship.skos:prefLabel"] = relation.get("label")
 
         ###Processing the 'associatedParty' metadata
         associatedParty = data.get("associatedParty")
@@ -293,11 +292,11 @@ class IndexData:
             allData = resultMetadata.get("result-metadata")
             creator = allData.get("all")
             if (creator is not None):
-                tfpackageData["locrel:prc.foaf:Person.dc:identifier"] = creator.get("dc:identifier").toString()
-                tfpackageData["locrel:prc.foaf:Person.foaf:name"] = creator.get("dc:title")
-                tfpackageData["locrel:prc.foaf:Person.foaf:title"] = creator.get("Honorific").toString()
-                tfpackageData["locrel:prc.foaf:Person.foaf:givenName"] = creator.get("Given_Name").toString()
-                tfpackageData["locrel:prc.foaf:Person.foaf:familyName"] = creator.get("Family_Name").toString()
+                tfpackageData["locrel:prc.foaf:Person.dc:identifier"] = creator.get("dc_identifier")[0]
+                tfpackageData["locrel:prc.foaf:Person.foaf:name"] = creator.get("dc_title")
+                tfpackageData["locrel:prc.foaf:Person.foaf:title"] = creator.get("Honorific")[0]
+                tfpackageData["locrel:prc.foaf:Person.foaf:givenName"] = creator.get("Given_Name")[0]
+                tfpackageData["locrel:prc.foaf:Person.foaf:familyName"] = creator.get("Family_Name")[0]
 
         ###Processing 'coinvestigators' metadata
         coinvestigators = data.get("coinvestigators")
@@ -357,10 +356,15 @@ class IndexData:
         tfpackageData["dc:license.skos:prefLabel"] = data.get("license").get("label")
 
         #identifier
-        tfpackageData["dc:identifier.redbox:origin"] = "external"
-        tfpackageData["dc:identifier.rdf:PlainLiteral"] = recordIdentifier
-        tfpackageData["dc:identifier.dc:type.rdf:PlainLiteral"] = "uri"
-        tfpackageData["dc:identifier.dc:type.skos:prefLabel"] = "Uniform Resource Identifier"
+        additionalId = data.get("additionalIdentifier")
+        if additionalId is not None:
+            additionalId = additionalId.replace("%NAME_OF_FOLDER%", species)
+            tfpackageData["dc:identifier.rdf:PlainLiteral"] = additionalId
+            tfpackageData["dc:identifier.redbox:origin"] = "external"
+            tfpackageData["dc:identifier.dc:type.rdf:PlainLiteral"] = "uri"
+            tfpackageData["dc:identifier.dc:type.skos:prefLabel"] = "Uniform Resource Identifier"
+        else:
+            tfpackageData["dc:identifier.redbox:origin"] = "internal"            
 
         dataLocation = data.get("dataLocation")
         dataLocation = dataLocation.replace("%NAME_OF_FOLDER%", species)
@@ -475,7 +479,7 @@ class IndexData:
         pageTitle = "Metadata Record"
         displayType = "package-dataset"
         initialStep = 4
-        
+
         try:
             wfMeta = self.__getJsonPayload("workflow.metadata")
             wfMeta.getJsonObject().put("pageTitle", pageTitle)

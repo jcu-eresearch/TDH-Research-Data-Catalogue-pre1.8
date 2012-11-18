@@ -22,14 +22,6 @@
         <icons.dir>target/aaf_icons</icons.dir>
     </properties>
 
-    <repositories>
-        <repository>
-            <id>ReDBoxNexus</id>
-            <name>ReDBox Community Nexus Server</name>
-            <url>http://dev.redboxresearchdata.com.au/nexus/content/groups/public/</url>
-        </repository>
-    </repositories>
-
     <dependencies>
         <dependency>
             <groupId>com.googlecode.redbox-mint</groupId>
@@ -62,7 +54,7 @@
             <groupId>fascinator-shibboleth</groupId>
             <artifactId>fascinator-shibboleth</artifactId>
             <version>0.0.1-SNAPSHOT</version>
-        </dependency>        
+        </dependency>
         <!-- Local Curation Plugin (from Mint) -->
         <dependency>
             <groupId>com.googlecode.redbox-mint</groupId>
@@ -393,9 +385,9 @@
         </plugins>
     </build>
     <scm>
-        <url>https://redbox-mint.googlecode.com/svn/redbox/builds/dev-local/tags/redbox-local-curation-demo-1.5.1</url>
-        <connection>scm:svn:http://redbox-mint.googlecode.com/svn/redbox/builds/dev-local/tags/redbox-local-curation-demo-1.5.1</connection>
-        <developerConnection>scm:svn:https://redbox-mint.googlecode.com/svn/redbox/builds/dev-local/tags/redbox-local-curation-demo-1.5.1</developerConnection>
+        <url>https://github.com/jcu-eresearch/TDH-Research-Data-Catalogue</url>
+        <connection>scm:git:https://github.com/jcu-eresearch/TDH-Research-Data-Catalogue.git</connection>
+        <developerConnection>scm:git:git@github.com:jcu-eresearch/TDH-Research-Data-Catalogue.git</developerConnection>
     </scm>
     <repositories>
         <repository>
@@ -413,4 +405,5 @@
             <url>http://dev.redboxresearchdata.com.au/nexus/content/groups/public/</url>
         </repository>
     </repositories>
+
 </project>

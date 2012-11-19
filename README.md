@@ -17,6 +17,8 @@ Redhat
     #> ln -s <deploy.directory>/system/redhat/init redbox
     #> cd /etc/sysconfig
     #> ln -s <deploy.directory>/system/redhat/redbox redbox
+    #> cd /var/log
+    #> ln -s <deploy.directory>/home/logs redbox
 
 Then edit /etc/sysconfig/redbox and set the `USER` variable.
 

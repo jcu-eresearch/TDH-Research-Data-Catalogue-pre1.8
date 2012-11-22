@@ -124,7 +124,7 @@
         #requiredValidation("redbox:retentionPeriod" "Retention Period is required!")
     </p>
 
-    #fieldTitle("dc:extent" "Size of Data/Collection" true)
+    #fieldTitle("dc:extent" "Size of Data/Collection" false)
     <div class="help-content" id="help-dc:extent">
         Captures the size of the collection. e.g. number of items, size of 
         collection as a whole. Measured in weight, bytes, or dimensions, whatever
@@ -133,7 +133,6 @@
     </div>
     <p>
         <input type="text" size="60" placeholder="quantity" id="dc:extent" />
-        #requiredValidation("dc:extent" "Size of Data/Collection is required!")
     </p>
 
     #fieldTitle("redbox:disposalDate" "Disposal Date" false)

@@ -12,11 +12,11 @@
                 }, 
                 {
                     "type": "full", 
-		    "value": "This dataset includes observations of %NAME_OF_FOLDER% that are sourced from the Atlas of Living Australia (ALA) database. Rather than raw observations, these have been filtered such that they are assumed to be suitable for species distribution modelling exercises. The cleaning process included:\n 1. automatic vetting based on the ALA's 'assertions' whereby observations were assessed as inappropriate for modelling (ie. 'ZERO_COORDINATES', 'INVALID SCIENTIFIC NAME'); \n 2. determining if the observations fell within expert-derived range polygons. These polygons were supplied by BirdLife Australia to represent, for each species, its core breeding habitat, non-breeding, historic, irruptive, or invasive ranges. Records that fall outside these ranges were marked as inappropriate for modelling; and\n 3. human-derived classification of records after previous two assessments. Through the Edgar project (http://tropicaldatahub.org/goto/edgar), users were able to map all species observations and comment on the suitability of records for distribution modelling. This included records deemed inappropriate by other means. \n\nEvery 6 months the occurrence record download file is updated to reflect recent vetting by experts. In the data download, sensitive records have been obfuscated by truncating the lat/long to two decimal places. Obfuscated records will be indicated in the data file. Access to the accurate data will need to be arranged with the original data owners - contact the ALA for more information. \n\nThe resulting downloadable file of occurrence records reflects which records are suitable for species distribution modelling."
+		    "value": "<p>This dataset includes observations of %NAME_OF_FOLDER% that are sourced from the Atlas of Living Australia (ALA) database. Rather than raw observations, these have been filtered such that they are assumed to be suitable for species distribution modelling exercises. The cleaning process included:<ol> <li>automatic vetting based on the ALA's 'assertions' whereby observations were assessed as inappropriate for modelling (ie. 'ZERO_COORDINATES', 'INVALID SCIENTIFIC NAME'); </li><li>determining if the observations fell within expert-derived range polygons. These polygons were supplied by BirdLife Australia to represent, for each species, its core breeding habitat, non-breeding, historic, irruptive, or invasive ranges. Records that fall outside these ranges were marked as inappropriate for modelling; and </li><li> human-derived classification of records after previous two assessments. Through the Edgar project (<a href=\"http://tropicaldatahub.org/goto/edgar\">http://tropicaldatahub.org/goto/edgar</a>), users were able to map all species observations and comment on the suitability of records for distribution modelling. This included records deemed inappropriate by other means. </p><p>Every 6 months the occurrence record download file is updated to reflect recent vetting by experts. In the data download, sensitive records have been obfuscated by truncating the lat/long to two decimal places. Obfuscated records will be indicated in the data file. Access to the accurate data will need to be arranged with the original data owners - contact the ALA for more information. </p><p>The resulting downloadable file of occurrence records reflects which records are suitable for species distribution modelling.</p>"
                 },
                 {
                     "type": "note", 
-                    "value":  "Data is downloadable as a zipped CSV file.\n These occurrence records are displayed on Edgar: http://tropicaldatahub.org/goto/Edgar"
+                    "value":  "<p>Data is downloadable as a zipped CSV file.</p> <p>These occurrence records are displayed on Edgar: <a href=\"http://tropicaldatahub.org/goto/Edgar\">http://tropicaldatahub.org/goto/Edgar</a>."
                 } ], 
                 "accessRights": "Open Access. If the data is not available via the provided link, please contact an associated party (preferably the Manager if specified) for access",
                 "license": {
@@ -55,33 +55,30 @@
                     ], 
                     "phoneNumber" : "+61 7 4781 5570"
                 },
-                "anzsrcFOR" : [ "060208", "100108" ],
-                "anzsrcSEO" : [ "960303", "960812" ],
-                "keyword" : [ "Geographic Information System", "spatial data", "spatial analysis", "climate change", "species distribution", "GIS"],
+                "anzsrcFOR" : [ "060208", "050202" ],
+                "anzsrcSEO" : [ "960301", "960302" ],
+                "keyword" : [ "species occurrence records" ],
                 "associatedParty" : [
                 { 
                     "who" : {"type" : "people", "value" : "jeremy.vanderwal@jcu.edu.au"},
                     "relationship" : "isManagedBy"
                 } ],
                 "organizationalGroup" : [
-                    "8"
+                    "CTBCC"
                 ],
                 "relatedCollection" : [
                 {
                     "title" : "%NAME_OF_FOLDER% - current and future species distribution models",
-                    "relationship": "isDerivedFrom",
+                    "relationship": "hasDerivedCollection",
                     "identifier" : "jcu.edu.au/tdh/collection/%NAME_OF_FOLDER%/suitability"
-                },
-                {
-                    "title" : "All future climate layers for Australia",
-                    "relationship": "isDerivedFrom",
-                    "identifier" : "jcu.edu.au/tdh/collection/%NAME_OF_FOLDER%/suitability"
-                } ],
+                }
+                ],
                 "additionalIdentifier" : "jcu.edu.au/tdh/collection/%NAME_OF_FOLDER%/suitability",                
                 "relatedService" : [
                 { 
                     "title" : "Edgar: Climate Change Impact on the Distributions of Australian Bird Species",
-                    "relationship": "isProducedBy"
+                    "relationship": "isProducedBy",
+                    "identifier" : "jcu.edu.au/tdh/service/australian-birds"
                 } ],
                 "dataLocation" : "http://eresearch.jcu.edu.au/tdh/datasets/Edgar/%NAME_OF_FOLDER%",
                 "retentionPeriod" : "indefinitely"
@@ -96,11 +93,11 @@
                 },
                 {
                     "type": "full",
-                    "value": "Observation records were filtered from the Atlas of Living Australia's (ALA) database based on ALA's 'assertions', expert-derived range polygons and expert opinion, and those observations inappropriate for modelling were excluded.  Only species with >20 unique spatiotemporal records were used for modelling.\n\nCurrent climate was sourced as monthly precipitation and temperature minima and maxima from 1975 until 2005 at a 0.05Â° grid scale from the Australian Water Availability Project (AWAP - http://www.bom.gov.au/jsp/awap/) (Jones et al 2007, Grant et al 2008).\n\n Future climate projections were sourced through a collaboration with Drs Rachel Warren and Jeff Price, Tyndall Centre, University of East Anglia, UK. This data is available on http://climascope.wwfus.org. Although new GCM runs for RCPs have not been fully completed, several research groups have implemented methods to utilize knowledge gained from SRES predictions to recreate predictions for the new RCPs using AR4 GCMs (e.g., Meinshausen, Smith et al. 2011; Rogelj, Meinshausen et al. 2012). The methods used to generate the GCM predictions for the RCP emission scenarios are defined at http://climascope.wwfus.org and in associated publications (Mitchell and Jones 2005; Warren, de la Nava Santos et al. 2008; Meinshausen, Raper et al. 2011). This data was downscaled to 0.05 degrees (~5km resolution) using a cubic spline of the anomalies; these anomalies were applied to a current climate baseline of 1976 to 2005 â€“ climate of 1990 â€“ generated from aggregating monthly data from Australia Water Availability Project (AWAP; http://www.bom.gov.au/jsp/awap/). These monthly temperature and precipitation values user used to create 19 standard bioclimatic variables. These bioclimatic variables are listed at http://www.worldclim.org/bioclim. All downscaling and bioclimatic variable creation was done using the climates package (VanDerWal, Beaumont et al. 2011) in R (http://www.r-project.org/).\n\nUsed in the modelling were annual mean temperature, temperature seasonality, max and min monthly temperature, annual precipitation, precipitation seasonality, and precipitation of the wettest and driest quarters for current and all RCP scenarios (RCP3PD, RCP45, RCP6, RCP85) at 8 time steps between 2015 and 2085.\n\nSpecies distribution models were run using the presence-only modelling program Maxent (Phillips et al 2006). Maxent uses species presence records to statistically relate species occurrence to environmental variables on the principle of maximum entropy. All default settings were used except for background point allocation. We used a target group background (Phillips & Dudik 2008) to remove any spatial or temporal sampling bias in the modelling exercise."
+                    "value": "<p>Observation records were filtered from the Atlas of Living Australia's (ALA) database based on ALA's 'assertions', expert-derived range polygons and expert opinion, and those observations inappropriate for modelling were excluded.  Only species with &gt;20 unique spatiotemporal records were used for modelling.</p><p>Current climate was sourced as monthly precipitation and temperature minima and maxima from 1975 until 2005 at a 0.05¡ grid scale from the Australian Water Availability Project (AWAP - <a href=\"http://www.bom.gov.au/jsp/awap/\">http://www.bom.gov.au/jsp/awap/</a>) (Jones et al 2007, Grant et al 2008).</p> <p>Future climate projections were sourced through a collaboration with Drs Rachel Warren and Jeff Price, Tyndall Centre, University of East Anglia, UK. This data is available on <a href=\"http://climascope.wwfus.org\">http://climascope.wwfus.org</a>. Although new GCM runs for RCPs have not been fully completed, several research groups have implemented methods to utilize knowledge gained from SRES predictions to recreate predictions for the new RCPs using AR4 GCMs (e.g., Meinshausen, Smith et al. 2011; Rogelj, Meinshausen et al. 2012). The methods used to generate the GCM predictions for the RCP emission scenarios are defined at <a href=\"http://climascope.wwfus.org\">http://climascope.wwfus.org</a> and in associated publications (Mitchell and Jones 2005; Warren, de la Nava Santos et al. 2008; Meinshausen, Raper et al. 2011). This data was downscaled to 0.05 degrees (~5km resolution) using a cubic spline of the anomalies; these anomalies were applied to a current climate baseline of 1976 to 2005 Ð climate of 1990 Ð generated from aggregating monthly data from Australia Water Availability Project (AWAP; <a href=\"http://www.bom.gov.au/jsp/awap/\">http://www.bom.gov.au</a>). These monthly temperature and precipitation values user used to create 19 standard bioclimatic variables. These bioclimatic variables are listed at <a href=\"http://www.worldclim.org/bioclim\">http://www.worldclim.org/bioclim</a>. All downscaling and bioclimatic variable creation was done using the climates package (VanDerWal, Beaumont et al. 2011) in R (<a href=\"http://www.r-project.org/\">http://www.r-project.org/</a>).</p><p>Used in the modelling were annual mean temperature, temperature seasonality, max and min monthly temperature, annual precipitation, precipitation seasonality, and precipitation of the wettest and driest quarters for current and all RCP scenarios (RCP3PD, RCP45, RCP6, RCP85) at 8 time steps between 2015 and 2085.</p><p>Species distribution models were run using the presence-only modelling program Maxent (Phillips et al 2006). Maxent uses species presence records to statistically relate species occurrence to environmental variables on the principle of maximum entropy. All default settings were used except for background point allocation. We used a target group background (Phillips & Dudik 2008) to remove any spatial or temporal sampling bias in the modelling exercise.</p>"
                 },
                 {
                     "type": "note",
-                    "value": "These species distribution models are displayed on Edgar: http://tropicaldatahub.org/goto/edgar\n\nThe dataset is a tarred, zipped file (.tar.gz), approximately 5GB in size and contains 609 ASCII grid files:\n * 1 current distribution map\n * 32 median maps - 8 time step median maps (averaged across all 18 GCMs) for each RCP\n * 576 maps - 8 time step maps for each GCM for each RCP"
+                    "value": "<p>These species distribution models are displayed on Edgar: <a href=\"http://tropicaldatahub.org/goto/edgar\">http://tropicaldatahub.org/goto/edgar</a>.</p><p>The dataset is a tarred, zipped file (.tar.gz), approximately 5GB in size and contains 609 ASCII grid files:<ul><li>1 current distribution map</li><li>32 median maps - 8 time step median maps (averaged across all 18 GCMs) for each RCP</li><li>576 maps - 8 time step maps for each GCM for each RCP</li></ul>"
                 } ],
                 "accessRights": "Open Access. If the data is not available via the provided link, please contact an associated party (preferably the Manager if specified) for access.", 
                 "license": {
@@ -150,22 +147,33 @@
                     ], 
                     "phoneNumber" : "+61 7 4781 5570"
                 },
-                "anzsrcFOR" : [ "060208", "100108" ],
-                "anzsrcSEO" : [ "960303", "960812" ],
-                "keyword" : [ "Geographic Information System", "spatial data", "spatial analysis", "climate change", "species distribution", "GIS"],
-                "associatedParty" : [
+                "anzsrcFOR" : [ "060208" ],
+                "anzsrcSEO" : [ "960303" ],
+                "keyword" : [ "geographic information system", "spatial data", "spatial analysis", "climate change", "GIS"],                "associatedParty" : [
                 { 
                     "who" : {"type" : "people", "value" : "jeremy.vanderwal@jcu.edu.au"},
                     "relationship" : "isManagedBy"
                 } ],
                 "organizationalGroup" : [
-                    "8"
+                    "CTBCC"
                 ],
                 "additionalIdentifier" : "jcu.edu.au/tdh/collection/%NAME_OF_FOLDER%/occurrences",
+                "relatedCollection" : [
+                {
+                    "title" : "All future climate layers for Australia",
+                    "relationship": "isDerivedFrom",
+                    "identifier" : "jcu.edu.au/tdh/collection/633b4ccd-2e78-459d-963c-e43d3c8a5ca1"
+                },
+		{
+		    "title" : "Current and Future Distribution Models for Australian Bird Species",
+		    "relationship": "isPartOf",
+		    "identifier" : "jcu.edu.au/tdh/collection/a452909d-05fd-44bf-95be-2c7b597c3a90"
+		} ],                
                 "relatedService" : [
                 { 
                     "title" : "Edgar: Climate Change Impact on the Distributions of Australian Bird Species",
-                    "relationship": "isProducedBy"
+                    "relationship": "isProducedBy",
+                    "identifier" : "jcu.edu.au/tdh/service/australian-birds"
                 } ],
                 "dataLocation" : "http://eresearch.jcu.edu.au/tdh/datasets/Edgar/%NAME_OF_FOLDER%",
                 "retentionPeriod" : "indefinitely"

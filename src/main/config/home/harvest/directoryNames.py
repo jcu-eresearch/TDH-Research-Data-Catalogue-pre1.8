@@ -108,7 +108,6 @@ class IndexData:
 
         identifier  = metadata.get("dc.identifier")
         self.utils.add(self.index, "dc:identifier", identifier)
-        self.utils.add(self.index, "known_ids", identifier)
         self.__storeIdentifier(identifier)
         self.utils.add(self.index, "institution", "James Cook University")
         self.utils.add(self.index, "source", "http://spatialecology.jcu.edu.au/Edgar/")
@@ -119,6 +118,7 @@ class IndexData:
         ####These will need to be changed based on you system installation.
         theMintHost = java.lang.System.getProperty("mint.proxy.url")
         collectionRelationTypesFilePath = FascinatorHome.getPath() + "/../portal/default/redbox/workflows/forms/data/"
+        servicesRelationTypesFilePath = FascinatorHome.getPath() + "/../portal/default/redbox/workflows/forms/data/"
         descriptionTypesFilePath = FascinatorHome.getPath() + "/../portal/default/local/workflows/forms/data/"
 
         ###Allocating space to create the formData.tfpackage
@@ -137,7 +137,6 @@ class IndexData:
         tfpackageData["dc:type.skos:prefLabel"] = data.get("type")
         tfpackageData["dc:created"] = time.strftime("%Y-%m-%d", time.gmtime())
         tfpackageData["dc:modified"] = ""
-        self.utils.add(self.index, "dc_language", "English")
         tfpackageData["dc:language.skos:prefLabel"] = "English"
         tfpackageData["dc:coverage.vivo:DateTimeInterval.vivo:start"] = data.get("temporalCoverage").get("dateFrom")
         
@@ -245,6 +244,31 @@ class IndexData:
                         if  (relationShip == relation.get("id")):
                             tfpackageData["dc:relation.vivo:Dataset." + str(i + 1) + ".vivo:Relationship.skos:prefLabel"] = relation.get("label")
 
+        ###Processing the 'relatedService' metadata
+        #Reading the file here, so we only do it once.
+        file = open(servicesRelationTypesFilePath + "serviceRelationTypes.json")
+        servicesData = file.read()
+        file.close()
+        relatedServices = data.get("relatedService")
+        recordIdentifier = ""
+        if relatedServices is not None:
+            for i in range(len(relatedServices)):
+                service = relatedServices[i]
+                tfpackageData["dc:relation.vivo:Service." + str(i + 1) + ".dc:identifier"] = service["identifier"]
+                tfpackageData["dc:relation.vivo:Service." + str(i + 1) + ".dc:title"] = service["title"]
+                tfpackageData["dc:relation.vivo:Service." + str(i + 1) + ".vivo:Relationship.rdf:PlainLiteral"] = service["relationship"]
+                #Using the services data as a lookup to obtain the 'label'
+                relationShip = service.get("relationship")
+                jsonSimple = JsonSimple(servicesData)
+                jsonObj = jsonSimple.getJsonObject()
+                results = jsonObj.get("results")
+                #ensuring the Service Relation Types exist
+                if  results:
+                    for j in range(len(results)):
+                        relation = results[j]
+                        if  (relationShip == relation.get("id")):
+                            tfpackageData["dc:relation.vivo:Service." + str(i + 1) + ".vivo:Relationship.skos:prefLabel"] = relation.get("label")
+
         ###Processing the 'associatedParty' metadata
         associatedParty = data.get("associatedParty")
         for i in range(len(associatedParty)):
@@ -347,7 +371,6 @@ class IndexData:
 
         ###Processing 'keyword' metadata                        
         keyword = data.get("keyword")
-        self.utils.add(self.index, "keywords", keyword.toString())
         for i in range(len(keyword)):
             tfpackageData["dc:subject.vivo:keyword." + str(i + 1) + ".rdf:PlainLiteral"] = keyword[i]
 
@@ -382,7 +405,7 @@ class IndexData:
         for i in range(len(organisationalGroup)):
             organisation = organisationalGroup[i]
             #Querying against The Mint
-            sock = urllib.urlopen(theMintHost + "/Parties_Groups/opensearch/lookup?count=9999&searchTerms=ID:" + organisation)
+            sock = urllib.urlopen(theMintHost + "/Parties_Groups/opensearch/lookup?count=9999&searchTerms=ID:" + str(organisation))
             mintData = sock.read()
             sock.close()
             jsonSimple = JsonSimple(mintData)

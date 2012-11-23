@@ -66,15 +66,13 @@ def fix_collection(tree):
     related = tree.xpath("/rif:registryObjects/rif:registryObject/rif:collection/rif:relatedObject", namespaces=namespace)
     for rel in related:
         fix_relatedObject(rel)
-    addr = "/rif:registryObjects/rif:registryObject/rif:collection/rif:location/rif:address/rif:physical[@type='streetAddress']"
+    emails = "/rif:registryObjects/rif:registryObject/rif:collection/rif:location/rif:address/rif:electronic[@type='email']"
+    for email in tree.xpath(emails, namespaces=namespace):
+        fix_email(email)
 
+    addr = "/rif:registryObjects/rif:registryObject/rif:collection/rif:location/rif:address/rif:physical[@type='streetAddress']"
     for addresses in tree.xpath(addr, namespaces=namespace):
-        ad = addresses.xpath("rif:addressPart[@type='addressLine']", namespaces=namespace)
-        address = "\n".join([i.text.strip() for i in ad]).strip()
-        map(lambda a: addresses.remove(a), ad)
-        el = ET.SubElement(addresses, "addressPart")
-        el.attrib['type'] = "combined"
-        el.text = address
+        fix_land_address(addresses)
 
     related = tree.xpath("/rif:registryObjects/rif:registryObject", namespaces=namespace)
     ex = ET.SubElement(related[0], "DATA_MANAGEMENT")
@@ -85,16 +83,40 @@ def fix_collection(tree):
     for rl in relatedInfo:
         fix_relatedInfo(rl)
 
+def fix_email(email):
+    value = email.xpath("rif:value", namespaces=namespace)[0]
+    eml =  value.text.strip()
+    eml = eml.replace("Email: ","")
+    value.text = eml
+    r = requests.get(solrFieldQuery("Email", eml))
+    solrResponse = json.loads(r.text)
+    if solrResponse['response']['numFound'] > 1:
+        raise Exception("More than one email address: "+eml)
+
+    entry = solrResponse['response']['docs'][0]
+    email.attrib['hon'] = entry['Honorific'][0]
+    email.attrib['givenName'] = entry['Given_Name'][0]
+    email.attrib['familyName'] = entry['Family_Name'][0]
+
+
+def fix_land_address(addresses):
+    ad = addresses.xpath("rif:addressPart[@type='addressLine']", namespaces=namespace)
+    address = "\n".join([i.text.strip() for i in ad]).strip()
+    map(lambda a: addresses.remove(a), ad)
+    el = ET.SubElement(addresses, "addressPart")
+    el.attrib['type'] = "combined"
+    el.text = address
+
 uri_types = {
       "http://creativecommons.org/licenses":"license",
       "http://opendatacommons.org/licenses":"license"
-
 }
 
 uri_keys = uri_types.keys()
 
 def fix_relatedInfo(rel):
     id = rel.xpath("rif:identifier", namespaces=namespace)[0]
+    id.attrib['uritype'] = 'url'
     val = id.text.strip()
     if id.attrib.has_key('type'):
         if id.attrib['type'] == 'uri':

@@ -12,7 +12,10 @@
             "@type":["description.0.type", "dc:description.0.type", "redbox:submissionProcess.dc:description.0.type", "rif:description.0.type"]
         },
         "/rif:registryObjects/rif:registryObject/rif:collection/rif:description[@type='rights']":{
-            ".":["dc:accessRights.skos:prefLabel", "dc_accessRights"]
+            ".":["dc:accessRights.dc:RightsStatement.skos:prefLabel"]
+        },
+        "/rif:registryObjects/rif:registryObject/rif:collection/rif:description[@type='accessRights']":{
+            ".":["dc:accessRights.skos:prefLabel"]
         },
 
         "/rif:registryObjects/rif:registryObject/rif:collection/rif:subject[@type='local']":"dc:subject.vivo:keyword.0.rdf:PlainLiteral",
@@ -24,7 +27,7 @@
             ".":"dc:subject.anzsrc:seo.0.rdf:resource",
             "@title":"dc:subject.anzsrc:seo.0.skos:prefLabel"
         },
-        "/rif:registryObjects/rif:registryObject/rif:collection/rif:relatedObject/rif:relation[@type='hasAssociationWith' or @type='isManagedBy' or @type='hasCollector']/..":{
+        "/rif:registryObjects/rif:registryObject/rif:collection/rif:relatedObject/rif:relation[@type='hasAssociationWith' or @type='isEnrichedBy' or @type='isOwnedBy' or @type='isManagedBy' or @type='hasCollector']/..":{
             "rif:relation/@type":"dc:creator.foaf:Person.0.jcu:relationshipType",
             "rif:relation/@label":"dc:creator.foaf:Person.0.jcu:relationshipLabel",
             "rif:key":"dc:creator.foaf:Person.0.dc:identifier",
@@ -34,6 +37,22 @@
             "@dc_title":"dc:creator.foaf:Person.0.foaf:name",
             "@primary_group_id":"dc:creator.foaf:Person.0.foaf:Organization.dc:identifier",
             "@primary_group_name":"dc:creator.foaf:Person.0.foaf:Organization.skos:prefLabel"
+        },
+
+        "/rif:registryObjects/rif:registryObject/rif:collection/rif:relatedObject/rif:relation[@type='isOutputOf']/..":{
+            "@grantNumber":"foaf:fundedBy.vivo:Grant.0.redbox:grantNumber",
+            "@title":"foaf:fundedBy.vivo:Grant.0.skos:prefLabel",
+            "rif:key":"foaf:fundedBy.vivo:Grant.0.dc:identifier"
+        },
+
+        "/rif:registryObjects/rif:registryObject/rif:collection/rif:relatedInfo/rif:identifier[@type='uri' and starts-with(normalize-space(.),'http://creativecommons.org/licenses')]/..":{
+            "rif:identifier":"dc:license.dc:identifier",
+            "rif:notes":"dc:license.skos:prefLabel"
+        },
+
+        "/rif:registryObjects/rif:registryObject/rif:collection/rif:relatedInfo/rif:identifier[@type='doi']/..":{
+            "rif:identifier":"dc:relation.swrc:Publication.0.dc:identifier",
+            "rif:title":"dc:relation.swrc:Publication.0.dc:title"
         },
 
         "/rif:registryObjects/rif:registryObject/rif:collection/rif:coverage/rif:spatial":{

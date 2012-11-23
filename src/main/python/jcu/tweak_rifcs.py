@@ -18,6 +18,7 @@ user_query = '{base_url}/select?wt=json&q=known_ids%%3D"{query}"'.format(base_ur
 
 field_query = '{base_url}/select?wt=json&q={field}%3A{value}'
 
+
 #ET._namespace_map["http://ands.org.au/standards/rif-cs/registryObjects"] = "rif"
 
 namespace={"rif":"http://ands.org.au/standards/rif-cs/registryObjects"}
@@ -26,10 +27,31 @@ def solrFieldQuery(field, value):
     return field_query.format(base_url=mint_url, field=field, value=urllib.quote(value, safe=''))
 
 def fix(path, args, output):
+    name = os.path.split(path)[1]
+
     tree = ET.parse(path)
-    root = tree.getroot()
+
+
+    if name.startswith("party_"):
+        #fix_party(tree)
+        return
+    elif name.startswith("collection_"):
+        fix_collection(tree)
+    elif name.startswith("activity_"):
+        fix_activity(tree)
+    else:
+        raise Exception("Unknown Type")
+
+    out_path = path
+    if output:
+        out_path = os.path.join(output, name)
+
+    tree.write(out_path, encoding='utf-8')
+
+def fix_party(tree): pass
+def fix_activity(tree): pass
+def fix_collection(tree):
     subjects = tree.xpath( "/rif:registryObjects/rif:registryObject/rif:collection/rif:subject", namespaces=namespace)
-    print subjects
     for subject in subjects:
         if subject.attrib.has_key("type"):
             if subject.attrib['type'] == 'anzsrc-for':
@@ -59,15 +81,54 @@ def fix(path, args, output):
     ex.attrib['size'] = "0"
     ex.attrib['period'] = "0"
 
-    out_path = path
-    if output:
-        out_path = os.path.join(output, os.path.split(path)[1])
+    relatedInfo = tree.xpath("/rif:registryObjects/rif:registryObject/rif:collection/rif:relatedInfo", namespaces=namespace)
+    for rl in relatedInfo:
+        fix_relatedInfo(rl)
 
-    print "OUT PATH", out_path
-    tree.write(out_path, encoding='utf-8')
+uri_types = {
+      "http://creativecommons.org/licenses":"license",
+      "http://opendatacommons.org/licenses":"license"
+
+}
+
+uri_keys = uri_types.keys()
+
+def fix_relatedInfo(rel):
+    id = rel.xpath("rif:identifier", namespaces=namespace)[0]
+    val = id.text.strip()
+    if id.attrib.has_key('type'):
+        if id.attrib['type'] == 'uri':
+            for ukey in uri_keys:
+                if val.startswith(ukey):
+                    id.attrib['uritype'] = uri_types[ukey]
+                    break
+
 
 
 def fix_relatedObject(rel):
+    relation_nodes = rel.xpath("rif:key", namespaces=namespace)
+    for key_node in relation_nodes:
+        key = key_node.text.strip()
+        if key.startswith("jcu.edu.au/tdh/party/"):
+            fix_relatedObject_Party(rel)
+        elif key.startswith("jcu.edu.au/tdh/activity/"):
+            fix_relatedObject_Activity(rel)
+        else:
+            raise Exception("Unknown Related Object Type")
+
+def fix_relatedObject_Activity(rel):
+    id_node = rel.xpath("rif:key", namespaces=namespace)[0]
+    id_node.text = id_node.text.strip().replace("jcu.edu.au/tdh/activity/", "jcu.edu.au/activity/")
+    r = requests.get(solrFieldQuery("dc_identifier", id_node.text))
+    solrResponse = json.loads(r.text)
+    if solrResponse['response']['numFound'] == 1:
+        entry = solrResponse['response']['docs'][0]
+        rel.attrib['title'] = entry['dc_title']
+        rel.attrib['grantNumber'] = id_node.text.replace("jcu.edu.au/activity/","")
+        print id_node.text.replace("jcu.edu.au/activity/","")
+
+
+def fix_relatedObject_Party(rel):
     id_node = rel.xpath("rif:key", namespaces=namespace)
     relation_node = rel.xpath("rif:relation", namespaces=namespace)
     id = id_node[0].text.strip()
@@ -78,6 +139,7 @@ def fix_relatedObject(rel):
     if solrResponse['response']['numFound'] != 1:
         return
     entry = solrResponse['response']['docs'][0]
+    id_node[0].text=entry['dc_identifier'][0]
     fields = ["Family_Name", "Given_Name", "Honorific", "dc_title", "primary_group_id"]
     for fld in fields:
 
@@ -88,7 +150,15 @@ def fix_relatedObject(rel):
         else:
             rel.attrib[fld] = entry[fld]
     id_node[0].text = entry["dc_identifier"][0]
-    labels={"hasAssociationWith":"Associated with:", "isManagedBy":"Managed By:", "hasCollector":""}
+
+    labels={
+        "hasAssociationWith":"Associated with:",
+        "hasCollector":"Aggregated by:",
+        "isEnrichedBy":"Enriched by:",
+        "isManagedBy":"Managed by:",
+        "isOwnedBy":"Owned by:",
+    }
+
     relation_node[0].attrib['label'] = labels[relation_node[0].attrib['type']]
 
     r = requests.get(solrFieldQuery("dc_identifier", entry["primary_group_id"][0]))

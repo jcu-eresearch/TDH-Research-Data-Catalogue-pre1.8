@@ -20,41 +20,45 @@ from lxml import etree as ET
 import requests
 import json, urllib
 import os.path
+from jcu import config_helper
 
-mint_protocol = "http"
-mint_host = "localhost:9001"
+def getConfig(args):
+    mint_solr_url = "{mint_protocol}://{mint_host}:{mint_port}/solr/fascinator".format(**(args.__dict__))
+    mint_url = "{mint_protocol}://{mint_host}:{mint_port}/{redbox_context}".format(**(args.__dict__))
+    redbox_url = "{redbox_protocol}://{redbox_host}:{redbox_port}/{redbox_context}".format(**(args.__dict__))
+    return config_helper({
+        "mint_url":mint_url,
+        "mint_solr_url": mint_solr_url,
+        "redbox_url":redbox_url,
+        "anzsrc_query": '{mint_solr_url}/select?wt=json&q=dc_identifier%%3D"{query}"'.format(mint_solr_url=mint_solr_url, query="%s"),
+        "dc_i_query": '{mint_solr_url}/select?wt=json&q=dc_identifier%%3D"{query}"'.format(mint_solr_url=mint_solr_url, query="%s"),
+        "user_query": '{mint_solr_url}/select?wt=json&q=known_ids%%3D"{query}"'.format(mint_solr_url=mint_solr_url, query="%s"),
+        "field_query": '{mint_solr_url}/select?wt=json&q={field}%3A{value}',
+        "license_url": "{redbox_url}/default/workflows/forms/data/licences.json".format(redbox_url=redbox_url)
+    })
 
-mint_url = "{protocol}://{mint_host}/solr/fascinator".format(protocol=mint_protocol, mint_host=mint_host)
 
-anzsrc_query = '{base_url}/select?wt=json&q=dc_identifier%%3D"{query}"'.format(base_url=mint_url, query="%s")
+namespace = {"rif": "http://ands.org.au/standards/rif-cs/registryObjects"}
 
-dc_i_query = '{base_url}/select?wt=json&q=dc_identifier%%3D"{query}"'.format(base_url=mint_url, query="%s")
+def solrFieldQuery(field, value, config):
+    return config.field_query.format(mint_solr_url=config.mint_solr_url, field=field, value=urllib.quote(value, safe=''))
 
-user_query = '{base_url}/select?wt=json&q=known_ids%%3D"{query}"'.format(base_url=mint_url, query="%s")
-
-field_query = '{base_url}/select?wt=json&q={field}%3A{value}'
-
-
-#ET._namespace_map["http://ands.org.au/standards/rif-cs/registryObjects"] = "rif"
-
-namespace={"rif":"http://ands.org.au/standards/rif-cs/registryObjects"}
-
-def solrFieldQuery(field, value):
-    return field_query.format(base_url=mint_url, field=field, value=urllib.quote(value, safe=''))
 
 def fix(path, args, output):
+    config = getConfig(args)
+    config.licenses = json.loads(requests.get(config.license_url).text)
+    print config.licenses
     name = os.path.split(path)[1]
 
     tree = ET.parse(path)
 
-
     if name.startswith("party_"):
-        #fix_party(tree)
+        #fix_party(tree, config)
         return
     elif name.startswith("collection_"):
-        fix_collection(tree)
+        fix_collection(tree, config)
     elif name.startswith("activity_"):
-        fix_activity(tree)
+        fix_activity(tree, config)
     else:
         raise Exception("Unknown Type")
 
@@ -64,50 +68,58 @@ def fix(path, args, output):
 
     tree.write(out_path, encoding='utf-8')
 
-def fix_party(tree): pass
-def fix_activity(tree): pass
-def fix_collection(tree):
-    subjects = tree.xpath( "/rif:registryObjects/rif:registryObject/rif:collection/rif:subject", namespaces=namespace)
+
+def fix_party(tree, config): pass
+
+
+def fix_activity(tree, config): pass
+
+
+def fix_collection(tree, config):
+    subjects = tree.xpath("/rif:registryObjects/rif:registryObject/rif:collection/rif:subject", namespaces=namespace)
     for subject in subjects:
         if subject.attrib.has_key("type"):
             if subject.attrib['type'] == 'anzsrc-for':
                 orig = subject.text.strip()
                 subject.text = "http://purl.org/asc/1297.0/2008/for/" + orig
-                subject.attrib['title'] = getTitle(subject.text, orig)
+                subject.attrib['title'] = getTitle(subject.text, orig, config)
             if subject.attrib['type'] == 'anzsrc-seo':
                 orig = subject.text.strip()
                 subject.text = "http://purl.org/asc/1297.0/2008/seo/" + orig
-                subject.attrib['title'] = getTitle(subject.text, orig)
+                subject.attrib['title'] = getTitle(subject.text, orig, config)
 
-    related = tree.xpath("/rif:registryObjects/rif:registryObject/rif:collection/rif:relatedObject", namespaces=namespace)
+    related = tree.xpath("/rif:registryObjects/rif:registryObject/rif:collection/rif:relatedObject",
+        namespaces=namespace)
     for rel in related:
-        fix_relatedObject(rel)
+        fix_relatedObject(rel, config)
     emails = "/rif:registryObjects/rif:registryObject/rif:collection/rif:location/rif:address/rif:electronic[@type='email']"
     for email in tree.xpath(emails, namespaces=namespace):
-        fix_email(email)
+        fix_email(email, config)
 
     addr = "/rif:registryObjects/rif:registryObject/rif:collection/rif:location/rif:address/rif:physical[@type='streetAddress']"
     for addresses in tree.xpath(addr, namespaces=namespace):
-        fix_land_address(addresses)
+        fix_land_address(addresses, config)
 
     related = tree.xpath("/rif:registryObjects/rif:registryObject", namespaces=namespace)
     ex = ET.SubElement(related[0], "DATA_MANAGEMENT")
     ex.attrib['size'] = "0"
     ex.attrib['period'] = "0"
 
-    relatedInfo = tree.xpath("/rif:registryObjects/rif:registryObject/rif:collection/rif:relatedInfo", namespaces=namespace)
+    relatedInfo = tree.xpath("/rif:registryObjects/rif:registryObject/rif:collection/rif:relatedInfo",
+        namespaces=namespace)
     for rl in relatedInfo:
-        fix_relatedInfo(rl)
+        fix_relatedInfo(rl, config)
 
-def fix_email(email):
+
+def fix_email(email, config):
     value = email.xpath("rif:value", namespaces=namespace)[0]
-    eml =  value.text.strip()
-    eml = eml.replace("Email: ","")
+    eml = value.text.strip()
+    eml = eml.replace("Email: ", "")
     value.text = eml
-    r = requests.get(solrFieldQuery("Email", eml))
+    r = requests.get(solrFieldQuery("Email", eml, config))
     solrResponse = json.loads(r.text)
     if solrResponse['response']['numFound'] > 1:
-        raise Exception("More than one email address: "+eml)
+        raise Exception("More than one email address: " + eml)
 
     entry = solrResponse['response']['docs'][0]
     email.attrib['hon'] = entry['Honorific'][0]
@@ -115,7 +127,7 @@ def fix_email(email):
     email.attrib['familyName'] = entry['Family_Name'][0]
 
 
-def fix_land_address(addresses):
+def fix_land_address(addresses, config):
     ad = addresses.xpath("rif:addressPart[@type='addressLine']", namespaces=namespace)
     address = "\n".join([i.text.strip() for i in ad]).strip()
     map(lambda a: addresses.remove(a), ad)
@@ -123,15 +135,20 @@ def fix_land_address(addresses):
     el.attrib['type'] = "combined"
     el.text = address
 
-uri_types = {
-      "http://creativecommons.org/licenses":"license",
-      "http://opendatacommons.org/licenses":"license"
-}
+uri_types = {}
 
-uri_keys = uri_types.keys()
+def fix_relatedInfo(rel, config):
+    licenses = {}
+    for lic in config.licenses['results']:
+        licenses[lic['id']] = lic['label']
+        if not uri_types.has_key(lic['id']):
+            uri_types[lic['id']] = "license"
 
-def fix_relatedInfo(rel):
+    uri_keys = uri_types.keys()
     id = rel.xpath("rif:identifier", namespaces=namespace)[0]
+    _notes = rel.xpath("rif:notes", namespaces=namespace)
+    notes = None
+    if len(_notes) > 0: notes = _notes[0]
     id.attrib['uritype'] = 'url'
     val = id.text.strip()
     if id.attrib.has_key('type'):
@@ -139,48 +156,48 @@ def fix_relatedInfo(rel):
             for ukey in uri_keys:
                 if val.startswith(ukey):
                     id.attrib['uritype'] = uri_types[ukey]
+                    id.text = ukey
+                    notes.text = licenses[ukey]
                     break
 
 
-
-def fix_relatedObject(rel):
+def fix_relatedObject(rel, config):
     relation_nodes = rel.xpath("rif:key", namespaces=namespace)
     for key_node in relation_nodes:
         key = key_node.text.strip()
         if key.startswith("jcu.edu.au/tdh/party/"):
-            fix_relatedObject_Party(rel)
+            fix_relatedObject_Party(rel, config)
         elif key.startswith("jcu.edu.au/tdh/activity/"):
-            fix_relatedObject_Activity(rel)
+            fix_relatedObject_Activity(rel, config)
         else:
             raise Exception("Unknown Related Object Type")
 
-def fix_relatedObject_Activity(rel):
+
+def fix_relatedObject_Activity(rel, config):
     id_node = rel.xpath("rif:key", namespaces=namespace)[0]
     id_node.text = id_node.text.strip().replace("jcu.edu.au/tdh/activity/", "jcu.edu.au/activity/")
-    r = requests.get(solrFieldQuery("dc_identifier", id_node.text))
+    r = requests.get(solrFieldQuery("dc_identifier", id_node.text, config))
     solrResponse = json.loads(r.text)
     if solrResponse['response']['numFound'] == 1:
         entry = solrResponse['response']['docs'][0]
         rel.attrib['title'] = entry['dc_title']
-        rel.attrib['grantNumber'] = id_node.text.replace("jcu.edu.au/activity/","")
-        print id_node.text.replace("jcu.edu.au/activity/","")
+        rel.attrib['grantNumber'] = id_node.text.replace("jcu.edu.au/activity/", "")
+        print id_node.text.replace("jcu.edu.au/activity/", "")
 
 
-def fix_relatedObject_Party(rel):
+def fix_relatedObject_Party(rel, config):
     id_node = rel.xpath("rif:key", namespaces=namespace)
     relation_node = rel.xpath("rif:relation", namespaces=namespace)
     id = id_node[0].text.strip()
-    r = requests.get(user_query % id)
+    r = requests.get(config.user_query % id)
     solrResponse = json.loads(r.text)
-
 
     if solrResponse['response']['numFound'] != 1:
         return
     entry = solrResponse['response']['docs'][0]
-    id_node[0].text=entry['dc_identifier'][0]
+    id_node[0].text = entry['dc_identifier'][0]
     fields = ["Family_Name", "Given_Name", "Honorific", "dc_title", "primary_group_id"]
     for fld in fields:
-
         if  isinstance(entry[fld], list):
             if len(entry[fld]) > 1:
                 raise Exception("Only one element expected for: %s, got %s" % (fld, len(entry[fld])))
@@ -189,23 +206,23 @@ def fix_relatedObject_Party(rel):
             rel.attrib[fld] = entry[fld]
     id_node[0].text = entry["dc_identifier"][0]
 
-    labels={
-        "hasAssociationWith":"Associated with:",
-        "hasCollector":"Aggregated by:",
-        "isEnrichedBy":"Enriched by:",
-        "isManagedBy":"Managed by:",
-        "isOwnedBy":"Owned by:",
-    }
+    labels = {
+        "hasAssociationWith": "Associated with:",
+        "hasCollector": "Aggregated by:",
+        "isEnrichedBy": "Enriched by:",
+        "isManagedBy": "Managed by:",
+        "isOwnedBy": "Owned by:",
+        }
 
     relation_node[0].attrib['label'] = labels[relation_node[0].attrib['type']]
 
-    r = requests.get(solrFieldQuery("dc_identifier", entry["primary_group_id"][0]))
+    r = requests.get(solrFieldQuery("dc_identifier", entry["primary_group_id"][0], config))
     orgu_res = json.loads(r.text.encode("utf-8"))
     rel.attrib["primary_group_name"] = orgu_res['response']['docs'][0]["Name"][0]
 
 
-def getTitle(id, orig):
-    r = requests.get(anzsrc_query % id)
+def getTitle(id, orig, config):
+    r = requests.get(config.anzsrc_query % id)
     solrResponse = json.loads(r.text)
     for val in solrResponse['response']['docs']:
         if id in val['dc_identifier']:

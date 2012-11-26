@@ -63,6 +63,7 @@ class config_helper:
 
     def __getitem__(self, item):
         return self.config[item]
+
     def __setitem__(self, key, item):
         self.config[key] = item
 

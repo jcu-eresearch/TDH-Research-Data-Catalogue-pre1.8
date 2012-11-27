@@ -1,6 +1,11 @@
 {
     "comment": "This is a sample RIF-CS mapping. It is important to check this against your RIF-CS as there can be some differences across feeds etc",
     "mappings": {
+        "/rif:registryObjects/rif:registryObject/rif:key":
+        {
+            ".":"rif:identifier.0.value",
+            "@type":"rif:identifier.0.type"
+        },
         "/rif:registryObjects/rif:registryObject/rif:collection":{
             "@type":["dc:type.rdf:PlainLiteral", "dc:type.skos:prefLabel"],
             "@dateModified":["dc:modified"],

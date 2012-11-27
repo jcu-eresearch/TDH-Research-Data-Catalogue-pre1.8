@@ -29,48 +29,6 @@ alerts = {}
 execfile(os.path.abspath(os.path.join(os.path.split(sys.argv[0])[0], "..", "..", "config", "portal", "default", "redbox", "scripts", "hkjobs", "alerts.py")), globals(), alerts)
 AlertsData = alerts["AlertsData"]
 
-#class response:
-#    def setStatus(self, status): pass
-#
-#    def getPrintWriter(self, mime): return PrintWriter()
-#
-#class config:
-#    def __init__(self, home, data):
-#        self.data = data
-#        self.home = home
-#    def getString(self, *args):
-#        print args
-#        if args[1] == 'redbox.version.string':
-#            return "1.5.2.2"
-#        d = self.data
-#        for i in args[1]:
-#            d = d[i]
-#        if d is None:
-#            return None
-#        return d.replace("${fascinator.home}",self.home)
-#        if args[1] == ["alerts", "path"]:
-#            d = self.data
-#            for i in args[1]:
-#                d = d[i]
-#            return d.replace("${fascinator.home}",self.home)
-#        if args[1] == ["alerts", "xmlMaps", "xml"]:
-#            return "rifXmlMap.json"
-#        return None
-
-#class log:
-#    def error(self, *args):
-#        print "[ERROR]", args
-#
-#    def info(self, *args):
-#        print "[INFO ]", args
-#
-#    def debug(self, *args):
-#        a = args[0]
-#        b = args[1:]
-#        print "[DEBUG]", a.format(*b)
-
-
-
 if __name__ == "__main__":
 
     argParse = ArgumentParser(description="Process the JCU RIF-CS imports")
@@ -117,11 +75,9 @@ if __name__ == "__main__":
             system_data["alerts"]["xmlMaps"]["xml"] = args.xmap[0]
 
         if args.output is not None:
-            output = args.output[0]
+            output = args.output
         if args.inplace:
             output = None
-        print "{mint_protocol}://{mint_host}/solr/fascinator".format(**(args.__dict__))
-        print "==========================="
         for fl in args.file:
             for _file in glob.glob(fl):
                 print "Processing: ", _file

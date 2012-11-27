@@ -47,7 +47,6 @@ def solrFieldQuery(field, value, config):
 def fix(path, args, output):
     config = getConfig(args)
     config.licenses = json.loads(requests.get(config.license_url).text)
-    print config.licenses
     name = os.path.split(path)[1]
 
     tree = ET.parse(path)
@@ -65,7 +64,6 @@ def fix(path, args, output):
     out_path = path
     if output:
         out_path = os.path.join(output, name)
-
     tree.write(out_path, encoding='utf-8')
 
 
@@ -88,6 +86,12 @@ def fix_collection(tree, config):
                 subject.text = "http://purl.org/asc/1297.0/2008/seo/" + orig
                 subject.attrib['title'] = getTitle(subject.text, orig, config)
 
+    keys = tree.xpath("/rif:registryObjects/rif:registryObject/rif:key", namespaces=namespace)
+    fix_key(keys, config)
+
+    collections = tree.xpath("/rif:registryObjects/rif:registryObject/rif:collection", namespaces=namespace)
+    fix_collections(collections, config)
+
     related = tree.xpath("/rif:registryObjects/rif:registryObject/rif:collection/rif:relatedObject",
         namespaces=namespace)
     for rel in related:
@@ -101,30 +105,49 @@ def fix_collection(tree, config):
         fix_land_address(addresses, config)
 
     related = tree.xpath("/rif:registryObjects/rif:registryObject", namespaces=namespace)
-    ex = ET.SubElement(related[0], "DATA_MANAGEMENT")
-    ex.attrib['size'] = "0"
-    ex.attrib['period'] = "0"
+#    fix_extent(related, config)
 
     relatedInfo = tree.xpath("/rif:registryObjects/rif:registryObject/rif:collection/rif:relatedInfo",
         namespaces=namespace)
     for rl in relatedInfo:
         fix_relatedInfo(rl, config)
 
+def fix_extent(related, config):
+    ex = ET.SubElement(related[0], "DATA_MANAGEMENT")
+    ex.attrib['size'] = "0"
+    ex.attrib['period'] = "0"
+
+def fix_collections(collections, config):
+    for collection in collections:
+        collection.attrib['dateAccessioned'] = collection.attrib['dateAccessioned'].split("T")[0]
+        collection.attrib['dateModified'] =  collection.attrib['dateModified'].split("T")[0]
+
+def fix_key(keys, config):
+    for key in keys:
+        if key.text.strip().startswith("jcu.edu.au/tdh/collection/"):
+            key.text = key.text.strip()
+            key.attrib['type'] = "local"
+
 
 def fix_email(email, config):
     value = email.xpath("rif:value", namespaces=namespace)[0]
     eml = value.text.strip()
     eml = eml.replace("Email: ", "")
+    eml = eml.replace("email: ", "")
+    eml = eml.replace("e-mail: ", "")
+    eml = eml.lower()
     value.text = eml
     r = requests.get(solrFieldQuery("Email", eml, config))
     solrResponse = json.loads(r.text)
     if solrResponse['response']['numFound'] > 1:
         raise Exception("More than one email address: " + eml)
-
-    entry = solrResponse['response']['docs'][0]
-    email.attrib['hon'] = entry['Honorific'][0]
-    email.attrib['givenName'] = entry['Given_Name'][0]
-    email.attrib['familyName'] = entry['Family_Name'][0]
+    if len(solrResponse['response']['docs']) > 0:
+        entry = solrResponse['response']['docs'][0]
+        email.attrib['hon'] = entry['Honorific'][0]
+        email.attrib['givenName'] = entry['Given_Name'][0]
+        email.attrib['familyName'] = entry['Family_Name'][0]
+    else:
+        print "Cannot find email address: ", eml
 
 
 def fix_land_address(addresses, config):
@@ -182,7 +205,7 @@ def fix_relatedObject_Activity(rel, config):
         entry = solrResponse['response']['docs'][0]
         rel.attrib['title'] = entry['dc_title']
         rel.attrib['grantNumber'] = id_node.text.replace("jcu.edu.au/activity/", "")
-        print id_node.text.replace("jcu.edu.au/activity/", "")
+#        print id_node.text.replace("jcu.edu.au/activity/", "")
 
 
 def fix_relatedObject_Party(rel, config):

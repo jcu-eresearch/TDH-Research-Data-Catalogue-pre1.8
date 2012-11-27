@@ -129,6 +129,10 @@ def fix_key(keys, config):
             key.attrib['type'] = "local"
 
 
+email_remap = {
+    "jjvanderwal@gmail.com":"jeremy.vanderwal@jcu.edu.au",
+}
+
 def fix_email(email, config):
     value = email.xpath("rif:value", namespaces=namespace)[0]
     eml = value.text.strip()
@@ -136,6 +140,8 @@ def fix_email(email, config):
     eml = eml.replace("email: ", "")
     eml = eml.replace("e-mail: ", "")
     eml = eml.lower()
+    if eml in email_remap:
+        eml = email_remap[eml]
     value.text = eml
     r = requests.get(solrFieldQuery("Email", eml, config))
     solrResponse = json.loads(r.text)

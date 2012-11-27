@@ -21,6 +21,7 @@ import requests
 import json, urllib
 import os.path
 from jcu import config_helper
+from datetime import datetime
 
 def getConfig(args):
     mint_solr_url = "{mint_protocol}://{mint_host}:{mint_port}/solr/fascinator".format(**(args.__dict__))
@@ -112,6 +113,8 @@ def fix_collection(tree, config):
     for rl in relatedInfo:
         fix_relatedInfo(rl, config)
 
+
+
 def fix_extent(related, config):
     ex = ET.SubElement(related[0], "DATA_MANAGEMENT")
     ex.attrib['size'] = "0"
@@ -119,8 +122,11 @@ def fix_extent(related, config):
 
 def fix_collections(collections, config):
     for collection in collections:
-        collection.attrib['dateAccessioned'] = collection.attrib['dateAccessioned'].split("T")[0]
-        collection.attrib['dateModified'] =  collection.attrib['dateModified'].split("T")[0]
+#        collection.attrib['dateAccessioned'] = collection.attrib['dateAccessioned'].split("T")[0]
+#        collection.attrib['dateModified'] =  collection.attrib['dateModified'].split("T")[0]
+        now = datetime.now()
+        collection.attrib['dateAccessioned'] = "%s-%s-%s"%(now.year, now.month, now.day)
+        collection.attrib['dateModified'] =  "%s-%s-%s"%(now.year, now.month, now.day)
 
 def fix_key(keys, config):
     for key in keys:

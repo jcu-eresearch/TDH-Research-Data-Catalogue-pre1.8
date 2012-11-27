@@ -75,7 +75,6 @@
         "/rif:registryObjects/rif:registryObject/rif:collection/rif:location/rif:address/rif:physical/rif:addressPart[@type='combined']":"vivo:Location.vivo:GeographicLocation.gn:name",
         "/rif:registryObjects/rif:registryObject/rif:collection/rif:coverage/rif:temporal/rif:date[@type='dateFrom']":"dc:coverage.vivo:DateTimeInterval.vivo:start",
         "/rif:registryObjects/rif:registryObject/rif:collection/rif:coverage/rif:temporal/rif:date[@type='dateTo']":"dc:coverage.vivo:DateTimeInterval.vivo:end",
-        "/rif:registryObjects/rif:registryObject/rif:collection/rif:location/rif:address/rif:electronic[@type='url']/rif:value":"bibo:Website.0.dc:identifier",
         "/rif:registryObjects/rif:registryObject/rif:collection/rif:location/rif:address/rif:electronic[@type='email']":{
             "@hon":"locrel:prc.foaf:Person.foaf:title",
             "@givenName":"locrel:prc.foaf:Person.foaf:givenName",

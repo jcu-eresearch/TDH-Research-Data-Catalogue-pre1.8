@@ -3,7 +3,7 @@
     "mappings": {
         "/rif:registryObjects/rif:registryObject/rif:key":
         {
-            ".":"rif:identifier.0.value",
+            ".":["rif:identifier.0.value", "known_ids"],
             "@type":"rif:identifier.0.type"
         },
         "/rif:registryObjects/rif:registryObject/rif:collection":{

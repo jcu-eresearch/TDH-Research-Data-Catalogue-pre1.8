@@ -6,4 +6,5 @@ target/
 ${project.home}
 *.properties
 .gitignore
+.DS_Store
 

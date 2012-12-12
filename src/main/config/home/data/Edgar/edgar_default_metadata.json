@@ -26,7 +26,7 @@
                 "coinvestigators": ["Atlas of Living Australia; http://www.ala.org.au"],
                 "researchTheme": "Tropical Ecosystems, Conservation and Climate Change",
                 "temporalCoverage": {
-                    "dateFrom" : "1900-01-01",
+                    "dateFrom" : "1900-01-01"
                 },
                 "spatialCoverage": [ 
                 { 
@@ -44,15 +44,7 @@
                 } ],
                 "contactInfo" : {
                     "email" : "jeremy.vanderwal@jcu.edu.au",
-                    "streetAddress" : [ 
-                        "A/Prof Jeremy VanDerWal",
-                        "Centre for Tropical Biodiversity & Climate Change", 
-                        "James Cook University",
-                        "Building 145, ATSIP",
-                        "James Cook University Drive",
-                        "Townsville, QLD, 4811",
-                        "Australia"
-                    ], 
+                    "streetAddress" : "A/Prof Jeremy VanDerWal, Centre for Tropical Biodiversity & Climate Change, James Cook University, Building 145, ATSIP, James Cook University Drive, Townsville, QLD, 4811, Australia", 
                     "phoneNumber" : "+61 7 4781 5570"
                 },
                 "anzsrcFOR" : [ "060208", "050202" ],
@@ -61,7 +53,8 @@
                 "associatedParty" : [
                 { 
                     "who" : {"type" : "people", "value" : "jeremy.vanderwal@jcu.edu.au"},
-                    "relationship" : "isManagedBy"
+                    "relationship" : "isManagedBy",
+                    "affiliation" : {"id" : "jcu.edu.au/parties/group/CTBCC", "label" : "Centre for Tropical Biodiversity and Climate Change"}
                 } ],
                 "organizationalGroup" : [
                     "CTBCC"
@@ -73,16 +66,28 @@
                     "identifier" : "jcu.edu.au/tdh/collection/%NAME_OF_FOLDER%/suitability"
                 }
                 ],
-                "additionalIdentifier" : "jcu.edu.au/tdh/collection/%NAME_OF_FOLDER%/suitability",                
+                "additionalIdentifier" : "jcu.edu.au/tdh/collection/%NAME_OF_FOLDER%/occurrences",                
                 "relatedService" : [
                 { 
                     "title" : "Edgar: Climate Change Impact on the Distributions of Australian Bird Species",
                     "relationship": "isProducedBy",
                     "identifier" : "jcu.edu.au/tdh/service/australian-birds"
                 } ],
-                "dataLocation" : "http://eresearch.jcu.edu.au/tdh/datasets/Edgar/%NAME_OF_FOLDER%",
-                "retentionPeriod" : "indefinitely"
-            } ], 
+                "dataLocation" : "http://eresearch.jcu.edu.au/tdh/datasets/Edgar/%NAME_OF_FOLDER%/occurrences",
+                "retentionPeriod" : "indefinitely",
+                "citations" : [
+                {
+                    "familyName" : "Vanderwal",
+                    "givenName" : "J",
+                    "title" : "Dr",
+                    "paperTitle" : "%NAME_OF_FOLDER% - current and future species distribution models", 
+                    "url" : "http://eresearch.jcu.edu.au/tdh/datasets/Edgar/%NAME_OF_FOLDER%/occurrences",
+                    "publisher" : "Centre for Tropical Biodiversity & Climate Change, James Cook University",
+                    "sendCitation" : "on",
+                    "curationIdentifier" : "useCuration",
+                    "dataType" : "Data files"
+                } ]
+             } ] 
             "suitability": [ { 
                 "title": "%NAME_OF_FOLDER% - current and future species distribution models",
                 "type": "dataset",
@@ -93,7 +98,7 @@
                 },
                 {
                     "type": "full",
-                    "value": "<p>Observation records were filtered from the Atlas of Living Australia's (ALA) database based on ALA's 'assertions', expert-derived range polygons and expert opinion, and those observations inappropriate for modelling were excluded.  Only species with &gt;20 unique spatiotemporal records were used for modelling.</p><p>Current climate was sourced as monthly precipitation and temperature minima and maxima from 1975 until 2005 at a 0.05¡ grid scale from the Australian Water Availability Project (AWAP - <a href=\"http://www.bom.gov.au/jsp/awap/\">http://www.bom.gov.au/jsp/awap/</a>) (Jones et al 2007, Grant et al 2008).</p> <p>Future climate projections were sourced through a collaboration with Drs Rachel Warren and Jeff Price, Tyndall Centre, University of East Anglia, UK. This data is available on <a href=\"http://climascope.wwfus.org\">http://climascope.wwfus.org</a>. Although new GCM runs for RCPs have not been fully completed, several research groups have implemented methods to utilize knowledge gained from SRES predictions to recreate predictions for the new RCPs using AR4 GCMs (e.g., Meinshausen, Smith et al. 2011; Rogelj, Meinshausen et al. 2012). The methods used to generate the GCM predictions for the RCP emission scenarios are defined at <a href=\"http://climascope.wwfus.org\">http://climascope.wwfus.org</a> and in associated publications (Mitchell and Jones 2005; Warren, de la Nava Santos et al. 2008; Meinshausen, Raper et al. 2011). This data was downscaled to 0.05 degrees (~5km resolution) using a cubic spline of the anomalies; these anomalies were applied to a current climate baseline of 1976 to 2005 Ð climate of 1990 Ð generated from aggregating monthly data from Australia Water Availability Project (AWAP; <a href=\"http://www.bom.gov.au/jsp/awap/\">http://www.bom.gov.au</a>). These monthly temperature and precipitation values user used to create 19 standard bioclimatic variables. These bioclimatic variables are listed at <a href=\"http://www.worldclim.org/bioclim\">http://www.worldclim.org/bioclim</a>. All downscaling and bioclimatic variable creation was done using the climates package (VanDerWal, Beaumont et al. 2011) in R (<a href=\"http://www.r-project.org/\">http://www.r-project.org/</a>).</p><p>Used in the modelling were annual mean temperature, temperature seasonality, max and min monthly temperature, annual precipitation, precipitation seasonality, and precipitation of the wettest and driest quarters for current and all RCP scenarios (RCP3PD, RCP45, RCP6, RCP85) at 8 time steps between 2015 and 2085.</p><p>Species distribution models were run using the presence-only modelling program Maxent (Phillips et al 2006). Maxent uses species presence records to statistically relate species occurrence to environmental variables on the principle of maximum entropy. All default settings were used except for background point allocation. We used a target group background (Phillips & Dudik 2008) to remove any spatial or temporal sampling bias in the modelling exercise.</p>"
+                    "value": "<p>Observation records were filtered from the Atlas of Living Australia's (ALA) database based on ALA's 'assertions', expert-derived range polygons and expert opinion, and those observations inappropriate for modelling were excluded.  Only species with &gt;20 unique spatiotemporal records were used for modelling.</p><p>Current climate was sourced as monthly precipitation and temperature minima and maxima from 1975 until 2005 at a 0.05ï¿½ grid scale from the Australian Water Availability Project (AWAP - <a href=\"http://www.bom.gov.au/jsp/awap/\">http://www.bom.gov.au/jsp/awap/</a>) (Jones et al 2007, Grant et al 2008).</p> <p>Future climate projections were sourced through a collaboration with Drs Rachel Warren and Jeff Price, Tyndall Centre, University of East Anglia, UK. This data is available on <a href=\"http://climascope.wwfus.org\">http://climascope.wwfus.org</a>. Although new GCM runs for RCPs have not been fully completed, several research groups have implemented methods to utilize knowledge gained from SRES predictions to recreate predictions for the new RCPs using AR4 GCMs (e.g., Meinshausen, Smith et al. 2011; Rogelj, Meinshausen et al. 2012). The methods used to generate the GCM predictions for the RCP emission scenarios are defined at <a href=\"http://climascope.wwfus.org\">http://climascope.wwfus.org</a> and in associated publications (Mitchell and Jones 2005; Warren, de la Nava Santos et al. 2008; Meinshausen, Raper et al. 2011). This data was downscaled to 0.05 degrees (~5km resolution) using a cubic spline of the anomalies; these anomalies were applied to a current climate baseline of 1976 to 2005 ï¿½ climate of 1990 ï¿½ generated from aggregating monthly data from Australia Water Availability Project (AWAP; <a href=\"http://www.bom.gov.au/jsp/awap/\">http://www.bom.gov.au</a>). These monthly temperature and precipitation values user used to create 19 standard bioclimatic variables. These bioclimatic variables are listed at <a href=\"http://www.worldclim.org/bioclim\">http://www.worldclim.org/bioclim</a>. All downscaling and bioclimatic variable creation was done using the climates package (VanDerWal, Beaumont et al. 2011) in R (<a href=\"http://www.r-project.org/\">http://www.r-project.org/</a>).</p><p>Used in the modelling were annual mean temperature, temperature seasonality, max and min monthly temperature, annual precipitation, precipitation seasonality, and precipitation of the wettest and driest quarters for current and all RCP scenarios (RCP3PD, RCP45, RCP6, RCP85) at 8 time steps between 2015 and 2085.</p><p>Species distribution models were run using the presence-only modelling program Maxent (Phillips et al 2006). Maxent uses species presence records to statistically relate species occurrence to environmental variables on the principle of maximum entropy. All default settings were used except for background point allocation. We used a target group background (Phillips & Dudik 2008) to remove any spatial or temporal sampling bias in the modelling exercise.</p>"
                 },
                 {
                     "type": "note",
@@ -136,50 +141,54 @@
                 } ],
                 "contactInfo" : {
                     "email" : "jeremy.vanderwal@jcu.edu.au",
-                    "streetAddress" : [ 
-                        "A/Prof Jeremy VanDerWal",
-                        "Centre for Tropical Biodiversity & Climate Change", 
-                        "James Cook University",
-                        "Building 145, ATSIP",
-                        "James Cook University Drive",
-                        "Townsville, QLD, 4811",
-                        "Australia"
-                    ], 
+                    "streetAddress" : "A/Prof Jeremy VanDerWal, Centre for Tropical Biodiversity & Climate Change, James Cook University, Building 145, ATSIP, James Cook University Drive, Townsville, QLD, 4811, Australia", 
                     "phoneNumber" : "+61 7 4781 5570"
                 },
                 "anzsrcFOR" : [ "060208" ],
                 "anzsrcSEO" : [ "960303" ],
-                "keyword" : [ "geographic information system", "spatial data", "spatial analysis", "climate change", "GIS"],                "associatedParty" : [
+                "keyword" : [ "geographic information system", "spatial data", "spatial analysis", "climate change", "GIS"],
+                "associatedParty" : [
                 { 
                     "who" : {"type" : "people", "value" : "jeremy.vanderwal@jcu.edu.au"},
-                    "relationship" : "isManagedBy"
+                    "relationship" : "isManagedBy",
+                    "affiliation" : {"id" : "jcu.edu.au/parties/group/CTBCC", "label" : "Centre for Tropical Biodiversity and Climate Change"}
                 } ],
                 "organizationalGroup" : [
                     "CTBCC"
                 ],
-                "additionalIdentifier" : "jcu.edu.au/tdh/collection/%NAME_OF_FOLDER%/occurrences",
+                "additionalIdentifier" : "jcu.edu.au/tdh/collection/%NAME_OF_FOLDER%/suitability",
                 "relatedCollection" : [
                 {
                     "title" : "All future climate layers for Australia",
                     "relationship": "isDerivedFrom",
                     "identifier" : "jcu.edu.au/tdh/collection/633b4ccd-2e78-459d-963c-e43d3c8a5ca1"
                 },
-		{
-		    "title" : "Current and Future Distribution Models for Australian Bird Species",
-		    "relationship": "isPartOf",
-		    "identifier" : "jcu.edu.au/tdh/collection/a452909d-05fd-44bf-95be-2c7b597c3a90"
-		} ],                
+				{
+				    "title" : "Current and Future Distribution Models for Australian Bird Species",
+				    "relationship": "isPartOf",
+				    "identifier" : "jcu.edu.au/tdh/collection/a452909d-05fd-44bf-95be-2c7b597c3a90"
+				} ],                
                 "relatedService" : [
                 { 
                     "title" : "Edgar: Climate Change Impact on the Distributions of Australian Bird Species",
                     "relationship": "isProducedBy",
                     "identifier" : "jcu.edu.au/tdh/service/australian-birds"
                 } ],
-                "dataLocation" : "http://eresearch.jcu.edu.au/tdh/datasets/Edgar/%NAME_OF_FOLDER%",
-                "retentionPeriod" : "indefinitely"
-                } ]
-        }
+                "dataLocation" : "http://eresearch.jcu.edu.au/tdh/datasets/Edgar/%NAME_OF_FOLDER%/suitability",
+                "retentionPeriod" : "indefinitely",
+                 "citations" : [
+                {
+                    "familyName" : "Vanderwal",
+                    "givenName" : "J",
+                    "title" : "Dr",
+                    "paperTitle" : "%NAME_OF_FOLDER% - current and future species distribution models", 
+                    "url" : "http://eresearch.jcu.edu.au/tdh/datasets/Edgar/%NAME_OF_FOLDER%/suitability",
+                    "publisher" : "Centre for Tropical Biodiversity & Climate Change, James Cook University",
+                    "sendCitation" : "on",
+                    "curationIdentifier" : "useCuration",
+                    "dataType" : "Data files"
+                } ] 
+            } ]
+         }
     }
 }
-
-

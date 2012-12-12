@@ -120,6 +120,7 @@ class IndexData:
         collectionRelationTypesFilePath = FascinatorHome.getPath() + "/../portal/default/redbox/workflows/forms/data/"
         servicesRelationTypesFilePath = FascinatorHome.getPath() + "/../portal/default/redbox/workflows/forms/data/"
         descriptionTypesFilePath = FascinatorHome.getPath() + "/../portal/default/local/workflows/forms/data/"
+        relationshipTypesFilePath = FascinatorHome.getPath() + "/../portal/default/local/workflows/forms/data/"
 
         ###Allocating space to create the formData.tfpackage
         tfpackageData = {}
@@ -270,6 +271,10 @@ class IndexData:
                             tfpackageData["dc:relation.vivo:Service." + str(i + 1) + ".vivo:Relationship.skos:prefLabel"] = relation.get("label")
 
         ###Processing the 'associatedParty' metadata
+        #Reading the file here so we only read it once.
+        file = open(relationshipTypesFilePath + "relationshipTypes.json")
+        relationshipData = file.read()
+        file.close()
         associatedParty = data.get("associatedParty")
         for i in range(len(associatedParty)):
             party = associatedParty[i]
@@ -298,6 +303,18 @@ class IndexData:
                         tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".redbox:isPrimaryInvestigator"] = "on"
                         tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".foaf:givenName"] = creator.get("Given_Name")[0]
                         tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".foaf:familyName"] = creator.get("Family_Name")[0]
+                        tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".jcu:relationshipType"] = party.get("relationship")
+                        tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".foaf:Organization.dc:identifier"] = party.get("affiliation").get("id")
+                        tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".foaf:Organization.skos:prefLabel"] = party.get("affiliation").get("label")
+                        jsonSimple = JsonSimple(relationshipData)
+                        jsonObj = jsonSimple.getJsonObject()
+                        relationShipResults = jsonObj.get("results")
+                        #ensuring the Relationship Type exists
+                        if  relationShipResults:
+                            for j in range(len(relationShipResults)):
+                                relationshipType = relationShipResults[j]
+                                if  (party.get("relationship") == relationshipType.get("id")):
+                                    tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".jcu:relationshipLabel"] = relationshipType.get("label")
 
         ###Processing 'contactInfo.email' metadata
         contactInfoEmail = data.get("contactInfo").get("email")
@@ -321,7 +338,11 @@ class IndexData:
                 tfpackageData["locrel:prc.foaf:Person.foaf:title"] = creator.get("Honorific")[0]
                 tfpackageData["locrel:prc.foaf:Person.foaf:givenName"] = creator.get("Given_Name")[0]
                 tfpackageData["locrel:prc.foaf:Person.foaf:familyName"] = creator.get("Family_Name")[0]
+                tfpackageData["locrel:prc.foaf:Person.foaf:email"] = creator.get("Email")[0]
 
+        ##Stored At (on the Data Management page)
+        tfpackageData["vivo:Location.vivo:GeographicLocation.gn:name"] = data.get("contactInfo").get("streetAddress")                 
+                
         ###Processing 'coinvestigators' metadata
         coinvestigators = data.get("coinvestigators")
         for i in range(len(coinvestigators)):
@@ -374,6 +395,19 @@ class IndexData:
         for i in range(len(keyword)):
             tfpackageData["dc:subject.vivo:keyword." + str(i + 1) + ".rdf:PlainLiteral"] = keyword[i]
 
+        ###Research Themes
+        theme = data.get("researchTheme")
+        if  (theme == "Tropical Ecosystems, Conservation and Climate Change"):
+            tfpackageData["jcu:research.themes.tropicalEcoSystems"] = "true"
+        elif (theme == "Industries and Economies in the Tropics"):
+            tfpackageData["jcu:research.themes.industriesEconomies"] = "true"
+        elif (theme == "People and Societies in the Tropics"):
+            tfpackageData["jcu:research.themes.peopleSocieties"] = "true"
+        elif (theme == "Tropical Health, Medicine and Biosecurity"):
+            tfpackageData["jcu:research.themes.tropicalHealth"] = "true"
+        elif (theme == "Not aligned to a University theme"):
+            tfpackageData["jcu:research.themes.notAligned"] = "true"
+            
         tfpackageData["dc:accessRights.skos:prefLabel"] = data.get("accessRights")
         tfpackageData["dc:license.dc:identifier"] = data.get("license").get("url")
         tfpackageData["dc:license.skos:prefLabel"] = data.get("license").get("label")
@@ -384,8 +418,8 @@ class IndexData:
             additionalId = additionalId.replace("%NAME_OF_FOLDER%", species)
             tfpackageData["dc:identifier.rdf:PlainLiteral"] = additionalId
             tfpackageData["dc:identifier.redbox:origin"] = "external"
-            tfpackageData["dc:identifier.dc:type.rdf:PlainLiteral"] = "uri"
-            tfpackageData["dc:identifier.dc:type.skos:prefLabel"] = "Uniform Resource Identifier"
+            tfpackageData["dc:identifier.dc:type.rdf:PlainLiteral"] = "local"
+            tfpackageData["dc:identifier.dc:type.skos:prefLabel"] = "Local Identifier"
         else:
             tfpackageData["dc:identifier.redbox:origin"] = "internal"            
 
@@ -423,6 +457,30 @@ class IndexData:
         tfpackageData["locrel:dpt.foaf:Person.foaf:name"] = ""
         tfpackageData["dc:SizeOrDuration"] = ""
         tfpackageData["dc:Policy"] = ""
+
+        #Citations
+        citations = data.get("citations")
+        for i in range(len(citations)):
+            citation = citations[i]
+            tfpackageData["dc:biblioGraphicCitation.redbox:sendCitation"] = citation.get("sendCitation")
+            tfpackageData["dc:biblioGraphicCitation.dc:hasPart.dc:identifier.skos:note"] = citation.get("curationIdentifier") 
+            paperTitle = citation.get("paperTitle")
+            paperTitle = paperTitle.replace("%NAME_OF_FOLDER%", species)
+            tfpackageData["dc:biblioGraphicCitation.dc:hasPart.dc:title"] = paperTitle
+            tfpackageData["dc:biblioGraphicCitation.dc:hasPart.locrel:ctb." + str(i + 1) + ".foaf:familyName"] = citation.get("familyName")
+            tfpackageData["dc:biblioGraphicCitation.dc:hasPart.locrel:ctb." + str(i + 1) + ".foaf:givenName"] = citation.get("givenName")
+            tfpackageData["dc:biblioGraphicCitation.dc:hasPart.locrel:ctb." + str(i + 1) + ".foaf:title"] = title = citation.get("title")
+            tfpackageData["dc:biblioGraphicCitation.dc:hasPart.dc:publisher.rdf:PlainLiteral"] = citation.get("publisher")
+            url = citation.get("url")
+            url = url.replace("%NAME_OF_FOLDER%", species)
+            tfpackageData["dc:biblioGraphicCitation.dc:hasPart.bibo:Website.dc:identifier"] = url 
+            tfpackageData["dc:biblioGraphicCitation.dc:hasPart.dc:date.1.rdf:PlainLiteral"] = tfpackageData["dc:created"] 
+            tfpackageData["dc:biblioGraphicCitation.dc:hasPart.dc:date.1.dc:type.rdf:PlainLiteral"] = "publicationDate"
+            tfpackageData["dc:biblioGraphicCitation.dc:hasPart.dc:date.1.dc:type.skos:prefLabel"] = "Publication Date"
+            tfpackageData["dc:biblioGraphicCitation.dc:hasPart.dc:date.2.dc:type.rdf:PlainLiteral"] = "created"
+            tfpackageData["dc:biblioGraphicCitation.dc:hasPart.dc:date.2.dc:type.skos:prefLabel"] = "Date Created"
+            tfpackageData["dc:biblioGraphicCitation.dc:hasPart.dc:date.2.rdf:PlainLiteral"] = tfpackageData["dc:created"]
+            tfpackageData["dc:biblioGraphicCitation.dc:hasPart.jcu:dataType"] = citation.get("dataType")
 
         self.__updateMetadataPayload(tfpackageData)
         self.__workflow()

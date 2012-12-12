@@ -107,7 +107,7 @@
         </p>
     </div>
     <p>
-        <input type="checkbox" id="jcu:research.themes.tropicalEcoSystems" onClick="clearNotAligned() />
+        <input type="checkbox" id="jcu:research.themes.tropicalEcoSystems" onClick="clearNotAligned() "/>
         <label>Tropical Ecosystems, Conservation and Climate Change</label>
     </p>
     <p>

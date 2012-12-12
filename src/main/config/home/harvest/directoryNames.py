@@ -559,7 +559,7 @@ class IndexData:
         ## Harvesting straight into the 'Published' stage
         pageTitle = "Metadata Record"
         displayType = "package-dataset"
-        initialStep = 4
+        initialStep = 3
 
         try:
             wfMeta = self.__getJsonPayload("workflow.metadata")
@@ -756,7 +756,7 @@ class IndexData:
         except StorageException, e:
             self.log.error("Error updating 'formData.tfpackage' payload for object '{}'", self.oid, e)
 
-        self.__sendMessage(self.oid, "live")
+        #self.__sendMessage(self.oid, "live")
 
     # Send an event notification to the curation manager
     def __sendMessage(self, oid, step):

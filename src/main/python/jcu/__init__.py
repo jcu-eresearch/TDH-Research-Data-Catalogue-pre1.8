@@ -19,10 +19,14 @@ from java.io import PrintWriter
 
 class log:
     def error(self, *args):
-        print "[ERROR]", args
+        a = args[0]
+        b = args[1:]
+        print "[ERROR]", a.format(*b)
 
     def info(self, *args):
-        print "[INFO ]", args
+        a = args[0]
+        b = args[1:]
+        print "[INFO ]", a.format(*b)
 
     def debug(self, *args):
         a = args[0]

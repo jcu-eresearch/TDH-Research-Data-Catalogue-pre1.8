@@ -32,7 +32,7 @@ AlertsData = alerts["AlertsData"]
 if __name__ == "__main__":
 
     argParse = ArgumentParser(description="Process the JCU RIF-CS imports")
-    argParse.add_argument('-o','--output', dest='output', action='store',  help='The output location.')
+    argParse.add_argument('-a','--alerts', dest='alerts', action='store',  help='The alerts location.')
     argParse.add_argument('-m','--rifcs-map-file', nargs=1, dest='rmap', action='store', default=None, help='The location of the rifcs map file.')
     argParse.add_argument('-x','--xml-map-file', nargs=1, dest='xmap', action='store', default=None, help='The location of the xml map file.')
     argParse.add_argument('-p','--redbox-path', dest='path', nargs=1, action='store',  help='The base path of the ReDBoX Install')
@@ -49,14 +49,13 @@ if __name__ == "__main__":
 
         _config = config(fascinator_home, system_data)
         output = _config.getString(None, ["alerts", "path"])
-
         if args.rmap is not None:
             system_data["alerts"]["xmlMaps"]["rif"] = args.rmap[0]
         if args.xmap is not None:
             system_data["alerts"]["xmlMaps"]["xml"] = args.xmap[0]
 
-        if args.output is not None:
-            system_data['alerts']['path'] = args.output[0]
+        if args.alerts is not None:
+            system_data['alerts']['path'] = args.alerts
 
         #Imports may be due to the globals or locals in the alert import at top.
         import csv

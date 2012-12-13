@@ -21,7 +21,7 @@
                 "accessRights": "Open Access. If the data is not available via the provided link, please contact an associated party (preferably the Manager if specified) for access",
                 "license": {
                     "label" : "CC BY: Attribution 3.0 AU", 
-                    "url": "http://creativecommons.org/licenses/by/3.0/au/"
+                    "url": "http://creativecommons.org/licenses/by/3.0/au"
                 },
                 "coinvestigators": ["Atlas of Living Australia; http://www.ala.org.au"],
                 "researchTheme": "Tropical Ecosystems, Conservation and Climate Change",
@@ -107,7 +107,7 @@
                 "accessRights": "Open Access. If the data is not available via the provided link, please contact an associated party (preferably the Manager if specified) for access.", 
                 "license": {
                     "label" : "CC BY: Attribution 3.0 AU", 
-                    "url": "http://creativecommons.org/licenses/by/3.0/au/"
+                    "url": "http://creativecommons.org/licenses/by/3.0/au"
                 },
                 "coinvestigators": ["Atlas of Living Australia; http://www.ala.org.au"], 
                 "researchTheme": "Tropical Ecosystems, Conservation and Climate Change", 

@@ -19,9 +19,10 @@ from lxml import etree as ET
 
 import requests
 import json, urllib
-import os.path
+import os.path, re
 from jcu import config_helper
 from datetime import datetime
+from StringIO import StringIO
 
 def getConfig(args):
     mint_solr_url = "{mint_protocol}://{mint_host}:{mint_port}/solr/fascinator".format(**(args.__dict__))
@@ -74,46 +75,10 @@ def fix_party(tree, config): pass
 def fix_activity(tree, config): pass
 
 
-def fix_collection(tree, config):
-    subjects = tree.xpath("/rif:registryObjects/rif:registryObject/rif:collection/rif:subject", namespaces=namespace)
-    for subject in subjects:
-        if subject.attrib.has_key("type"):
-            if subject.attrib['type'] == 'anzsrc-for':
-                orig = subject.text.strip()
-                subject.text = "http://purl.org/asc/1297.0/2008/for/" + orig
-                subject.attrib['title'] = getTitle(subject.text, orig, config)
-            if subject.attrib['type'] == 'anzsrc-seo':
-                orig = subject.text.strip()
-                subject.text = "http://purl.org/asc/1297.0/2008/seo/" + orig
-                subject.attrib['title'] = getTitle(subject.text, orig, config)
 
-    keys = tree.xpath("/rif:registryObjects/rif:registryObject/rif:key", namespaces=namespace)
-    fix_key(keys, config)
-
-    collections = tree.xpath("/rif:registryObjects/rif:registryObject/rif:collection", namespaces=namespace)
-    fix_collections(collections, config)
-
-    related = tree.xpath("/rif:registryObjects/rif:registryObject/rif:collection/rif:relatedObject",
-        namespaces=namespace)
-    for rel in related:
-        fix_relatedObject(rel, config)
-    emails = "/rif:registryObjects/rif:registryObject/rif:collection/rif:location/rif:address/rif:electronic[@type='email']"
-    for email in tree.xpath(emails, namespaces=namespace):
-        fix_email(email, config)
-
-    addr = "/rif:registryObjects/rif:registryObject/rif:collection/rif:location/rif:address/rif:physical[@type='streetAddress']"
-    for addresses in tree.xpath(addr, namespaces=namespace):
-        fix_land_address(addresses, config)
-
-    related = tree.xpath("/rif:registryObjects/rif:registryObject", namespaces=namespace)
-#    fix_extent(related, config)
-
-    relatedInfo = tree.xpath("/rif:registryObjects/rif:registryObject/rif:collection/rif:relatedInfo",
-        namespaces=namespace)
-    for rl in relatedInfo:
-        fix_relatedInfo(rl, config)
-
-
+def fix_descriptions(description, config):
+    for des in description:
+        des.attrib['label'] = "%s:"%des.attrib['type'].capitalize()
 
 def fix_extent(related, config):
     ex = ET.SubElement(related[0], "DATA_MANAGEMENT")
@@ -133,11 +98,17 @@ def fix_key(keys, config):
         if key.text.strip().startswith("jcu.edu.au/tdh/collection/"):
             key.text = key.text.strip()
             key.attrib['type'] = "local"
+            key.attrib['origin']="external"
+            key.attrib['label']="Local Identifier"
 
 
 email_remap = {
     "jjvanderwal@gmail.com":"jeremy.vanderwal@jcu.edu.au",
 }
+
+def fix_emails(emails, config):
+    for email in emails:
+        fix_email(email, config)
 
 def fix_email(email, config):
     value = email.xpath("rif:value", namespaces=namespace)[0]
@@ -162,6 +133,11 @@ def fix_email(email, config):
         print "Cannot find email address: ", eml
 
 
+
+def fix_land_addresss(addressess, config):
+    for addr in addressess:
+        fix_land_address(addr, config)
+
 def fix_land_address(addresses, config):
     ad = addresses.xpath("rif:addressPart[@type='addressLine']", namespaces=namespace)
     address = "\n".join([i.text.strip() for i in ad]).strip()
@@ -171,6 +147,10 @@ def fix_land_address(addresses, config):
     el.text = address
 
 uri_types = {}
+
+def fix_relatedInfos(rels, config):
+    for rel in rels:
+        fix_relatedInfo(rel, config)
 
 def fix_relatedInfo(rel, config):
     licenses = {}
@@ -195,6 +175,10 @@ def fix_relatedInfo(rel, config):
                     notes.text = licenses[ukey]
                     break
 
+
+def fix_relatedObjects(related, config):
+    for rel in related:
+        fix_relatedObject(rel, config)
 
 def fix_relatedObject(rel, config):
     relation_nodes = rel.xpath("rif:key", namespaces=namespace)
@@ -263,4 +247,108 @@ def getTitle(id, orig, config):
         if id in val['dc_identifier']:
             return "%s - %s (%s)" % (orig, val['dc_title'], orig)
 
+def add_australia(kmls, config):
+    for kml in kmls:
+        if len(kml.xpath("../rif:spatial[@type='text' and text()='Continental Australia']", namespaces=namespace)) == 0:
+            australia = ET.SubElement(kml.getparent(), "spatial")
+            australia.attrib['type']='text'
+            australia.text="Continental Australia"
+            return
 
+
+def add_language(nodes, config):
+    for node in nodes:
+        lang = ET.SubElement(node, "LANGUAGE")
+        lang.text="English"
+
+def add_retention(nodes, config):
+    for node in nodes:
+        ret = ET.SubElement(node, "RETENTION")
+        ret.text = "indefinitely"
+
+
+def process_registryObject(nodes, config):
+    add_language(nodes, config)
+    add_retention(nodes, config)
+
+
+def fix_kml(kmls, config):
+    for kml in kmls:
+
+        coords = re.findall(r"[\.\-+0-9]+", kml.text)
+        _del = ""
+        s = StringIO()
+        s.write("POLYGON((")
+        for i in range(0, len(coords), 2):
+            s.write(_del)
+            s.write(" ".join(coords[i:i+2]))
+            _del = ", "
+        s.write("))")
+        kml.attrib['type']="text"
+        wtk = ET.SubElement(kml, "wtk")
+        wtk.text=s.getvalue()
+        kml.text = s.getvalue()
+
+collection_fixes = {
+    "/rif:registryObjects/rif:registryObject/rif:key": fix_key,
+    "/rif:registryObjects/rif:registryObject/rif:collection": fix_collections,
+    "/rif:registryObjects/rif:registryObject/rif:collection/rif:relatedObject": fix_relatedObjects,
+    "/rif:registryObjects/rif:registryObject/rif:collection/rif:location/rif:address/rif:electronic[@type='email']": fix_emails,
+    "/rif:registryObjects/rif:registryObject/rif:collection/rif:location/rif:address/rif:physical[@type='streetAddress']": fix_land_addresss,
+    "/rif:registryObjects/rif:registryObject/rif:collection/rif:description": fix_descriptions,
+    #    "/rif:registryObjects/rif:registryObject": fix_extent,
+    "/rif:registryObjects/rif:registryObject": process_registryObject,
+    "/rif:registryObjects/rif:registryObject/rif:collection/rif:relatedInfo":fix_relatedInfos,
+    "/rif:registryObjects/rif:registryObject/rif:collection/rif:coverage/rif:spatial[@type='kmlPolyCoords']": fix_kml,
+#    "/rif:registryObjects/rif:registryObject/rif:collection/rif:coverage/rif:spatial":add_australia
+
+}
+
+def fix_collection(tree, config):
+    subjects = tree.xpath("/rif:registryObjects/rif:registryObject/rif:collection/rif:subject", namespaces=namespace)
+    for subject in subjects:
+        if subject.attrib.has_key("type"):
+            if subject.attrib['type'] == 'anzsrc-for':
+                orig = subject.text.strip()
+                subject.text = "http://purl.org/asc/1297.0/2008/for/" + orig
+                subject.attrib['title'] = getTitle(subject.text, orig, config)
+            if subject.attrib['type'] == 'anzsrc-seo':
+                orig = subject.text.strip()
+                subject.text = "http://purl.org/asc/1297.0/2008/seo/" + orig
+                subject.attrib['title'] = getTitle(subject.text, orig, config)
+
+    for fix in collection_fixes:
+        tofix = tree.xpath(fix, namespaces=namespace)
+        collection_fixes[fix](tofix, config)
+
+
+    #    keys = tree.xpath("/rif:registryObjects/rif:registryObject/rif:key", namespaces=namespace)
+    #    fix_key(keys, config)
+
+    #    collections = tree.xpath("/rif:registryObjects/rif:registryObject/rif:collection", namespaces=namespace)
+    #    fix_collections(collections, config)
+
+    #    related = tree.xpath("/rif:registryObjects/rif:registryObject/rif:collection/rif:relatedObject",
+    #        namespaces=namespace)
+    #    for rel in related:
+    #        fix_relatedObject(rel, config)
+
+    #    emails = "/rif:registryObjects/rif:registryObject/rif:collection/rif:location/rif:address/rif:electronic[@type='email']"
+    #    for email in tree.xpath(emails, namespaces=namespace):
+    #        fix_email(email, config)
+
+    #    addr = "/rif:registryObjects/rif:registryObject/rif:collection/rif:location/rif:address/rif:physical[@type='streetAddress']"
+    #    for addresses in tree.xpath(addr, namespaces=namespace):
+    #        fix_land_address(addresses, config)
+
+    #    descriptions = "/rif:registryObjects/rif:registryObject/rif:collection/rif:description"
+    #    fix_descriptions(tree.xpath(descriptions, namespaces=namespace), config)
+
+    ##    related = tree.xpath("/rif:registryObjects/rif:registryObject", namespaces=namespace)
+    ##    fix_extent(related, config)
+
+    #    relatedInfo = tree.xpath("/rif:registryObjects/rif:registryObject/rif:collection/rif:relatedInfo",
+    #        namespaces=namespace)
+    #    fix_relatedInfos()
+    #    for rl in relatedInfo:
+    #        fix_relatedInfo(rl, config)

@@ -481,6 +481,7 @@ class IndexData:
             tfpackageData["dc:biblioGraphicCitation.dc:hasPart.dc:date.2.dc:type.skos:prefLabel"] = "Date Created"
             tfpackageData["dc:biblioGraphicCitation.dc:hasPart.dc:date.2.rdf:PlainLiteral"] = tfpackageData["dc:created"]
             tfpackageData["dc:biblioGraphicCitation.dc:hasPart.jcu:dataType"] = citation.get("dataType")
+            tfpackageData["dc:biblioGraphicCitation.skos:prefLabel"] = citation.get("familyName") + ", " + citation.get("givenName") + ". (" + time.strftime("%Y", time.gmtime()) + "). " + paperTitle + ". " + citation.get("publisher") + ". [" + citation.get("dataType") + "]  {ID_WILL_BE_HERE}"
 
         self.__updateMetadataPayload(tfpackageData)
         self.__workflow()

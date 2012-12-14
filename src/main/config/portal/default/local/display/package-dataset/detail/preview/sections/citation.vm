@@ -40,7 +40,7 @@
             #foreach($key in $dateList.keySet())
                 #set($date = $dateList.get($key))
                 <li>
-                    #displayRequiredKey($date "rdf:PlainLiteral") #displayRequiredKey($date "œ")
+                    #displayRequiredKey($date "rdf:PlainLiteral") #displayRequiredKey($date "dc:type.skos:prefLabel")
                 </li>
             #end
             </ol>

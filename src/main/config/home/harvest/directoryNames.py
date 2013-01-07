@@ -280,69 +280,39 @@ class IndexData:
             party = associatedParty[i]
             email = party.get("who").get("value")
             if email is not None:
-                #Using the email address to obtain the Party details from The Mint
-                #For testing, hard coded email address
-                #email = "paul.james@example.edu.au"
-                sock = urllib.urlopen(theMintHost + "/default/opensearch/lookup?count=999&searchTerms=Email:" + email)
-                mintData = sock.read()
-                sock.close()
-                jsonSimple = JsonSimple(mintData)
-                jsonObj = jsonSimple.getJsonObject()
-                results = jsonObj.get("results")
-                #Ensuring that the Email identified a Party from The Mint
-                if  results:
-                    resultMetadata = JsonObject(results.get(0))
-                    allData = resultMetadata.get("result-metadata")
-                    creator = allData.get("all")
-                    whoType = party.get("who").get("type")
-                    if ((creator is not None) and (whoType == 'people')):
-                        tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".dc:identifier"] = creator.get("dc_identifier")[0]
-                        tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".foaf:name"] = creator.get("dc_title")
-                        tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".foaf:title"] = creator.get("Honorific")[0]
-                        tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".redbox:isCoPrimaryInvestigator"] = "off"
-                        tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".redbox:isPrimaryInvestigator"] = "on"
-                        tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".foaf:givenName"] = creator.get("Given_Name")[0]
-                        tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".foaf:familyName"] = creator.get("Family_Name")[0]
-                        tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".jcu:relationshipType"] = party.get("relationship")
-                        tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".foaf:Organization.dc:identifier"] = party.get("affiliation").get("id")
-                        tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".foaf:Organization.skos:prefLabel"] = party.get("affiliation").get("label")
-                        jsonSimple = JsonSimple(relationshipData)
-                        jsonObj = jsonSimple.getJsonObject()
-                        relationShipResults = jsonObj.get("results")
-                        #ensuring the Relationship Type exists
-                        if  relationShipResults:
-                            for j in range(len(relationShipResults)):
-                                relationshipType = relationShipResults[j]
-                                if  (party.get("relationship") == relationshipType.get("id")):
-                                    tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".jcu:relationshipLabel"] = relationshipType.get("label")
-
+                whoType = party.get("who").get("type")
+                if (whoType == 'people'):
+                    tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".dc:identifier"] = party.get("who").get("identifier")
+                    tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".foaf:name"] = party.get("who").get("name")
+                    tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".foaf:title"] = party.get("who").get("title")
+                    tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".redbox:isCoPrimaryInvestigator"] = "off"
+                    tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".redbox:isPrimaryInvestigator"] = "on"
+                    tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".foaf:givenName"] = party.get("who").get("givenName")
+                    tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".foaf:familyName"] = party.get("who").get("familyName")
+                    tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".jcu:relationshipType"] = party.get("relationship")
+                    tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".foaf:Organization.dc:identifier"] = party.get("affiliation").get("id")
+                    tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".foaf:Organization.skos:prefLabel"] = party.get("affiliation").get("label")
+                    jsonSimple = JsonSimple(relationshipData)
+                    jsonObj = jsonSimple.getJsonObject()
+                    results = jsonObj.get("results")
+                    #ensuring the Relationship Type exists
+                    if  results:
+                        for j in range(len(results)):
+                            relationshipType = results[j]
+                            if  (party.get("relationship") == relationshipType.get("id")):
+                                tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".jcu:relationshipLabel"] = relationshipType.get("label")
+                    
         ###Processing 'contactInfo.email' metadata
-        contactInfoEmail = data.get("contactInfo").get("email")
-        #Using the email address to obtain details from The Mint
-        #For testing, hard coded email address
-        #contactInfoEmail = "paul.james@example.edu.au"
-        sock = urllib.urlopen(theMintHost + "/default/opensearch/lookup?count=999&searchTerms=Email:" + contactInfoEmail)
-        mintData = sock.read()
-        sock.close()
-        jsonSimple = JsonSimple(mintData)
-        jsonObj = jsonSimple.getJsonObject()
-        results = jsonObj.get("results")
-        #Ensuring that the Email identified a Party from The Mint
-        if  results:
-            resultMetadata = JsonObject(results.get(0))
-            allData = resultMetadata.get("result-metadata")
-            creator = allData.get("all")
-            if (creator is not None):
-                tfpackageData["locrel:prc.foaf:Person.dc:identifier"] = creator.get("dc_identifier")[0]
-                tfpackageData["locrel:prc.foaf:Person.foaf:name"] = creator.get("dc_title")
-                tfpackageData["locrel:prc.foaf:Person.foaf:title"] = creator.get("Honorific")[0]
-                tfpackageData["locrel:prc.foaf:Person.foaf:givenName"] = creator.get("Given_Name")[0]
-                tfpackageData["locrel:prc.foaf:Person.foaf:familyName"] = creator.get("Family_Name")[0]
-                tfpackageData["locrel:prc.foaf:Person.foaf:email"] = creator.get("Email")[0]
+        tfpackageData["locrel:prc.foaf:Person.dc:identifier"] = data.get("contactInfo").get("identifier")
+        tfpackageData["locrel:prc.foaf:Person.foaf:name"] = data.get("contactInfo").get("name")
+        tfpackageData["locrel:prc.foaf:Person.foaf:title"] = data.get("contactInfo").get("title")
+        tfpackageData["locrel:prc.foaf:Person.foaf:givenName"] = data.get("contactInfo").get("givenName")
+        tfpackageData["locrel:prc.foaf:Person.foaf:familyName"] = data.get("contactInfo").get("familyName")
+        tfpackageData["locrel:prc.foaf:Person.foaf:email"] = data.get("contactInfo").get("email")
 
         ##Stored At (on the Data Management page)
         tfpackageData["vivo:Location.vivo:GeographicLocation.gn:name"] = data.get("contactInfo").get("streetAddress")                 
-                
+
         ###Processing 'coinvestigators' metadata
         coinvestigators = data.get("coinvestigators")
         for i in range(len(coinvestigators)):
@@ -352,43 +322,15 @@ class IndexData:
         anzsrcFOR = data.get("anzsrcFOR")
         for i in range(len(anzsrcFOR)):
             anzsrc = anzsrcFOR[i]
-            #Querying against The Mint, but only using the first 4 numbers from anzsrc, this ensure a result
-            sock = urllib.urlopen(theMintHost + "/ANZSRC_FOR/opensearch/lookup?count=999&level=http://purl.org/asc/1297.0/2008/for/" + anzsrc[:4])
-            mintData = sock.read()
-            sock.close()
-            jsonSimple = JsonSimple(mintData)
-            jsonObj = jsonSimple.getJsonObject()
-            results = jsonObj.get("results")      
-            #ensuring that anzsrc identified a record in The Mint
-            if  results:
-                for j in range(len(results)):
-                    result = JsonObject(results.get(j))
-                    rdfAbout = result.get("rdf:about")
-                    target = "http://purl.org/asc/1297.0/2008/for/" + anzsrc
-                    if  (rdfAbout == target):
-                        tfpackageData["dc:subject.anzsrc:for." + str(i + 1) + ".skos:prefLabel"] = result.get("skos:prefLabel")
-                        tfpackageData["dc:subject.anzsrc:for." + str(i + 1) + ".rdf:resource"] = rdfAbout
+            tfpackageData["dc:subject.anzsrc:for." + str(i + 1) + ".skos:prefLabel"] = anzsrc.get("prefLabel")
+            tfpackageData["dc:subject.anzsrc:for." + str(i + 1) + ".rdf:resource"] = anzsrc.get("resource")
 
         ###Processing 'anzsrcSEO' metadata                        
         anzsrcSEO = data.get("anzsrcSEO")
         for i in range(len(anzsrcSEO)):
             anzsrc = anzsrcSEO[i]
-            #Querying against The Mint, but only using the first 4 numbers from anzsrc, this ensure a result
-            sock = urllib.urlopen(theMintHost + "/ANZSRC_SEO/opensearch/lookup?count=999&level=http://purl.org/asc/1297.0/2008/seo/" + anzsrc[:4])
-            mintData = sock.read()
-            sock.close()
-            jsonSimple = JsonSimple(mintData)
-            jsonObj = jsonSimple.getJsonObject()
-            results = jsonObj.get("results")      
-            #ensuring that anzsrc identified a record in The Mint
-            if  results:
-                for j in range(len(results)):
-                    result = JsonObject(results.get(j))
-                    rdfAbout = result.get("rdf:about")
-                    target = "http://purl.org/asc/1297.0/2008/seo/" + anzsrc
-                    if  (rdfAbout == target):
-                        tfpackageData["dc:subject.anzsrc:seo." + str(i + 1) + ".skos:prefLabel"] = result.get("skos:prefLabel")
-                        tfpackageData["dc:subject.anzsrc:seo." + str(i + 1) + ".rdf:resource"] = rdfAbout
+            tfpackageData["dc:subject.anzsrc:seo." + str(i + 1) + ".skos:prefLabel"] = anzsrc.get("prefLabel")
+            tfpackageData["dc:subject.anzsrc:seo." + str(i + 1) + ".rdf:resource"] = anzsrc.get("resource")
 
         ###Processing 'keyword' metadata                        
         keyword = data.get("keyword")
@@ -438,20 +380,8 @@ class IndexData:
         organisationalGroup = data.get("organizationalGroup")
         for i in range(len(organisationalGroup)):
             organisation = organisationalGroup[i]
-            #Querying against The Mint
-            sock = urllib.urlopen(theMintHost + "/Parties_Groups/opensearch/lookup?count=9999&searchTerms=ID:" + str(organisation))
-            mintData = sock.read()
-            sock.close()
-            jsonSimple = JsonSimple(mintData)
-            jsonObj = jsonSimple.getJsonObject()
-            results = jsonObj.get("results")      
-            #ensuring that anzsrc identified a record in The Mint
-            if  results:
-                resultMetadata = JsonObject(results.get(0))
-                allData = resultMetadata.get("result-metadata")
-                orgGroup = allData.get("all")
-                tfpackageData["foaf:Organization.dc:identifier"] = orgGroup.get("dc_identifier")[0]
-                tfpackageData["foaf:Organization.skos:prefLabel"] = orgGroup.get("Name")[0]
+            tfpackageData["foaf:Organization.dc:identifier"] = organisation.get("identifier")
+            tfpackageData["foaf:Organization.skos:prefLabel"] = organisation.get("prefLabel")
 
         tfpackageData["swrc:ResearchProject.dc:title"] = ""
         tfpackageData["locrel:dpt.foaf:Person.foaf:name"] = ""
@@ -560,7 +490,7 @@ class IndexData:
         ## Harvesting straight into the 'Published' stage
         pageTitle = "Metadata Record"
         displayType = "package-dataset"
-        initialStep = 3
+        initialStep = 4
 
         try:
             wfMeta = self.__getJsonPayload("workflow.metadata")
@@ -757,7 +687,7 @@ class IndexData:
         except StorageException, e:
             self.log.error("Error updating 'formData.tfpackage' payload for object '{}'", self.oid, e)
 
-        #self.__sendMessage(self.oid, "live")
+        self.__sendMessage(self.oid, "live")
 
     # Send an event notification to the curation manager
     def __sendMessage(self, oid, step):

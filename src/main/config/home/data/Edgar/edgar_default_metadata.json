@@ -231,7 +231,7 @@
                     "familyName" : "Vanderwal",
                     "givenName" : "J",
                     "title" : "Dr",
-                    "paperTitle" : "%NAME_OF_FOLDER% - current and future species distribution models", 
+                    "paperTitle" : "%NAME_OF_FOLDER% - occurrence records filtered for species distribution modelling", 
                     "url" : "http://eresearch.jcu.edu.au/tdh/datasets/Edgar/%NAME_OF_FOLDER%/occurrences",
                     "publisher" : "Centre for Tropical Biodiversity & Climate Change, James Cook University",
                     "sendCitation" : "on",

@@ -82,7 +82,21 @@
             #else
                 #if($type != "")
                     <rif:coverage>
-                        <rif:spatial type="$type" $lang>$util.encodeXml($literal)</rif:spatial>
+                        #set($literal = $literal.replace("POLYGON((", ""))
+                        #set($literal = $literal.replace("))", ""))
+                        #set($literal = $literal.replace(",", " "))
+                        #set($literalArray = $literal.split(" "))
+                        #set($i = 0)
+                        #set($kml = "")
+                        #foreach($literal in $literalArray)
+                            #if($i % 2 != 0)
+                                #set($kml = $kml + $literal + " ")
+                            #else
+                                #set($kml = $kml + $literal + ", ")
+                            #end
+                            #set($i = $i + 1)
+                        #end
+                        <rif:spatial type="kmlPolyCoords" $lang>$util.encodeXml($kml)</rif:spatial>
                     </rif:coverage>
                 #end
             #end

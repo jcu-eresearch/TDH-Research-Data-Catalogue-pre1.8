@@ -5,7 +5,7 @@ if (projectHome == null) {
     project.properties["project.home"] = redboxHome.absolutePath;
     new File(redboxHome, "system").mkdirs();
 }
-
+println "Project will be deployed to: " + project.properties["project.home"];
 ph = new File(".project-home")
 ph.write(project.properties["project.home"])
 

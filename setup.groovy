@@ -1,3 +1,6 @@
+(_p = new Properties()).load(new FileInputStream(new File("build.properties")))
+project.properties.load(new FileInputStream(new File("build.properties")));
+
 if(project.properties.containsKey("redbox.project.home")){
     project.properties["project.home"] =  project.properties["redbox.project.home"];
 }

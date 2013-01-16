@@ -1,4 +1,4 @@
-if(projectHome.hasProperty("redbox.project.home")){
+if(project.properties.containsKey("redbox.project.home")){
     project.properties["project.home"] =  project.properties["redbox.project.home"];
 }
 String projectHome = project.properties["project.home"];

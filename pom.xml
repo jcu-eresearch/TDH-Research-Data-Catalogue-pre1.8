@@ -156,7 +156,7 @@
                             <goal>execute</goal>
                         </goals>
                         <configuration>
-                            <source>${project.basedir}/hostname.groovy</source>
+                            <source>${project.basedir}/overrides.groovy</source>
                         </configuration>
                     </execution>
                 </executions>

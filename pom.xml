@@ -17,33 +17,9 @@
     </parent>
 
     <properties>
-
-        <project.home>${redbox.project.home}</project.home>
-
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <redbox.version>${project.parent.version}</redbox.version>
         <icons.dir>target/aaf_icons</icons.dir>
-
-        <package.finalname>${project.build.finalName}</package.finalname>
-        <app.location.windows>${project.home}</app.location.windows>
-        <app.location.linux>${project.home}</app.location.linux>
-        <server.port>9000</server.port>
-        <amq.port>9101</amq.port>
-        <amq.stomp.port>9102</amq.stomp.port>
-        <redbox.hostname>https://research.jcu.edu.au</redbox.hostname>
-        <redbox.context>researchdata</redbox.context>
-        <mint.context>nameauthority</mint.context>
-        <server.url.base>${redbox.hostname}/${redbox.context}/</server.url.base>
-        <mint.proxy.server>http://localhost:9001</mint.proxy.server>
-        <mint.amq.broker>tcp://localhost:9201</mint.amq.broker>
-        <dir.home>${project.home}/home</dir.home>
-        <dir.portal>${project.home}/portal</dir.portal>
-        <dir.server>${project.home}/server</dir.server>
-        <dir.solr>${project.home}/solr</dir.solr>
-        <dir.storage>${project.home}/storage</dir.storage>
-        <dir.system>${project.home}/system</dir.system>
-        <smtp.host>localhost</smtp.host>
-        <admin.email>admin@localhost</admin.email>
     </properties>
 
     <dependencies>
@@ -129,24 +105,24 @@
     <!-- The standard build/deploy process for making a server -->
     <build>
         <plugins>
-            <!--<plugin>-->
-                <!--<groupId>org.codehaus.mojo</groupId>-->
-                <!--<artifactId>properties-maven-plugin</artifactId>-->
-                <!--<version>1.0-alpha-2</version>-->
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<phase>initialize</phase>-->
-                        <!--<goals>-->
-                            <!--<goal>read-project-properties</goal>-->
-                        <!--</goals>-->
-                        <!--<configuration>-->
-                            <!--<files>-->
-                                <!--<file>build.properties</file>-->
-                            <!--</files>-->
-                        <!--</configuration>-->
-                    <!--</execution>-->
-                <!--</executions>-->
-            <!--</plugin>-->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>properties-maven-plugin</artifactId>
+                <version>1.0-alpha-2</version>
+                <executions>
+                    <execution>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>read-project-properties</goal>
+                        </goals>
+                        <configuration>
+                            <files>
+                                <file>build.properties</file>
+                            </files>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
 
             <plugin>
                 <groupId>org.codehaus.groovy.maven</groupId>

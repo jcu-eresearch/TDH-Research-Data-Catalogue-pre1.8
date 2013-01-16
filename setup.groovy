@@ -21,5 +21,9 @@ java.net.InetAddress address = InetAddress.getByName(System.getenv("COMPUTERNAME
 project.properties["ip.address"] = address.getHostAddress();
 println "Computer IP Address: " + project.properties["ip.address"];
 
-
+//Setup the hostname
+if (project.properties.containsKey("local.redbox.hostname")){
+    project.properties["redbox.hostname"] = project.properties["local.redbox.hostname"]
+    println "Hostname overridden to: " + project.properties["redbox.hostname"]
+}
 project.properties["server.url.base"] = project.properties["redbox.hostname"]+"/"+project.properties["redbox.context"]

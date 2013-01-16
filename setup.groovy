@@ -1,3 +1,6 @@
+if(projectHome.hasProperty("redbox.project.home")){
+    project.properties["project.home"] =  project.properties["redbox.project.home"];
+}
 String projectHome = project.properties["project.home"];
 if (projectHome == null) {
     String userHome = System.getProperty("user.home");

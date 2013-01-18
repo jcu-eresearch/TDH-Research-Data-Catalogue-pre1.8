@@ -9,7 +9,7 @@ if (projectHome == null) {
     String userHome = System.getProperty("user.home");
     File redboxHome = new File(new File(userHome, "deployment"), "redbox");
     project.properties["project.home"] = redboxHome.absolutePath;
-    new File(redboxHome, "system").mkdirs();
+//    new File(redboxHome, "system").mkdirs();
 }
 ph = new File(".project-home")
 ph.write(project.properties["project.home"])

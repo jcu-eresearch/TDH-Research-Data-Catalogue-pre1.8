@@ -43,4 +43,4 @@ redbox into your target directory, like such:
                 </profile>
 
 You just activate this profile in your IDE when you are working on it.
-Alternatively, you can activate the profile with the <activeProfiles> segment of ~/.m2/settings.xml
+Alternatively, you can activate the profile with the `activeProfiles` section of ~/.m2/settings.xml

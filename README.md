@@ -26,14 +26,21 @@ Then edit /etc/sysconfig/redbox and set the `USER` variable.
 Development
 ===========
 
-During development it is often handy to have a profile in your settings.xml that deploys
+During development it is often handy to have a profile in your settings.xml that 
 redbox into your target directory, like such:
 
-            <profile>
-                <id>jcu_institutional_build_dev</id>
-                <properties>
-                    <project.home>${project.build.directory}/deploy</project.home>
-                </properties>
-            </profile>
+                <profile>
+                    <id>deployment_location</id>
+                    <properties>
+                        <redbox.project.home>${project.build.directory}/deploy</redbox.project.home>
+                    </properties>
+                </profile>
+                <profile>
+                    <id>dev_hostname</id>
+                    <properties>
+                        <local.redbox.hostname>http://redbox.dev.hostname:${server.port}</local.redbox.hostname>
+                    </properties>
+                </profile>
 
 You just activate this profile in your IDE when you are working on it.
+Alternatively, you can activate the profile with the <activeProfiles> segment of ~/.m2/settings.xml

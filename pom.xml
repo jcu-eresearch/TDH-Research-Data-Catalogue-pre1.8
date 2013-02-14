@@ -124,6 +124,34 @@
                 </executions>
             </plugin>
 
+            <plugin>
+                <groupId>org.codehaus.groovy.maven</groupId>
+                <artifactId>gmaven-plugin</artifactId>
+                <version>1.0</version>
+                <executions>
+                    <execution>
+                        <id>default</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <source>${project.basedir}/setup.groovy</source>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>clean</id>
+                        <phase>pre-clean</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <source>${project.basedir}/setup.groovy</source>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
             <!-- 1st - Unpack Generic Mint setup -->
             <plugin>
                 <artifactId>maven-dependency-plugin</artifactId>

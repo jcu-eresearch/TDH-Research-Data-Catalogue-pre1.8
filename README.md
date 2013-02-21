@@ -7,6 +7,12 @@ After running mvn install on mint, ReDBoX, fascinator-shibboleth, and plugin-har
 
 If you do not define project.home then it defaults to $HOME/deployment/redbox.
 
+Deployment
+==========
+
+See [jcu-eresearch/TDH-Deployment](https://github.com/jcu-eresearch/TDH-Deployment) for our automatic deployment scripts.
+
+
 System Setup
 ============
 Once you have deployed the institutional build you will need to setup the init symlinks.

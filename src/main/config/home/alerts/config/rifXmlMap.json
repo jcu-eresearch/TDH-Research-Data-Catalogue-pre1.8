@@ -1,5 +1,5 @@
 {
-    "comment": "This is a sample RIF-CS mapping. It is important to check this against your RIF-CS as there can be some differences across feeds etc",
+    "comment": "This James Cook University's RIF-CS mapping. It relies on some pre-processing of the raw RIF-CS (other than rifsplit.py) to ensure it contained everything we wanted, in a form that was easy to use with the following mappings.",
     "mappings": {
         "/rif:registryObjects/rif:registryObject/rif:key":
         {

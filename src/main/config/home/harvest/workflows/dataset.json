@@ -13,6 +13,11 @@
         "curation": ["local"],
         "metadata": ["jsonVelocity"]
     },
+    "transformerOverrides": {
+        "local": {
+            "template": "[[OID]]"
+        }
+    },
     "curation": {
         "neverPublish": false,
         "alreadyCurated": false

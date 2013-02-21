@@ -367,12 +367,6 @@
                         "type": "harvest",
                         "configFile": "${fascinator.home}/harvest/directoryNames-Edgar.json",
                         "timing": "0 0 6 * * ?"
-                    },
-                    {
-                        "name": "alerts-poll",
-                        "type": "external",
-                        "url": "http://${server.url.base}/default/hkjobs/alerts.script",
-                        "timing": "0 0/15 * * * ?"
                     }
                 ]
             }

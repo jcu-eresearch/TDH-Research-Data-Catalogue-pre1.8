@@ -28,7 +28,15 @@ Development
 
 During development it is often handy to have a profile in your settings.xml that 
 redbox into your target directory, like such:
-
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+       	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+	.
+	.
+	.
+	<profiles>
                 <profile>
                     <id>deployment_location</id>
                     <properties>
@@ -41,6 +49,28 @@ redbox into your target directory, like such:
                         <local.redbox.hostname>http://redbox.dev.hostname:${server.port}</local.redbox.hostname>
                     </properties>
                 </profile>
-
+	</profiles>
+	.
+	.
+	.
+</settings>
+```
 You just activate this profile in your IDE when you are working on it.
 Alternatively, you can activate the profile with the `activeProfiles` section of ~/.m2/settings.xml
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+       	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+	.
+	.
+	.
+    <activeProfiles>
+       	<activeProfile>deployment_location</activeProfile>
+        <activeProfile>dev_hostname</activeProfile>
+    </activeProfiles>
+	.
+	.
+	.
+</settings>
+```

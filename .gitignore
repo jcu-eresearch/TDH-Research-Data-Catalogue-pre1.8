@@ -8,3 +8,5 @@ ${project.home}
 .gitignore
 .DS_Store
 
+
+.project-home

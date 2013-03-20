@@ -8,7 +8,7 @@ Currently you need Maven 2.x to compile ReDBoX
 Project Home
 -----------
 
-This repository contains the Jame Cook University RedBoX Institutional build.
+This repository contains the James Cook University RedBoX Institutional build.
 After running mvn install on mint, ReDBoX, fascinator-shibboleth, and plugin-harvester-directoryName:
 
 	#> mvn -Dproject.home=<deploy.directory> package

@@ -36,7 +36,7 @@
             ],
             "jcu":[
                 [
-                    ["Shib-Identity-Provider", "is", "https://elara.jcu.edu.au:8443/idp/shibboleth"]
+                    ["Shib-Identity-Provider", "is", "https://idp.jcu.edu.au/idp/shibboleth"]
                 ]
             ]
         }

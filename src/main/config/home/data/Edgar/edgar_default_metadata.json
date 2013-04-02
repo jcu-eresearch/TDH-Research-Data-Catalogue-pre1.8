@@ -41,7 +41,7 @@
                 } ],
                 "relatedPublication" : [
                 {
-                    "doi": "10.1016/j.ecomodel.2005.03.026",
+                    "doi": "10.1016/j.ecolmodel.2005.03.026",
                     "title" : "Maximum entropy modelling of species geographic distributions" 
                 } ],
                 "relatedWebsite" : [
@@ -50,7 +50,7 @@
                     "notes" : "Maxent software and further information" 
                 },
                 {
-                    "url" :  "http://spatialecology.jcu.edu.au/Edgar/",
+                    "url" :  "http://tropicaldatahub.org/goto/Edgar/",
                     "notes" : "Edgar - bird occurrence record data vetting interface" 
                 } ],
                 "contactInfo" : {

@@ -367,7 +367,13 @@
                         "type": "harvest",
                         "configFile": "${fascinator.home}/harvest/directoryNames-Edgar.json",
                         "timing": "0 0 6 * * ?"
-                    }
+                    },
+		    	    {
+						"name": "newalerts-enmasse",
+						"type": "external",
+						"url": "http://localhost:${jetty.port}/redbox/default/hkjobs/newalerts.script",		
+						"timing": "0 0 1 * * ?"
+		    		}
                 ]
             }
         },
@@ -422,6 +428,44 @@
     },
     "watcher": {
         "path": "${watcher.home}"
+    },
+    "new-alerts": {
+		"alertSet": [
+		    {
+				"name": "EnMaSSe Provisioning",
+				"path": "${fascinator.home}/harvest/enmasse-alerts",
+				"harvestConfig": "${fascinator.home}/harvest/enmasse-alerts/config/enmasse-dataset.json",
+				"handlers": {"xml": "XMLAlertHandler"},
+				"baseline": {
+				    "workflow_source": "EMAS Alert"
+				    "viewId": "default",
+				    "packageType": "dataset",
+		    		"redbox:formVersion": "1.5.2",
+				    "redbox:newForm": "true",
+  				    "redbox:submissionProcess.redbox:submitted": "true",
+				    "xmlns:dc": "http://dublincore.org/documents/2008/01/14/dcmi-terms/",
+		    		"xmlns:foaf": "http://xmlns.com/foaf/spec/",
+			    	"xmlns:anzsrc": "http://purl.org/anzsrc/",
+				    "dc:type.rdf:PlainLiteral": "dataset",
+				    "dc:type.skos:prefLabel": "Dataset",
+			    	"dc:language.dc:identifier": "http://id.loc.gov/vocabulary/iso639-2/eng",
+				    "dc:language.skos:prefLabel": "English"
+				},
+				"timestampFields": ["redbox:submissionProcess.dc:date"],              
+				"XMLAlertHandlerParams": {
+			    	"configMap": {
+						"xml": {"xmlMap": "${fascinator.home}/harvest/enmasse-alerts/config/enmasseXmlMap.json"}		
+					}
+				}
+	    	}
+		],
+		"baseline": {
+		    "viewId": "default",
+		    "packageType": "dataset",
+	    	"redbox:formVersion": "1.5.2",
+		    "redbox:newForm": "true",
+		    "redbox:submissionProcess.redbox:submitted": "true"
+		}
     },
     "subscriber": {
         "solr-event-log": {

@@ -92,7 +92,7 @@
                             #if($i % 2 != 0)
                                 #set($kml = $kml + $literal + " ")
                             #else
-                                #set($kml = $kml + $literal + ", ")
+                                #set($kml = $kml + $literal + ",")
                             #end
                             #set($i = $i + 1)
                         #end
@@ -257,7 +257,6 @@
 
         #geoSpatialMacro("dc:coverage.vivo:GeographicLocation")
 
-        ####################
         ### Relations
         #set($valueList = $item.getJsonSimpleList("relationships"))
         #if($valueList)
@@ -282,9 +281,6 @@
             #end
         #end
 
-        #### Related Services
-	    #showRelatedObject("dc:relation.vivo:Service", "service", "local")
-
         ### National Library Creators - Non-curated
         #set($valueMap = $util.getList($item, "dc:creator.foaf:Person"))
         #foreach($key in $valueMap.keySet())
@@ -297,8 +293,6 @@
             #end
         #end
 
-        #######################
-        ##### Subjects - FoR, SEO, ToA and local keywords
         #showElementRifCS("rif:subject" "dc:subject.vivo:keyword", " type=${quote}local${quote} $lang", "rdf:PlainLiteral", "")
         #showElementRifCS("rif:subject" "dc:subject.anzsrc:for", " type=${quote}anzsrc-for${quote} $lang", "rdf:resource", "anzsrc")
         #showElementRifCS("rif:subject" "dc:subject.anzsrc:seo", " type=${quote}anzsrc-seo${quote} $lang", "rdf:resource", "anzsrc")
@@ -352,12 +346,10 @@
         #end
         #################
 
-        ### Any related publications and websites
         #showRelatedInfo("dc:relation.swrc:Publication", "publication", "uri")
         #showRelatedInfo("dc:relation.bibo:Website", "website", "uri")
-
-
-        ### citation
+        #showRelatedInfo("dc:relation.vivo:Service", "service", "uri")
+	#showRelatedObject("dc:relation.vivo:Service", "service", "local")
         #set($showCitation = $util.get($item, "dc:biblioGraphicCitation.redbox:sendCitation"))
         #if ("$!showCitation" != "" && $showCitation == "on")
             #set($doiProperty = $systemConfig.getString($defaultOnError, "andsDoi", "doiProperty"))

@@ -147,6 +147,19 @@ class IndexData:
     def __metadata(self):
         self.title = None
         self.dcType = None
+
+        self.__checkMetadataPayload()
+
+        jsonPayload = self.object.getPayload(self.packagePid)
+        json = self.utils.getJsonObject(jsonPayload.open())
+        jsonPayload.close()
+
+        metadata = json.getObject()
+
+        identifier  = metadata.get("dc:identifier.rdf:PlainLiteral")
+        self.utils.add(self.index, "dc:identifier", identifier)
+        self.__storeIdentifier(identifier)
+        
         self.descriptionList = []
         self.creatorList = []
         self.creationDate = []
@@ -355,3 +368,40 @@ class IndexData:
                 TransactionManagerQueueConsumer.LISTENER_ID,
                 message.toString())
 
+
+    def __storeIdentifier(self, identifier):
+        try:
+            # Where do we find persistent IDs?
+            pidProperty = self.config.getString("persistentId", ["curation", "pidProperty"])
+            metadata = self.object.getMetadata()
+            storedId = metadata.getProperty(pidProperty)
+            if storedId is None:
+                metadata.setProperty(pidProperty, identifier)
+                # Make sure the indexer triggers a metadata save afterwards
+                self.params["objectRequiresClose"] = "true"
+        except Exception, e:
+            self.log.info("Error storing identifier against object: ", e)
+
+    def __checkMetadataPayload(self):
+        try:
+            # Simple check for its existance
+            self.object.getPayload(self.packagePid)
+        except Exception:
+            # We need to create it
+            self.log.info("Creating '{}' payload for object '{}'", self.packagePid, self.oid)
+            # Prep data
+            data = {
+                "viewId": "default",
+                "workflow_source": "Edgar Import",
+                "packageType": "dataset",
+                "redbox:formVersion": self.redboxVersion,
+                "redbox:newForm": "true"
+            }
+            package = JsonSimple(JsonObject(data))
+            # Store it
+            inStream = IOUtils.toInputStream(package.toString(True), "UTF-8")
+            try:
+                self.object.createStoredPayload(self.packagePid, inStream)
+            except StorageException, e:
+                self.log.error("Error creating '{}' payload for object '{}'", self.packagePid, self.oid, e)
+                raise Exception("Error creating package payload: ", e)

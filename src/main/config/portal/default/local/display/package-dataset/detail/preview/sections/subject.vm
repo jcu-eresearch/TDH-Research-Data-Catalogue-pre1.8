@@ -62,14 +62,10 @@
 
         #######################################
         <dt>Research Themes</dt>
-        <dd>
-            <ul>
-                #displayFirst("jcu:research.themes.tropicalEcoSystems" "Tropical Ecosystems, Conservation and Climate Change")
-                #displayFirst("jcu:research.themes.industriesEconomies" "Industries and Economies in the Tropics")
-                #displayFirst("jcu:research.themes.peopleSocieties" "People and Societies in the Tropics")
-                #displayFirst("jcu:research.themes.tropicalHealth" "Tropical Health, Medicine and Biosecurity")
-                #displayFirst("jcu:research.themes.notAligned" "Not aligned to a University theme")
-            </ul>
-        </dd>
+            #displayResearchThemes("jcu:research.themes.tropicalEcoSystems" "Tropical Ecosystems, Conservation and Climate Change")
+            #displayResearchThemes("jcu:research.themes.industriesEconomies" "Industries and Economies in the Tropics")
+            #displayResearchThemes("jcu:research.themes.peopleSocieties" "People and Societies in the Tropics")
+            #displayResearchThemes("jcu:research.themes.tropicalHealth" "Tropical Health, Medicine and Biosecurity")
+            #displayResearchThemes("jcu:research.themes.notAligned" "Not aligned to a University theme")
     </dl>
 </div>

@@ -2,19 +2,7 @@ body {
     font-size: 75%;
 }
 
-
-#notifications h2 {
-    color: white;
-}
-
-.menu .selected, .facet-list .selected {
-    background-color: #e31f26;
-}
-
-.sorting, .paging {
-    font-size: 100%;
-}
-
+/** Banner styling **/
 #jcu-logo {
     float: left;
     padding-top: 10px;
@@ -39,6 +27,18 @@ h1#branding a, .branding {
     padding-bottom: 0.5em;
 }
 
+/** JCU Red colour palette **/
+#notifications h2 {
+    color: white;
+}
+
+.menu .selected, .facet-list .selected {
+    background-color: #e31f26;
+}
+
+.sorting, .paging {
+    font-size: 100%;
+}
 .box {
     background: #dedbc3;
 }
@@ -319,6 +319,61 @@ fieldset p textarea {
 .accordion a:visited {
     color: #9d1619;
 }
+
+/** login theming**/
+
+.ui-widget-header {
+    border-color: #610000;
+    background-color: #610000;
+}
+.ui-widget-content {
+    background: white;
+}
+
+fieldset {
+    border: 1px solid #dedbc3;
+    background: transparent;
+}
+
+legend {
+    font-size: inherit;
+    border: none;
+}
+
+#login legend {
+    text-align: center;
+}
+
+fieldset.no-border {
+    border: none;
+}
+
+.ssoLogin img {
+    border: 1px solid white;
+}
+
+div.or {
+    padding-bottom: 0.8em;
+}
+
+.ssoLogin img:hover {
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border: 1px solid #610000;
+}
+/* login button */
+.login-button {
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border: 1px solid #dedbc3;
+    background: #dedbc3;
+}
+.login-button:hover {
+    background-color: white;
+    cursor: hand; cursor: pointer;
+}
+
+
 
 /*
 input.button, .inputscreens button {

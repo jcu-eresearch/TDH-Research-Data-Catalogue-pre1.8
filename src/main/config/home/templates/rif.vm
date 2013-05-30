@@ -2,13 +2,13 @@
     #set($valueMap = $util.getList($item, $field))
     #foreach($key in $valueMap.keySet())
         #set($value = $valueMap.get($key))
-        #set($data = $value.get($label))
-        #if ("$!data" != "")
-            #if ($anzsrc == "anzsrc")
-                #set($lastIndex = $data.lastIndexOf('/') + 1 )
-                #set($data = $data.substring($lastIndex) )
+            #if ($label != "" && $value.get($label)!= "")				
+                #set($labelVal = $value.get($label))				
+                #if ($anzsrc == "anzsrc")
+                    #set($lastIndex = $labelVal.lastIndexOf('/') + 1 )
+                    #set($labelVal = $labelVal.substring($lastIndex) )
             #end
-    <$tag$attr>$util.encodeXml($data)</$tag>
+    			<$tag$attr>$util.encodeXml($labelVal)</$tag> 
         #end
     #end
 #end
@@ -165,7 +165,7 @@
 #set($lang = "xml:lang=${quote}en${quote}")
 <rif:registryObjects xmlns:rif="http://ands.org.au/standards/rif-cs/registryObjects"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://services.ands.org.au/documentation/rifcs/1.3/schema/registryObjects.xsd">
+            xsi:schemaLocation="http://ands.org.au/standards/rif-cs/registryObjects http://services.ands.org.au/documentation/rifcs/1.3/schema/registryObjects.xsd">
     <rif:registryObject group="$util.encodeXml($group)">
         <rif:key>$identifier</rif:key>
         <rif:originatingSource>$urlBase</rif:originatingSource>
@@ -293,10 +293,15 @@
             #end
         #end
 
-        #showElementRifCS("rif:subject" "dc:subject.vivo:keyword", " type=${quote}local${quote} $lang", "rdf:PlainLiteral", "")
-        #showElementRifCS("rif:subject" "dc:subject.anzsrc:for", " type=${quote}anzsrc-for${quote} $lang", "rdf:resource", "anzsrc")
-        #showElementRifCS("rif:subject" "dc:subject.anzsrc:seo", " type=${quote}anzsrc-seo${quote} $lang", "rdf:resource", "anzsrc")
 
+			
+       	#showElementRifCS ("rif:subject"  "dc:subject.vivo:keyword"  " type=${quote}local${quote} $lang"  "rdf:PlainLiteral"  "")
+        #showElementRifCS ("rif:subject"  "dc:subject.anzsrc:for"  " type=${quote}anzsrc-for${quote} $lang"  "rdf:resource"  "anzsrc")
+        #showElementRifCS ("rif:subject"  "dc:subject.anzsrc:seo"  " type=${quote}anzsrc-seo${quote} $lang"  "rdf:resource"  "anzsrc")
+            
+
+			
+            
         #set ($value = $util.get($item, "dc:subject.anzsrc:toa.skos:prefLabel"))
         #if ("$!value" != "")
             <rif:subject type="anzsrc-toa">$util.encodeXml($value)</rif:subject>

@@ -10,7 +10,7 @@
         #end
         #end
         <li>
-            #if($page.authentication.is_logged_in())
+            #if($page.authentication.is_admin())
             <a id="new-record" href="#">Add a new dataset</a>
             #end
         </li>

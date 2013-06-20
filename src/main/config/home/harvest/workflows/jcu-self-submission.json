@@ -8,8 +8,9 @@
             "force-storage": "true"
         }
     },
-    "workflow-id":"simple",
-    "page-title": "New Research Data",    
+    "workflow-id":"jcu-self-submission",
+    "page-title": "New Research Data",
+    "default-owner":"admin",    
     "transformer": {
         "curation": ["local"],
         "metadata": ["jsonVelocity"]
@@ -18,13 +19,12 @@
         "neverPublish": false,
         "alreadyCurated": false
     },
-	"display-type":"package-simple",
+	"display-type":"package-jcu-self-submission",
     "transformerOverrides": {
         "local": {
             "template": "${server.url.base}published/detail/[[OID]]"
         }
     },
-
     "indexer": {
         "script": {
             "type": "python",
@@ -35,23 +35,23 @@
             "repository.type": "Data Management Portal"
         }
     },
-	"form-configuration": "form-configuration/simpleform.json",
+	"form-configuration": "form-configuration/jcu-self-submissionform.json",
     "stages": [
         {
-            "name": "inbox",
-            "label": "Inbox",
+            "name": "jcu-self-submission-draft",
+            "label": "JCU Researcher dataset - Draft",
             "description": "Potential records for investigation.",
             "owner_edit_allowed": "true",	
             "security": ["admin"],
             "visibility": ["admin"],
             "actions" :[ { "action-name" : "next",
-                           "target-step" : "investigation" }]
+                           "target-step" : "jcu-self-submission-submitted" }]
         },
         {
-            "name": "investigation",
-            "label": "Investigation",
-            "description": "Records under investigation.",
-            "security": [ "admin"],
+            "name": "jcu-self-submission-submitted",
+            "label": "JCU Researcher dataset - Submitted",
+            "description": "Records for review",
+            "security": ["admin"],
             "visibility": ["admin"],
             "template": "workflows/simpleworkflow"
         }

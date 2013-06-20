@@ -1,0 +1,10 @@
+#sectionHeading("#displayMessage('jcu-self-submission.heading.label.coverage')")
+<div class="meta">
+    <dl>
+        #display("dc:coverage.vivo:DateTimeInterval.vivo:start" "#displayMessage('jcu-self-submission.field.label.dc-coverage.vivo-DateTimeInterval.From')")
+        #display("dc:coverage.vivo:DateTimeInterval.vivo:end" "#displayMessage('jcu-self-submission.field.label.dc-coverage.vivo-DateTimeInterval.To')")
+        #display("dc:coverage.redbox:timePeriod" "#displayMessage('jcu-self-submission.field.label.dc-coverage.redbox-timePeriod')")
+		#set($geoSubkeys = ["dc:type", "rdf:PlainLiteral"])
+        #displayCompoundArrayList("#displayMessage('jcu-self-submission.field.label.dc-coverage.vivo-GeographicLocation')" "dc:coverage.vivo:GeographicLocation" $geoSubkeys ":")
+    </dl>
+</div>

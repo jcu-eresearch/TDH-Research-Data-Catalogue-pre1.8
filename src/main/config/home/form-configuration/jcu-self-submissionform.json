@@ -1,6 +1,6 @@
 {
     "stages":{
-        "inbox":{
+        "jcu-self-submission-draft":{
             "divs":[
                 {
                     "heading":"Content",
@@ -8,8 +8,8 @@
                         {
                             "component-type":"text-block",
                             "type":"label",
-                            "content":"simple.field.label.dc-title",
-                            "help":"simple.field.help.dc-title",
+                            "content":"jcu-self-submission.field.label.dc-title",
+                            "help":"jcu-self-submission.field.help.dc-title",
                             "additional-class":"jcuFieldLabel"
                         },
                         {
@@ -26,8 +26,8 @@
                         {
                             "component-type":"text-block",
                             "type":"label",
-                            "content":"simple.field.label.rif-description",
-                            "help":"simple.field.help.rif-description",
+                            "content":"jcu-self-submission.field.label.rif-description",
+                            "help":"jcu-self-submission.field.help.rif-description",
                             "additional-class":"jcuFieldLabel"
                         },
                         {
@@ -39,7 +39,7 @@
                                                                   "field":"type", 
                                                                   "label-field":"label",
                                                                   "label-field-suffix":"label",                                                                  
-                                                                  "json-data-url":"http://localhost:9000/researchdata/default/workflows/forms/data/descriptionTypes.json",
+                                                                  "json-data-url":"$portalPath/workflows/forms/data/descriptionTypes.json",
                                                                   "data-id-key":"id",
                                                                   "data-label-key":"label",
                                                                   "data-list-key":"results",                                                                  
@@ -53,8 +53,8 @@
                         {
                             "component-type":"text-block",
                             "type":"label",
-                            "content":"simple.field.label.dc-type.rdf-PlainLiteral",
-                            "help":"simple.field.help.dc-type.rdf-PlainLiteral",
+                            "content":"jcu-self-submission.field.label.dc-type.rdf-PlainLiteral",
+                            "help":"jcu-self-submission.field.help.dc-type.rdf-PlainLiteral",
                             "additional-class":"jcuFieldLabel"
                         },
                         {
@@ -75,6 +75,18 @@
                                            }        
                         },
                         {
+                            "component-type": "transition-control",
+                            "transitions": [
+                                {
+                                    "name": "Save and close",
+                                    "form-submit-action": "save",
+                                    "type": "button",
+									"close": true,
+									"closeUrl": "dmpt/details"
+                                }
+                            ]
+                        },
+                        {
                             "component-type":"native-html",
                             "content":"<button class='nexttab'>Next</button>"
                         }
@@ -86,14 +98,14 @@
                         {
                             "component-type":"text-block",
                             "type":"label",
-                            "content":"simple.field.label.dc-coverage.vivo-DateTimeInterval",
-                            "help":"simple.field.help.dc-coverage.vivo-DateTimeInterval",
+                            "content":"jcu-self-submission.field.label.dc-coverage.vivo-DateTimeInterval",
+                            "help":"jcu-self-submission.field.help.dc-coverage.vivo-DateTimeInterval",
                             "additional-class":"jcuFieldLabel"
                         },
                         {
                             "component-type":"text-block",
                             "type":"label",
-                            "content":"simple.field.label.dc-coverage.vivo-DateTimeInterval.From",
+                            "content":"jcu-self-submission.field.label.dc-coverage.vivo-DateTimeInterval.From",
                             "additional-class":"jcuFieldLabel"
                         },
                         {
@@ -106,7 +118,7 @@
                         {
                             "component-type":"text-block",
                             "type":"label",
-                            "content":"simple.field.label.dc-coverage.vivo-DateTimeInterval.To",
+                            "content":"jcu-self-submission.field.label.dc-coverage.vivo-DateTimeInterval.To",
                             "additional-class":"jcuFieldLabel"
                         },
                         {
@@ -119,8 +131,8 @@
                         {
                             "component-type":"text-block",
                             "type":"label",
-                            "content":"simple.field.label.dc-coverage.redbox-timePeriod",
-                            "help":"simple.field.help.dc-coverage.redbox-timePeriod",
+                            "content":"jcu-self-submission.field.label.dc-coverage.redbox-timePeriod",
+                            "help":"jcu-self-submission.field.help.dc-coverage.redbox-timePeriod",
                             "additional-class":"jcuFieldLabel"
                         },
                         {
@@ -133,8 +145,8 @@
                         {
                             "component-type":"text-block",
                             "type":"label",
-                            "content":"simple.field.label.dc-coverage.vivo-GeographicLocation"
-                            "help":"simple.field.help.dc-coverage.vivo-GeographicLocation",
+                            "content":"jcu-self-submission.field.label.dc-coverage.vivo-GeographicLocation"
+                            "help":"jcu-self-submission.field.help.dc-coverage.vivo-GeographicLocation",
                             "additional-class":"jcuFieldLabel"
                         },
                         {
@@ -164,7 +176,7 @@
                             "add-item-text":"Add location",
                             "sub-elements":{"settings":[
                                                 {"jaffaDropDown":{"label":"Location Type", "suffix":"dc:type", "field":"dc:type", "label-field":"dc:type", 
-                                                                  "json-data-url":"http://localhost:9000/researchdata/default/workflows/forms/data/locationTypes.json", 
+                                                                  "label-field-suffix":"dc:type", "json-data-url":"$portalPath/workflows/forms/data/locationTypes.json", 
                                                                   "data-id-key":"id", "data-label-key":"label", "data-list-key":"results", "mandatory":"true",
                                                                   "class-list":"locationType"}},
                                                  {"jaffaText":{"label":"","type":"hidden","class-list":"jaffa-field redboxGeoDataFid","suffix": "redbox:Fid"}},
@@ -188,6 +200,18 @@
                                         </div>"
                         },
                         {
+                            "component-type": "transition-control",
+                            "transitions": [
+                                {
+                                    "name": "Save and close",
+                                    "form-submit-action": "save",
+                                    "type": "button",
+									"close": true,
+									"closeUrl": "dmpt/details"
+                                }
+                            ]
+                        },
+                        {
                             "component-type":"native-html",
                             "content":"<button class='prevtab'>Previous</button><button class='nexttab'>Next</button>"
                         }
@@ -199,15 +223,15 @@
                         {
                             "component-type":"text-block",
                             "type":"label",
-                            "content":"simple.field.label.vivo-Location"
-                            "help":"simple.field.help.vivo-Location",
+                            "content":"jcu-self-submission.field.label.vivo-Location"
+                            "help":"jcu-self-submission.field.help.vivo-Location",
                             "additional-class":"jcuFieldLabel"
                         },
                         {
                             "component-type":"text-block",
                             "type":"label",
-                            "content":"simple.field.label.bibo-Website.dc-identifier",
-                            "help":"simple.field.help.bibo-Website.dc-identifier",
+                            "content":"jcu-self-submission.field.label.bibo-Website.dc-identifier",
+                            "help":"jcu-self-submission.field.help.bibo-Website.dc-identifier",
                             "additional-class":"jcuFieldLabel"
                         },
                         {
@@ -223,8 +247,8 @@
                         {
                             "component-type":"text-block",
                             "type":"label",
-                            "content":"simple.field.label.vivo-Location.vivo-GeographicLocation.gn-name",
-                            "help":"simple.field.help.vivo-Location.vivo-GeographicLocation.gn-name",
+                            "content":"jcu-self-submission.field.label.vivo-Location.vivo-GeographicLocation.gn-name",
+                            "help":"jcu-self-submission.field.help.vivo-Location.vivo-GeographicLocation.gn-name",
                             "additional-class":"jcuFieldLabel"
                         },
                         {
@@ -237,8 +261,8 @@
                         {
                             "component-type":"text-block",
                             "type":"label",
-                            "content":"simple.field.label.redbox.retentionPeriod",
-                            "help":"simple.field.help.redbox.retentionPeriod",
+                            "content":"jcu-self-submission.field.label.redbox.retentionPeriod",
+                            "help":"jcu-self-submission.field.help.redbox.retentionPeriod",
                             "additional-class":"jcuFieldLabel"
                         },
                         {
@@ -286,8 +310,8 @@
                         {
                             "component-type":"text-block",
                             "type":"label",
-                            "content":"simple.field.label.dc-extent",
-                            "help":"simple.field.help.dc-extent",
+                            "content":"jcu-self-submission.field.label.dc-extent",
+                            "help":"jcu-self-submission.field.help.dc-extent",
                             "additional-class":"jcuFieldLabel"
                         },
                         {
@@ -311,8 +335,8 @@
                         {
                             "component-type":"text-block",
                             "type":"label",
-                            "content":"simple.field.label.locrel-own.foaf-Agent.foaf-name"
-                            "help":"simple.field.help.locrel-own.foaf-Agent.foaf-name",
+                            "content":"jcu-self-submission.field.label.locrel-own.foaf-Agent.foaf-name"
+                            "help":"jcu-self-submission.field.help.locrel-own.foaf-Agent.foaf-name",
                             "additional-class":"jcuFieldLabel"
                         },
                         {
@@ -331,6 +355,18 @@
                             "content":"Attachments widget. need to add it if possible."
                         },
                         {
+                            "component-type": "transition-control",
+                            "transitions": [
+                                {
+                                    "name": "Save and close",
+                                    "form-submit-action": "save",
+                                    "type": "button",
+									"close": true,
+									"closeUrl": "dmpt/details"
+                                }
+                            ]
+                        },
+                        {
                             "component-type":"native-html",
                             "content":"<button class='prevtab'>Previous</button><button class='nexttab'>Next</button>"
                         }
@@ -342,8 +378,8 @@
                         {
                             "component-type":"text-block",
                             "type":"label",
-                            "content":"simple.field.label.dc-relation.swrc-Publication",
-                            "help":"simple.field.help.dc-relation.swrc-Publication",
+                            "content":"jcu-self-submission.field.label.dc-relation.swrc-Publication",
+                            "help":"jcu-self-submission.field.help.dc-relation.swrc-Publication",
                             "additional-class":"jcuFieldLabel"
                         },
                         {
@@ -361,8 +397,8 @@
                         {
                             "component-type":"text-block",
                             "type":"label",
-                            "content":"simple.field.label.dc-relation.bibo-Website",
-                            "help":"simple.field.help.dc-relation.bibo-Website",
+                            "content":"jcu-self-submission.field.label.dc-relation.bibo-Website",
+                            "help":"jcu-self-submission.field.help.dc-relation.bibo-Website",
                             "additional-class":"jcuFieldLabel"
                         },                
                         {
@@ -380,8 +416,8 @@
                         {
                             "component-type":"text-block",
                             "type":"label",
-                            "content":"simple.field.label.dc-relation.vivo-Dataset",
-                            "help":"simple.field.help.dc-relation.vivo-Dataset",
+                            "content":"jcu-self-submission.field.label.dc-relation.vivo-Dataset",
+                            "help":"jcu-self-submission.field.help.dc-relation.vivo-Dataset",
                             "additional-class":"jcuFieldLabel"
                         },
                         {
@@ -389,7 +425,7 @@
                             "containter-for":"dc:relation.vivo:Dataset",
                             "sub-elements":{"settings":[
                                                 {"jaffaDropDown":{"label":"Relationship:", "suffix":"vivo:Relationship.rdf:PlainLiteral", "field":"vivo:Relationship.rdf:PlainLiteral", "label-field":"vivo:Relationship.skos:prefLabel", 
-                                                                  "json-data-url":"http://localhost:9000/researchdata/default/workflows/forms/data/collectionRelationTypes.json", 
+                                                                  "label-field-suffix":"vivo:Relationship.skos:prefLabel", "json-data-url":"$portalPath/workflows/forms/data/collectionRelationTypes.json", 
                                                                   "data-id-key":"id", "data-label-key":"label", "data-list-key":"results", "mandatory":"true"}},                            
                                                 {"jaffaText":{"label":"Title: ", "class-list":"jaffa-field collectionTitleLookup", "suffix":"dc:title", "size":"40", "placeholder":"title"}},
                                                 {"jaffaText":{"label":"Identifier: ", "class-list":"jaffa-field", "suffix":"dc:identifier", "size":"40"}},
@@ -404,8 +440,8 @@
                         {
                             "component-type":"text-block",
                             "type":"label",
-                            "content":"simple.field.label.dc-relation.vivo-Service",
-                            "help":"simple.field.help.dc-relation.vivo-Service",
+                            "content":"jcu-self-submission.field.label.dc-relation.vivo-Service",
+                            "help":"jcu-self-submission.field.help.dc-relation.vivo-Service",
                             "additional-class":"jcuFieldLabel"
                         },
                         {
@@ -413,7 +449,7 @@
                             "containter-for":"dc:relation.vivo:Service",
                             "sub-elements":{"settings":[
                                                 {"jaffaDropDown":{"label":"Relationship:", "suffix":"vivo:Relationship.rdf:PlainLiteral", "field":"vivo:Relationship.rdf:PlainLiteral", "label-field":"vivo:Relationship.skos:prefLabel", 
-                                                                  "json-data-url":"http://localhost:9000/researchdata/default/workflows/forms/data/serviceRelationTypes.json", 
+                                                                  "label-field-suffix":"vivo:Relationship.skos:prefLabel", "json-data-url":"$portalPath/workflows/forms/data/serviceRelationTypes.json", 
                                                                   "data-id-key":"id", "data-label-key":"label", "data-list-key":"results", "mandatory":"true"}},                            
                                                 {"jaffaText":{"label":"Title: ", "class-list":"jaffa-field serviceTitleLookup", "suffix":"dc:title", "size":"40", "placeholder":"title"}},
                                                 {"jaffaText":{"label":"Identifier: ", "class-list":"jaffa-field", "suffix":"dc:identifier", "size":"40", "placeholder":"service identifier"}},
@@ -423,7 +459,18 @@
                             "add-item-text":"Add service",                                            
                             "additional-classes":"containerLayout"                                           
                         },           
-
+                        {
+                            "component-type": "transition-control",
+                            "transitions": [
+                                {
+                                    "name": "Save and close",
+                                    "form-submit-action": "save",
+                                    "type": "button",
+									"close": true,
+									"closeUrl": "dmpt/details"
+                                }
+                            ]
+                        },
                         {
                             "component-type":"native-html",
                             "content":"<button class='prevtab'>Previous</button><button class='nexttab'>Next</button>"
@@ -436,8 +483,8 @@
                         {
                             "component-type":"text-block",
                             "type":"label",
-                            "content":"simple.field.label.dc-subject.anzsrc-for",
-                            "help":"simple.field.help.dc-subject.anzsrc-for",
+                            "content":"jcu-self-submission.field.label.dc-subject.anzsrc-for",
+                            "help":"jcu-self-submission.field.help.dc-subject.anzsrc-for",
                             "additional-class":"jcuFieldLabel"
                         },         
                         {
@@ -448,8 +495,8 @@
                         {
                             "component-type":"text-block",
                             "type":"label",
-                            "content":"simple.field.label.dc-subject.anzsrc-seo",
-                            "help":"simple.field.help.dc-subject.anzsrc-seo",
+                            "content":"jcu-self-submission.field.label.dc-subject.anzsrc-seo",
+                            "help":"jcu-self-submission.field.help.dc-subject.anzsrc-seo",
                             "additional-class":"jcuFieldLabel"
                         },                        
                         {
@@ -460,8 +507,8 @@
                         {
                             "component-type":"text-block",
                             "type":"label",
-                            "content":"simple.field.label.jcu-research.themes",
-                            "help":"simple.field.help.jcu-research.themes",
+                            "content":"jcu-self-submission.field.label.jcu-research.themes",
+                            "help":"jcu-self-submission.field.help.jcu-research.themes",
                             "additional-class":"jcuFieldLabel"
                         },
                         {
@@ -531,8 +578,8 @@
                         {
                             "component-type":"text-block",
                             "type":"label",
-                            "content":"simple.field.label.dc-subject.vivo-keyword",
-                            "help":"simple.field.help.dc-subject.vivo-keyword",
+                            "content":"jcu-self-submission.field.label.dc-subject.vivo-keyword",
+                            "help":"jcu-self-submission.field.help.dc-subject.vivo-keyword",
                             "additional-class":"jcuFieldLabel"
                         },                        
                         {
@@ -546,6 +593,18 @@
                             "additional-classes":"containerLayout"
                         },
                         {
+                            "component-type": "transition-control",
+                            "transitions": [
+                                {
+                                    "name": "Save and close",
+                                    "form-submit-action": "save",
+                                    "type": "button",
+									"close": true,
+									"closeUrl": "dmpt/details"
+                                }
+                            ]
+                        },
+                        {
                             "component-type":"native-html",
                             "content":"<button class='prevtab'>Previous</button><button class='nexttab'>Next</button>"
                         }
@@ -557,15 +616,15 @@
                         {
                             "component-type":"text-block",
                             "type":"label",
-                            "content":"simple.field.label.dc-accessRights.heading",
-                            "help":"simple.field.help.dc-accessRights.heading",
+                            "content":"jcu-self-submission.field.label.dc-accessRights.heading",
+                            "help":"jcu-self-submission.field.help.dc-accessRights.heading",
                             "additional-class":"jcuFieldLabel"
                         },
                         {
                             "component-type":"text-block",
                             "type":"label",
-                            "content":"simple.field.label.dc-accessRights.skos-prefLabel",
-                            "help":"simple.field.help.dc-accessRights.skos-prefLabel",
+                            "content":"jcu-self-submission.field.label.dc-accessRights.skos-prefLabel",
+                            "help":"jcu-self-submission.field.help.dc-accessRights.skos-prefLabel",
                             "additional-class":"jcuFieldLabel"
                         },
                         {
@@ -578,7 +637,7 @@
                         {
                             "component-type":"text-block",
                             "type":"label",
-                            "content":"simple.field.label.dc-accessRights.dc-identifier",
+                            "content":"jcu-self-submission.field.label.dc-accessRights.dc-identifier",
                             "additional-class":"jcuFieldLabel"
                         },
                         {
@@ -591,8 +650,8 @@
                         {
                             "component-type":"text-block",
                             "type":"label",
-                            "content":"simple.field.label.dc-accessRights.dc-RightsStatement.skos-prefLabel",
-                            "help":"simple.field.help.dc-accessRights.dc-RightsStatement.skos-prefLabel",
+                            "content":"jcu-self-submission.field.label.dc-accessRights.dc-RightsStatement.skos-prefLabel",
+                            "help":"jcu-self-submission.field.help.dc-accessRights.dc-RightsStatement.skos-prefLabel",
                             "additional-class":"jcuFieldLabel"
                         },
                         {
@@ -605,7 +664,7 @@
                         {
                             "component-type":"text-block",
                             "type":"label",
-                            "content":"simple.field.label.dc-accessRights.dc-RightsStatement.dc-identifier",
+                            "content":"jcu-self-submission.field.label.dc-accessRights.dc-RightsStatement.dc-identifier",
                             "additional-class":"jcuFieldLabel"
                         },
                         {
@@ -642,8 +701,8 @@
                         {
                             "component-type":"text-block",
                             "type":"label",
-                            "content":"simple.field.label.dc-license.skos-prefLabel",
-                            "help":"simple.field.help.dc-license.skos-prefLabel",
+                            "content":"jcu-self-submission.field.label.dc-license.skos-prefLabel",
+                            "help":"jcu-self-submission.field.help.dc-license.skos-prefLabel",
                             "additional-class":"jcuFieldLabel"
                         },
                         {
@@ -676,14 +735,14 @@
                         {
                             "component-type":"text-block",
                             "type":"label",
-                            "content":"simple.field.label.dc-license.rdf-Alt.heading"
-                            "help":"simple.field.help.dc-license.rdf-Alt.heading",
+                            "content":"jcu-self-submission.field.label.dc-license.rdf-Alt.heading"
+                            "help":"jcu-self-submission.field.help.dc-license.rdf-Alt.heading",
                             "additional-class":"jcuFieldLabel"
                         },
                         {
                             "component-type":"text-block",
                             "type":"label",
-                            "content":"simple.field.label.dc-license.rdf-Alt.skos-prefLabel",
+                            "content":"jcu-self-submission.field.label.dc-license.rdf-Alt.skos-prefLabel",
                             "additional-class":"jcuFieldLabel"
                         },
                         {
@@ -696,7 +755,7 @@
                         {
                             "component-type":"text-block",
                             "type":"label",
-                            "content":"simple.field.label.dc-license.rdf-Alt.dc-identifier",
+                            "content":"jcu-self-submission.field.label.dc-license.rdf-Alt.dc-identifier",
                             "additional-class":"jcuFieldLabel"
                         },
                         {
@@ -706,6 +765,18 @@
                             "size":"60",                            
                             "placeholder":"licence url"
                         },                         
+                        {
+                            "component-type": "transition-control",
+                            "transitions": [
+                                {
+                                    "name": "Save and close",
+                                    "form-submit-action": "save",
+                                    "type": "button",
+									"close": true,
+									"closeUrl": "dmpt/details"
+                                }
+                            ]
+                        },
                         {
                             "component-type":"native-html",
                             "content":"<button class='prevtab'>Previous</button><button class='nexttab'>Next</button>"
@@ -719,18 +790,53 @@
                             "component-type":"textarea",
                             "label":"",
                             "field-name":"",
-                            "content":"simple.field.label.LegalStatement",
+                            "content":"jcu-self-submission.field.label.LegalStatement",
                         },
+						{
+							"component-type": "checkbox",
+							"field-name": "readyforreview",
+							"box-for": "",
+							"boxes": [
+								{
+									"label": "self-submission.field.label.readyforreview",
+									"value": "ready"
+								}
+							]
+						},
                         {
                             "component-type":"native-html",
-                            "content":"<button id='done_button' onclick=done_forms()>Done</button><div id='thanks'></div><script>function done_forms(){ document.getElementById('done_button').setAttribute('hidden', 'hidden');document.getElementById('thanks').innerHTML = '<h3>Thank you.</h3>';}</script>"
+                            "content":"<button class='prevtab'>Previous</button>"
+                        },
+                        {
+                            "component-type": "transition-control",
+                            "transitions": [
+                                {
+                                    "name": "Save and close",
+                                    "form-submit-action": "save",
+                                    "type": "button",
+									"close": true,
+									"closeUrl": "dmpt/details"
+                                }
+                            ]
+                        },
+                        {
+                            "component-type": "transition-control",
+                            "transitions": [
+                                {
+                                    "name": "Submit",
+                                    "type": "button",
+                                    "form-submit-action": "save-next",
+									"close": true,
+									"closeUrl": "dmpt/details"
+                                }
+                             ]
                         },
                         {
                             "component-type":"native-html",
                             "content":"<script>$(document).ready(function() {
-                                        wizardTabIdentifier='simpleWorkflowTab'; 
+                                        wizardTabIdentifier='jcu-self-submissionWorkflowTab'; 
                                         //The anonymous function below is called when the user clicks on a new tab. It validates all fields on the current tab, if valid, the clicked tab is selected 
-                                        jaffa.ui.changeToTabLayout($('#simpleworkflow-form'),
+                                        jaffa.ui.changeToTabLayout($('#jcu-self-submissionworkflow-form'),
                                                                    'h1',
                                                                    function(){
                                                                                var validationPassed = validateTab();
@@ -743,71 +849,16 @@
                                                                                 }
                                                                    }, 
                                                                    wizardTabIdentifier);})</script>"
-                       },
-                       {
-                            "component-type":"native-html",
-                            "content":"<button class='prevtab'>Previous</button>"
                        }
                     ]
                 }
             ],
             "buttons":[
             ],
-            "form-footer":"simpleform-footer",            
+            "form-footer":"jcu-self-submissionform-footer",            
             "validation":{
                 "required":"title"
             }
         },
-        "investigation":{
-            "fields":[
-                {
-                    "component-type":"text-input",
-                    "field-name":"title",
-                    "label":"Name",
-                    "additional-classes":""
-                },
-                {
-                    "component-type":"text-input",
-                    "field-name":"dc:description",
-                    "label":"Description",
-                    "additional-classes":""
-                },
-                {
-                    "component-type":"text-input",
-                    "field-name":"type",
-                    "label":"Type",
-                    "additional-classes":""
-                },
-                {
-                    "component-type":"text-input",
-                    "field-name":"website",
-                    "label":"Website",
-                    "additional-classes":""
-                },
-                {
-                    "component-type":"text-input",
-                    "field-name":"website",
-                    "label":"Website",
-                    "additional-classes":""
-                }
-            ],
-            "buttons":[
-                {
-                    "component-type":"standard-button",
-                    "button-name":"save",
-                    "action":"save",
-                    "label":"Save"
-                },
-                {
-                    "component-type":"standard-button",
-                    "button-name":"next",
-                    "action":"next",
-                    "label":"Next>"
-                }
-            ],            
-            "validation":{
-                "required":"title"
-            }
-        }
     }
 }

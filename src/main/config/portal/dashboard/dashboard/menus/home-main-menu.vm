@@ -6,7 +6,7 @@
         <li>
             <a id="new-dmpt" href="#" title="New plan">#displayMessage("researcher-dashboard.home.menu.newplan")</a>
             <a id="new-dataset" href="#" title="New dataset">#displayMessage("researcher-dashboard.home.menu.newdataset")</a>
-            <a id="new-simple" href="#" title="New JCU Research">#displayMessage("simple.home.menu.newJCUSelfSubmission")</a>
+            <a id="new-jcu-self-submission" href="#" title="New JCU Research">#displayMessage("jcu-self-submission.home.menu.newJCUSelfSubmission")</a>
         </li>
     </ul>
     #parseTemplate("wrapping/main-menu-close.vm")
@@ -87,17 +87,17 @@ $(function() {
         return false;
     });
 
-    jQ("#new-simple").click(function() {
+    jQ("#new-jcu-self-submission").click(function() {
         if (processing) return;
         processing = true;
-        jQ("#new-simple").append('<img class="right" src="$portalPath/images/icons/loading.gif" />');
+        jQ("#new-jcu-self-submission").append('<img class="right" src="$portalPath/images/icons/loading.gif" />');
         jQ.ajax({
             type: "POST",
             url: "$portalPath/actions/packaging.ajax",
             data: {
                 ajax: 1,
                 func: "create-new",
-                packageType: "simple",
+                packageType: "jcu-self-submission",
                 metaList: ["title", "dc:description", "redbox:newForm", "redbox:formVersion","project.name"],
                 title: "[Untitled]",
                 description: "",

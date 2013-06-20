@@ -1,4 +1,5 @@
 <script type="text/javascript" src="$portalPath/js/autocomplete/jquery.autocomplete.pack.js"></script>
+<script src="$portalPath/js/wizard.js"></script>
 
 <style>
 .containerLayout .jaffaListItem > div > div {
@@ -41,8 +42,8 @@ $(".nexttab").click(function() {
 
     if(validationPassed) {
         jaffa.form.save(true);
-        var active = $("#simpleworkflow-form").tabs("option", "selected");
-        $("#simpleworkflow-form").tabs("option", "selected", active + 1);
+        var active = $("#jcu-self-submissionworkflow-form").tabs("option", "selected");
+        $("#jcu-self-submissionworkflow-form").tabs("option", "selected", active + 1);
     }
 });
 
@@ -52,9 +53,17 @@ $(".prevtab").click(function() {
 
     if(validationPassed) {
         jaffa.form.save();
-        var active = $("#simpleworkflow-form").tabs("option", "selected");
-        $("#simpleworkflow-form").tabs("option", "selected", active - 1);
+        var active = $("#jcu-self-submissionworkflow-form").tabs("option", "selected");
+        $("#jcu-self-submissionworkflow-form").tabs("option", "selected", active - 1);
     }
+});
+
+$("button[form-action='save']").click(function() {
+
+    var label = $("[id='dc:language.dc:identifier']").find(":selected").text();
+    $("[id='dc:language.skos:prefLabel']").val(label);
+    jaffa.form.synch(false);
+    transition_click(this);
 });
 
 function splitData(row) {
@@ -177,10 +186,25 @@ function getDateTime(){
 		var divs = $("."+div_class);
 		
 	}
-    
+
+    var selfSubmission = {
+        submit_hidden: true,
+        toggle_submit: function () {
+            if($("[id='readyforreview.1']").attr('checked') == null) { 
+                $("[transition-name='Submit']").hide(); 
+            } else {
+               $("[transition-name='Submit']").show();
+            }
+        }
+        
+    };
+
 	$(document).ready(function() {
    		$(widgets.contentLoaded);
         
+        // hide Submit link until user acknowledges 
+        $("[transition-name='Submit']").hide();
+        $("[id='readyforreview.1']").change(selfSubmission.toggle_submit);  
         prepareHelps();
 
         //setting up the classes for Access Rights/Conditions

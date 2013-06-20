@@ -56,7 +56,7 @@ class HomeData:
 
         isAdmin = self.vc("page").authentication.is_admin()
         if isAdmin:
-            self.__myDrafts = self._searchSets(indexer, "self-submission simple")
+            self.__myDrafts = self._searchSets(indexer, "self-submission jcu-self-submission")
             self.__myDatasets = self._searchSets(indexer, "dataset")
             self.__myPlans = self._searchSets(indexer, "dmpt")
         else:
@@ -69,7 +69,7 @@ class HomeData:
             self.__sharedPlans = self._searchSets(indexer, "dmpt", isAdmin, security_exceptions + " -"+owner_query)
     
             security_query = "(" + security_exceptions + ") OR (" + owner_query + ")"
-            self.__myDrafts = self._searchSets(indexer, "self-submission simple", isAdmin, security_query)
+            self.__myDrafts = self._searchSets(indexer, "self-submission jcu-self-submission", isAdmin, security_query)
             self.__myDatasets = self._searchSets(indexer, "dataset", isAdmin,  security_query + " AND " +owner_query)
     
     def getUser(self):

@@ -289,6 +289,7 @@ function manage_access(e) {
 </div>
 <div class="accordion">
     #parseDisplayTemplate("detail/preview/sections/coverage.vm")
+    #parseDisplayTemplate("detail/preview/sections/people.vm")
     #parseDisplayTemplate("detail/preview/sections/management.vm")
 	#parseDisplayTemplate("detail/preview/sections/associations.vm")
 	#parseDisplayTemplate("detail/preview/sections/subject.vm")

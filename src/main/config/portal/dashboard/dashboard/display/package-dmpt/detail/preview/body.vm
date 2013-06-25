@@ -184,7 +184,7 @@ Add more dataset:
 			                	ajax: 1,
 			                	fromOid: oid,
 			                	toOid: data.oid,
-			                	tfMetaPropertyValue: "dmpToSelfSub"
+			                	tfMetaPropertyValue: "dmpToJCUSelfSub"
 			            	}, 
 			            	success: function(data) {
 			            		if (data.status == "ok") {

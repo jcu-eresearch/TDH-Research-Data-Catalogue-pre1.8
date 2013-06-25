@@ -218,6 +218,80 @@
                     ]
                 },
                 {
+                    "heading":"People",
+                    "fields":[
+                        {
+                            "component-type":"text-block",
+                            "type":"label",
+                            "content":"jcu-self-submission.field.label.dc-creator.foaf-person"
+                            "help":"jcu-self-submission.field.help.dc-creator.foaf-person",
+                            "additional-class":"jcuFieldLabel"
+                        },
+                        {
+                            "component-type": "repeatable-container",
+                            "containter-for": "dc:creator.foaf:Person",
+                            "sub-elements": {
+                                "settings": [
+                                    {
+                                        "jaffaPeople": {
+                                            "source":"nla,mint",
+                                            "label":"",
+                                            "class-list":"jaffa-field",
+                                            "suffix":"",
+                                            "lookup-only":"false"
+                                        }
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "component-type":"text-block",
+                            "type":"label",
+                            "content":"jcu-self-submission.field.label.locrel-prc.foaf-person"
+                            "help":"jcu-self-submission.field.help.locrel-prc.foaf-person",
+                            "additional-class":"jcuFieldLabel"
+                        },
+                        {
+                            "component-type": "person",
+                            "lookup-name": "locrel:prc.foaf:Person",
+                            "lookup-only": "false",
+                        },
+                        {
+                            "component-type":"text-block",
+                            "type":"label",
+                            "content":"jcu-self-submission.field.label.dc-contributor.locrel-clb.foaf-Agent"
+                            "help":"jcu-self-submission.field.help.dc-contributor.locrel-clb.foaf-Agent",
+                            "additional-class":"jcuFieldLabel"
+                        },
+                        {
+                            "component-type":"repeatable-container",
+                            "containter-for":"dc:contributor.locrel:clb",
+                            "sub-elements":{"settings":[
+                                                {"jaffaText":{"label":"", "class-list":"jaffa-field", "suffix":"foaf:Agent", "size":"60", "placeholder":"e.g. CSIRO, University of X, Prof. Jim Bloggs, etc."}}
+                                                ]
+                                           },
+                            "add-item-text":"Add collaborator",                                                
+                            "additional-classes":"containerLayout"
+                        },
+                        {
+                            "component-type": "transition-control",
+                            "transitions": [
+                                {
+                                    "name": "Save and close",
+                                    "form-submit-action": "save",
+                                    "type": "button",
+									"close": true,
+									"closeUrl": "dmpt/details"
+                                }
+                            ]
+                        },
+                        {
+                            "component-type":"native-html",
+                            "content":"<button class='prevtab'>Previous</button><button class='nexttab'>Next</button>"
+                        }
+                    ]
+                },
+                {
                     "heading":"Data Management",
                     "fields":[
                         {
@@ -520,31 +594,31 @@
                                     "label": "Tropical Ecosystems, Conservation and Climate Change",
                                     "field-name": "jcu:research.themes.tropicalEcoSystems",
                                     "checkbox-id": "jcu:research.themes.tropicalEcoSystems",
-                                    "additional-classes":""  
+                                    "additional-classes":"clearNotAligned"
                                 },
                                 {
                                     "label": "Industries and Economies in the Tropics",
                                     "field-name": "jcu:research.themes.industriesEconomies",
                                     "checkbox-id": "jcu:research.themes.industriesEconomies",
-                                    "additional-classes":""                                    
+                                    "additional-classes":"clearNotAligned"
                                 },
                                 {
                                     "label": "People and Societies in the Tropics",
                                     "field-name": "jcu:research.themes.peopleSocieties",                                    
                                     "checkbox-id": "jcu:research.themes.peopleSocieties",
-                                    "additional-classes":""                                    
+                                    "additional-classes":"clearNotAligned"
                                 },
                                 {
                                     "label": "Tropical Health, Medicine and Biosecurity",
                                     "field-name": "jcu:research.themes.tropicalHealth",                                    
                                     "checkbox-id": "jcu:research.themes.tropicalHealth",
-                                    "additional-classes":""                                    
+                                    "additional-classes":"clearNotAligned"
                                 },
                                 {
                                     "label": "Not aligned to a University theme",
                                     "field-name": "jcu:research.themes.notAligned",                                    
                                     "checkbox-id": "jcu:research.themes.notAligned",
-                                    "additional-classes":""
+                                    "additional-classes":"clearOtherSelections"
                                 }
                             ]
                         },
@@ -591,6 +665,16 @@
                                            },
                             "add-item-text":"Add keyword",                                                
                             "additional-classes":"containerLayout"
+                            "validation": {
+        									"save-rules": [
+            									"required"
+        									],
+        									"validation-id": "dc:subject.vivo:keyword.1.rdf:PlainLiteral",
+        									"focus-id": "dc:subject.vivo:keyword.1.rdf:PlainLiteral",
+        									 "validation-messages":{
+        									 						"required": "At least one keyword is required"
+        									 						}
+    						 			  }                                            
                         },
                         {
                             "component-type": "transition-control",
@@ -836,7 +920,7 @@
                             "content":"<script>$(document).ready(function() {
                                         wizardTabIdentifier='jcu-self-submissionWorkflowTab'; 
                                         //The anonymous function below is called when the user clicks on a new tab. It validates all fields on the current tab, if valid, the clicked tab is selected 
-                                        jaffa.ui.changeToTabLayout($('#jcu-self-submissionworkflow-form'),
+                                        jaffa.ui.changeToTabLayout($('#simpleworkflow-form'),
                                                                    'h1',
                                                                    function(){
                                                                                var validationPassed = validateTab();

@@ -63,6 +63,17 @@
             <artifactId>plugin-harvester-directoryName</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+        <!-- this dependency was added to pick up a fix in Util.java so that we can escape the JSON properly
+             in selfsubToDataset.vm or JCUselfsubToDataset.vm. This functionality forms part of the transitionWorkflow process. 
+             See system-config.json for reference to these files. 
+             In future release upgrades, this dependency should be removed. e.g. after version 1.6.1-->        
+        <!-- 
+        <dependency>
+            <groupId>com.googlecode.the-fascinator.plugins</groupId>
+            <artifactId>plugin-transformer-jsonVelocity</artifactId>
+            <version>1.1.5-SNAPSHOT</version>
+        </dependency>
+         -->
     </dependencies>
 
 

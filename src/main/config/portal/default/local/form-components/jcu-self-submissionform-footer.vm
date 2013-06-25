@@ -23,6 +23,13 @@ input:focus, textarea:focus, select:focus {
 .component-wrapper .widgetLabel {
     display:block;
 }
+
+.component-wrapper .peopleWidgetLabel{
+    display:inline;
+    padding-right:0.3em;
+    padding-left:0.3em;
+}
+
 .rights {
     display: inline-block;
     margin-right: 0.5em;
@@ -35,6 +42,17 @@ input:focus, textarea:focus, select:focus {
 </style>
 
 <script type="text/javascript">
+//Research Themes
+$(".clearNotAligned").click(function() {
+    $("#jcu\\:research\\.themes\\.notAligned").attr('checked', false);
+});
+
+$(".clearOtherSelections").click(function() {
+    $("#jcu\\:research\\.themes\\.tropicalEcoSystems").attr('checked', false);
+    $("#jcu\\:research\\.themes\\.industriesEconomies").attr('checked', false);
+    $("#jcu\\:research\\.themes\\.peopleSocieties").attr('checked', false);
+    $("#jcu\\:research\\.themes\\.tropicalHealth").attr('checked', false);});
+
 //Buttons
 $(".nexttab").click(function() {
 
@@ -42,8 +60,8 @@ $(".nexttab").click(function() {
 
     if(validationPassed) {
         jaffa.form.save(true);
-        var active = $("#jcu-self-submissionworkflow-form").tabs("option", "selected");
-        $("#jcu-self-submissionworkflow-form").tabs("option", "selected", active + 1);
+        var active = $("#simpleworkflow-form").tabs("option", "selected");
+        $("#simpleworkflow-form").tabs("option", "selected", active + 1);
     }
 });
 
@@ -52,9 +70,9 @@ $(".prevtab").click(function() {
     var validationPassed = validateTab(); 
 
     if(validationPassed) {
-        jaffa.form.save();
-        var active = $("#jcu-self-submissionworkflow-form").tabs("option", "selected");
-        $("#jcu-self-submissionworkflow-form").tabs("option", "selected", active - 1);
+        jaffa.form.save(true);
+        var active = $("#simpleworkflow-form").tabs("option", "selected");
+        $("#simpleworkflow-form").tabs("option", "selected", active - 1);
     }
 });
 

@@ -67,13 +67,11 @@
              in selfsubToDataset.vm or JCUselfsubToDataset.vm. This functionality forms part of the transitionWorkflow process. 
              See system-config.json for reference to these files. 
              In future release upgrades, this dependency should be removed. e.g. after version 1.6.1-->        
-        <!-- 
         <dependency>
             <groupId>com.googlecode.the-fascinator.plugins</groupId>
             <artifactId>plugin-transformer-jsonVelocity</artifactId>
             <version>1.1.5-SNAPSHOT</version>
         </dependency>
-         -->
     </dependencies>
 
 

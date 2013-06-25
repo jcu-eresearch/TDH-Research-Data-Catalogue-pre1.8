@@ -237,8 +237,7 @@
                                             "source":"nla,mint",
                                             "label":"",
                                             "class-list":"jaffa-field",
-                                            "suffix":"",
-                                            "lookup-only":"false"
+                                            "suffix":""
                                         }
                                     }
                                 ]

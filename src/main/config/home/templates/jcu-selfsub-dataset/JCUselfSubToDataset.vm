@@ -36,7 +36,6 @@
 #end
 #end
 
-
 #macro(copyCodes $map $key $order $type)
 #set ($value = $map.get($key))
 #if ("$!value" != "")
@@ -56,7 +55,7 @@
     #mapTo('dc:description', 'description')
 	"redbox:newForm": "$util.get($item, 'redbox:newForm')",
 	"redbox:formVersion": "$util.get($item, 'redbox:formVersion')",
-	"dc:title": "$util.get($item, 'dc:title')",
+	"dc:title": "$util.encodeJson($util.get($item, 'dc:title'))",
 	#foreach( $key in ["dc:type.rdf:PlainLiteral","dc:type.skos:prefLabel","dc:created",
 			 "dc:modified","dc:language.dc:identifier","dc:language.skos:prefLabel",
 			 "dc:coverage.vivo:DateTimeInterval.vivo:start","dc:coverage.vivo:DateTimeInterval.vivo:end",
@@ -107,7 +106,19 @@
     	#set($order = $order + 1)
     #end
 	#end
-	
+
+    #set($cList = $util.getList($item, "dc:relation.swrc:Publication"))
+    #set($order = 1)
+    #if ($cList.size() > 0)
+    #foreach($key in $cList.keySet())
+        #set($slot = $cList.get($key))
+        #multiValuedProperty($slot "dc:relation.swrc:Publication" "dc:identifier" $order)
+        #multiValuedProperty($slot "dc:relation.swrc:Publication" "dc:title" $order)
+        #multiValuedProperty($slot "dc:relation.swrc:Publication" "skos:note" $order)
+        #set($order = $order + 1)
+    #end
+    #end
+    
 	#set($cList = $util.getList($item, "dc:relation.vivo:Dataset"))
 	#set($order = 1)
 	#if ($cList.size() > 0)
@@ -138,31 +149,33 @@
     #end
 	#end
 	
-	#mapTo('dc:creator.foaf:Person.foaf:title', 'dc:creator.foaf:Person.1.foaf:title')
-	#mapTo('dc:creator.foaf:Person.foaf:givenName', 'dc:creator.foaf:Person.1.foaf:givenName')
-	#mapTo('dc:creator.foaf:Person.foaf:familyName', 'dc:creator.foaf:Person.1.foaf:familyName')
-	#mapTo('dc:creator.foaf:Person.dc:identifier', 'dc:creator.foaf:Person.1.dc:identifier')
-	#set($ciFamilyName = $util.get($item, "dc:creator.foaf:Person.foaf:familyName"))
-	#set($ciGivenName = $util.get($item, "dc:creator.foaf:Person.foaf:givenName"))
-	"dc:creator.foaf:Person.1.foaf:name": "$util.encodeJson($ciFamilyName), $util.encodeJson($ciGivenName)",
-	"dc:creator.foaf:Person.1.redbox:isPrimaryInvestigator": "on",
+    #set($cList = $util.getList($item, "dc:creator.foaf:Person"))
+    #set($order = 1)
+    #if ($cList.size() > 0)
+    #foreach($key in $cList.keySet())
+        #set($slot = $cList.get($key))
+        #multiValuedProperty($slot "dc:creator.foaf:Person" "foaf:title" $order)
+        #multiValuedProperty($slot "dc:creator.foaf:Person" "foaf:givenName" $order)
+        #multiValuedProperty($slot "dc:creator.foaf:Person" "foaf:familyName" $order)
+        #multiValuedProperty($slot "dc:creator.foaf:Person" "dc:identifier" $order)
+        #set($familyNameValue = $slot.get("foaf:familyName"))
+        #set($givenNameValue = $slot.get("foaf:givenName"))
+        #if ("$!familyNameValue" != "") 
+            "dc:creator.foaf:Person.${order}.foaf:name": "$util.encodeJson($familyNameValue), $util.encodeJson($givenNameValue)",
+        #end
+        #set($order = $order + 1)
+    #end
+    #end
+    
+    ##assumes the first Creator is the primary investigator, same as the old workflow. It is mandatory to have at least one creator
+    "dc:creator.foaf:Person.1.redbox:isPrimaryInvestigator": "on",
 	
 	#set($cList = $util.getList($item, "dc:contributor.locrel:clb"))
-	#set($order = 2)
+	#set($order = 1)
 	#if ($cList.size() > 0)
 	#foreach($key in $cList.keySet())
     	#set($slot = $cList.get($key))
-    	
-    	#multiValuedMappedProperty($slot "dc:creator.foaf:Person" "foaf:Agent.foaf:title"  "foaf:title" $order)
-    	#multiValuedMappedProperty($slot "dc:creator.foaf:Person" "foaf:Agent.foaf:givenName" "foaf:givenName" $order)
-    	#multiValuedMappedProperty($slot "dc:creator.foaf:Person" "foaf:Agent.foaf:familyName" "foaf:familyName" $order)
-    	#multiValuedMappedProperty($slot "dc:creator.foaf:Person" "foaf:Agent.dc:identifier" "dc:identifier" $order)
-    	
-		#set($familyNameValue = $slot.get("foaf:Agent.foaf:familyName"))
-		#set($givenNameValue = $slot.get("foaf:Agent.foaf:givenName"))
-		#if ("$!familyNameValue" != "") 
-			"dc:creator.foaf:Person.${order}.foaf:name": "$util.encodeJson($familyNameValue), $util.encodeJson($givenNameValue)",
-		#end
+    	#multiValuedProperty($slot "dc:contributor.locrel:clb" "foaf:Agent" $order)
     	#set($order = $order + 1)
     #end
 	#end
@@ -341,8 +354,8 @@
         "dc:creator.foaf:Person.1.foaf:title",
         "dc:creator.foaf:Person.1.redbox:isCoPrimaryInvestigator",
         "dc:creator.foaf:Person.1.redbox:isPrimaryInvestigator",
-        "dc:creator.foaf:Person.0.jcu:relationshipType",
-        "dc:creator.foaf:Person.0.jcu:relationshipLabel",
+        "dc:creator.foaf:Person.1.jcu:relationshipType",
+        "dc:creator.foaf:Person.1.jcu:relationshipLabel",
         "dc:creator.foaf:Person.1.foaf:givenName",
         "dc:creator.foaf:Person.1.foaf:familyName",
         "dc:creator.foaf:Person.1.foaf:Organization.dc:identifier",

@@ -942,6 +942,6 @@
             "validation":{
                 "required":"title"
             }
-        },
+        }
     }
 }

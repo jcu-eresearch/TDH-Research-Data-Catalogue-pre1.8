@@ -38,6 +38,24 @@
         </dd>
 
         #######################################
-        #displayList("dc:contributor.locrel:clb" "Collaborators")
+        <dt>Collaborators</dt>
+        #set($collaboratorList = $self.getList("dc:contributor.locrel:clb"))
+        #if ($collaboratorList.isEmpty())
+        <dd>
+        #noInformation()
+        </dd>
+        #else
+        <dd>
+            <ol>
+            #foreach($key in $collaboratorList.keySet())
+                #set($collaborator = $collaboratorList.get($key))
+                #set($collaboratorDetails = $collaborator.get("foaf:Agent"))
+                <li>
+                    $self.escapeHtml($collaboratorDetails)
+                </li>
+            #end
+            </ol>
+        </dd>
+        #end
     </dl>
 </div>

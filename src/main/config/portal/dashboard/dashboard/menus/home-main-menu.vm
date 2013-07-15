@@ -5,7 +5,6 @@
     <ul class="menu">
         <li>
             <a id="new-dmpt" href="#" title="New plan">#displayMessage("researcher-dashboard.home.menu.newplan")</a>
-            <a id="new-dataset" href="#" title="New dataset">#displayMessage("researcher-dashboard.home.menu.newdataset")</a>
             <a id="new-jcu-self-submission" href="#" title="New JCU Research">#displayMessage("jcu-self-submission.home.menu.newJCUSelfSubmission")</a>
         </li>
     </ul>

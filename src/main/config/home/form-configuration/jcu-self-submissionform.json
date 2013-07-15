@@ -593,30 +593,35 @@
                                     "label": "Tropical Ecosystems, Conservation and Climate Change",
                                     "field-name": "jcu:research.themes.tropicalEcoSystems",
                                     "checkbox-id": "jcu:research.themes.tropicalEcoSystems",
+                                    "value": "on",
                                     "additional-classes":"clearNotAligned"
                                 },
                                 {
                                     "label": "Industries and Economies in the Tropics",
                                     "field-name": "jcu:research.themes.industriesEconomies",
                                     "checkbox-id": "jcu:research.themes.industriesEconomies",
+                                    "value": "on",
                                     "additional-classes":"clearNotAligned"
                                 },
                                 {
                                     "label": "People and Societies in the Tropics",
                                     "field-name": "jcu:research.themes.peopleSocieties",                                    
                                     "checkbox-id": "jcu:research.themes.peopleSocieties",
+                                    "value": "on",
                                     "additional-classes":"clearNotAligned"
                                 },
                                 {
                                     "label": "Tropical Health, Medicine and Biosecurity",
                                     "field-name": "jcu:research.themes.tropicalHealth",                                    
                                     "checkbox-id": "jcu:research.themes.tropicalHealth",
+                                    "value": "on",
                                     "additional-classes":"clearNotAligned"
                                 },
                                 {
                                     "label": "Not aligned to a University theme",
                                     "field-name": "jcu:research.themes.notAligned",                                    
                                     "checkbox-id": "jcu:research.themes.notAligned",
+                                    "value": "on",
                                     "additional-classes":"clearOtherSelections"
                                 }
                             ]

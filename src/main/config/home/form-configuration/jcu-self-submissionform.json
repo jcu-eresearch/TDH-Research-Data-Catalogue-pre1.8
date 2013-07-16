@@ -451,6 +451,25 @@
                         {
                             "component-type":"text-block",
                             "type":"label",
+                            "content":"jcu-self-submission.field.label.foaf-fundedBy.vivo-Grant"
+                            "help":"jcu-self-submission.field.help.foaf-fundedBy.vivo-Grant",
+                            "additional-class":"jcuFieldLabel"
+                        },
+                        {
+                            "component-type":"repeatable-container",
+                            "containter-for":"foaf:fundedBy.vivo:Grant",
+                            "sub-elements":{"settings":[
+                                                {"jaffaText":{"label":"Internal ?", "type":"checkbox", "class-list":"jaffa-field internal-grant", "suffix":"redbox:internalGrant"}},
+                                                {"jaffaText":{"label":"Number", "class-list":"jaffa-field autocomplete-grant", "suffix":"redbox:grantNumber", "size":"20"}},
+                                                {"jaffaText":{"label":"", "type":"hidden", "class-list":"jaffa-field autocomplete-grant-identifier", "suffix":"dc:identifier"}},
+                                                {"jaffaText":{"label":"Title", "class-list":"jaffa-field autocomplete-grant-label", "suffix":"skos:prefLabel", "size":"100"}}
+                                           ]},
+                            "add-item-text":"Add grant",                                           
+                            "additional-classes":"containerLayout"        
+                        },                        
+                        {
+                            "component-type":"text-block",
+                            "type":"label",
                             "content":"jcu-self-submission.field.label.dc-relation.swrc-Publication",
                             "help":"jcu-self-submission.field.help.dc-relation.swrc-Publication",
                             "additional-class":"jcuFieldLabel"

@@ -397,17 +397,6 @@
                         {
                             "component-type":"text-block",
                             "type":"label",
-                            "content":"Current location of Electronic data",
-                            "additional-class":"jcuFieldLabel"
-                        },
-                        {
-                            "component-type":"textarea",
-                            "field-name":"storedData",
-                            "label":""
-                        },
-                        {
-                            "component-type":"text-block",
-                            "type":"label",
                             "content":"jcu-self-submission.field.label.locrel-own.foaf-Agent.foaf-name"
                             "help":"jcu-self-submission.field.help.locrel-own.foaf-Agent.foaf-name",
                             "additional-class":"jcuFieldLabel"

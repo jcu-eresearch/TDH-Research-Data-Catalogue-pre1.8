@@ -39,6 +39,11 @@ input:focus, textarea:focus, select:focus {
     font-size: 105%;
     font-weight: bold;
 }
+
+.mintNlaLookup {
+    padding-right:1em;
+    padding-left:1em;
+}
 </style>
 
 <script type="text/javascript">

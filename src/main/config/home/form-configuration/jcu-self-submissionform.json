@@ -176,7 +176,7 @@
                             "add-item-text":"Add location",
                             "sub-elements":{"settings":[
                                                 {"jaffaDropDown":{"label":"Location Type", "suffix":"dc:type", "field":"dc:type", "label-field":"dc:type", 
-                                                                  "label-field-suffix":"dc:type", "json-data-url":"$portalPath/workflows/forms/data/locationTypes.json", 
+                                                                  "label-field-suffix":"dc:type", "json-data-url":"$portalPath/workflows/forms/data/locationTypesSelfSubmission.json", 
                                                                   "data-id-key":"id", "data-label-key":"label", "data-list-key":"results", "mandatory":"true",
                                                                   "class-list":"locationType"}},
                                                  {"jaffaText":{"label":"","type":"hidden","class-list":"jaffa-field redboxGeoDataFid","suffix": "redbox:Fid"}},

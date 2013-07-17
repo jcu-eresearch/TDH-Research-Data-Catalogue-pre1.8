@@ -321,6 +321,7 @@ function getDateTime(){
         $('#accessRight-selection').parent().next().addClass('rights');
         $('#accessRight-selection').parent().next().next().addClass('rights');
         $('#dc\\:accessRights\\.dc\\:identifier-container').parent().addClass('rights');
+        $("[id='dc:accessRights.skos:prefLabel']").hide();        
 
         $('#dc\\:accessRights\\.dc\\:RightsStatement\\.skos\\:prefLabel-container').parent().addClass('rights');
         $('#dc\\:accessRights\\.dc\\:RightsStatement\\.skos\\:prefLabel-container').parent().next().addClass('rights');

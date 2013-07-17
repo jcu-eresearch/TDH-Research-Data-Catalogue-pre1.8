@@ -578,11 +578,17 @@
                             "content":"jcu-self-submission.field.label.dc-subject.anzsrc-for",
                             "help":"jcu-self-submission.field.help.dc-subject.anzsrc-for",
                             "additional-class":"jcuFieldLabel"
-                        },         
+                        },
                         {
                             "component-type":"repeatable-anzsrc-selection",
                             "fieldName":"dc:subject.anzsrc:for",
-                            "sourceUrl":"proxyGet.script?ns=ANZSRC_FOR&qs=count%3D999%26level%3D"
+                            "sourceUrl":"proxyGet.script?ns=ANZSRC_FOR&qs=count%3D999%26level%3D",
+                            "validation": {
+        									"save-rules": ["required"],
+        									"validation-id": "dc:subject.anzsrc:for.1.rdf:resource",
+        									"focus-id": "dc:subject.anzsrc:for.1..top.dropdown",
+        									 "validation-messages":{"required": "At least one Field of Research is required"}
+    				    				}
                         },
                         {
                             "component-type":"text-block",
@@ -689,15 +695,11 @@
                             "add-item-text":"Add keyword",                                                
                             "additional-classes":"containerLayout"
                             "validation": {
-        									"save-rules": [
-            									"required"
-        									],
+        									"save-rules": ["required"],
         									"validation-id": "dc:subject.vivo:keyword.1.rdf:PlainLiteral",
         									"focus-id": "dc:subject.vivo:keyword.1.rdf:PlainLiteral",
-        									 "validation-messages":{
-        									 						"required": "At least one keyword is required"
-        									 						}
-    						 			  }                                            
+        									 "validation-messages":{"required": "At least one keyword is required"}
+    				    				}
                         },
                         {
                             "component-type": "transition-control",

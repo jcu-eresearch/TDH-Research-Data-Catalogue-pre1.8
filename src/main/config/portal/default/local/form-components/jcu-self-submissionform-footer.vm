@@ -311,14 +311,29 @@ function getDateTime(){
         prepareHelps();
 
         //setting up the classes for Access Rights/Conditions
-        $('#dc\\:accessRights\\.skos\\:prefLabel-container').parent().addClass('rights');
-        $('#dc\\:accessRights\\.skos\\:prefLabel-container').parent().next().addClass('rights');
+        $('#accessRight-selection').css("width", "375px");
+        $('#accessRight-selection').parent().addClass('rights');
+        $('#accessRight-selection').parent().next().addClass('rights');
+        $('#accessRight-selection').parent().next().next().addClass('rights');
         $('#dc\\:accessRights\\.dc\\:identifier-container').parent().addClass('rights');
 
         $('#dc\\:accessRights\\.dc\\:RightsStatement\\.skos\\:prefLabel-container').parent().addClass('rights');
         $('#dc\\:accessRights\\.dc\\:RightsStatement\\.skos\\:prefLabel-container').parent().next().addClass('rights');
         $('#dc\\:accessRights\\.dc\\:RightsStatement\\.dc\\:identifier-container').parent().addClass('rights');
 
+        //Rights
+        $("#accessRight-selection").change(function(){
+            var comboValue = $(this).val();
+            if  (comboValue == 'manual'){
+                $("[id='dc:accessRights.skos:prefLabel']").val("");
+                $("[id='dc:accessRights.skos:prefLabel']").show()                
+            }
+            else{
+                $("[id='dc:accessRights.skos:prefLabel']").val(comboValue);
+                $("[id='dc:accessRights.skos:prefLabel']").hide();
+            }
+        });
+        
         //make the Grants Title field readonly
         $().attr("readonly", "readonly");
     })

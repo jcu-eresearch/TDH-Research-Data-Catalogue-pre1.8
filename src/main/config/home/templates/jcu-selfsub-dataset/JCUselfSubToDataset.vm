@@ -25,7 +25,17 @@
 #macro(multiValuedProperty $map $prefix $key $order)
 #set($queryKey = "${key}")
 #set ($value = $map.get($queryKey))
+"Jay:multiValuedProperty":"$util.encodeJson($!value)"
 "${prefix}.${order}.${key}": "$util.encodeJson($value)",
+#end
+
+#macro(multiValuedPropertyCheckbox $map $prefix $key $order)
+#set($queryKey = "${key}")
+#set ($value = $map.get($queryKey))
+"Jay:multiValuedPropertyCheckbox":"$util.encodeJson($!value)"
+#if ("$!value" == "on")
+"${prefix}.${order}.${key}": "$util.encodeJson($!value)",
+#end
 #end
 
 #macro(multiValuedMappedProperty $map $prefix $key $suffix $order)
@@ -241,7 +251,7 @@
 	#if ($cList.size() > 0)
 	#foreach($key in $cList.keySet())
     	#set($slot = $cList.get($key))
-    	"foaf:fundedBy.vivo:Grant.${order}.internalGrant": "",
+    	#multiValuedPropertyCheckbox($slot "foaf:fundedBy.vivo:Grant" "redbox:internalGrant" $order)
     	#multiValuedProperty($slot "foaf:fundedBy.vivo:Grant" "redbox:grantNumber" $order)
     	#multiValuedProperty($slot "foaf:fundedBy.vivo:Grant" "dc:identifier" $order)
     	#multiValuedProperty($slot "foaf:fundedBy.vivo:Grant" "skos:prefLabel" $order)

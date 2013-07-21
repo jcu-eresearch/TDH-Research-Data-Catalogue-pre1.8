@@ -448,7 +448,7 @@
                             "component-type":"repeatable-container",
                             "containter-for":"foaf:fundedBy.vivo:Grant",
                             "sub-elements":{"settings":[
-                                                {"jaffaText":{"label":"Internal ?", "type":"checkbox", "class-list":"jaffa-field internal-grant", "suffix":"redbox:internalGrant"}},
+                                                {"jaffaText":{"label":"Internal ?", "type":"checkbox", "class-list":"jaffa-field internal-grant", "default-value":"on", "suffix":"redbox:internalGrant"}},
                                                 {"jaffaText":{"label":"Number", "class-list":"jaffa-field autocomplete-grant", "suffix":"redbox:grantNumber", "size":"20"}},
                                                 {"jaffaText":{"label":"", "type":"hidden", "class-list":"jaffa-field autocomplete-grant-identifier", "suffix":"dc:identifier"}},
                                                 {"jaffaText":{"label":"Title", "class-list":"jaffa-field autocomplete-grant-label", "suffix":"skos:prefLabel", "size":"100"}}

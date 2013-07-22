@@ -1,6 +1,28 @@
 #sectionHeading("#displayMessage('jcu-self-submission.heading.label.associations')")
 <div class="meta">
     <dl>
+        <dt>Grant Numbers</dt>
+        <dd>
+            #set($grantList = $self.getList("foaf:fundedBy.vivo:Grant"))
+            <ol>
+            #foreach($key in $grantList.keySet())
+                #set($grant = $grantList.get($key))
+                #set($internal = $grant.get("redbox:internalGrant"))
+                <li>
+                    #set($grantId = $grant.get("redbox:grantNumber"))
+                    #if("$!grantId"!="")
+                        $self.escapeHtml($grantId),
+                    #end
+                    #set($grantName = $grant.get("skos:prefLabel"))
+                    #if("$!grantName"!="")
+                        $self.escapeHtml($grantName),
+                    #end
+                    #if("$!internal" == "on")<em>(Internal)</em>#end
+                </li>
+            #end
+            </ol>
+        </dd>
+        
         #relatedURLs("dc:relation.swrc:Publication" "#displayMessage('jcu-self-submission.field.label.dc-relation.swrc-Publication')" "value" "title")
         #relatedURLs("dc:relation.bibo:Website" "#displayMessage('jcu-self-submission.field.label.dc-relation.bibo-Website')" "value" "title")
         

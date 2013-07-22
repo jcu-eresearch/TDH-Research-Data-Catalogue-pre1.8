@@ -36,6 +36,13 @@ $value
 #displayKey($map $key true)
 #end
 
+#macro(displayAffiliation $map $key)
+#set ($value = $map.get($key))
+#if ("$!value" != "")
+"$value"
+#end
+#end
+
 #sectionHeading("#displayMessage('jcu-self-submission.heading.lable.people')")
 <div class="meta">
     <dl>
@@ -56,6 +63,9 @@ $value
                 #displayRequiredKey($person "foaf:givenName")
                 #displayRequiredKey($person "foaf:familyName")
                 #displayOptionalKey($person "foaf:email")
+                #displayAffiliation($person "foaf:Organization.1.skos:prefLabel")
+                #displayAffiliation($person "foaf:Organization.2.skos:prefLabel")
+                #displayAffiliation($person "foaf:Organization.3.skos:prefLabel")
             </li>
         #end
         </ol>

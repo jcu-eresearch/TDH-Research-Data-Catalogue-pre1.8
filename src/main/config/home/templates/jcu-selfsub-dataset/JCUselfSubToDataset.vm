@@ -173,6 +173,12 @@
         #if ("$!familyNameValue" != "") 
             "dc:creator.foaf:Person.${order}.foaf:name": "$util.encodeJson($familyNameValue), $util.encodeJson($givenNameValue)",
         #end
+        #multiValuedProperty($slot "dc:creator.foaf:Person" "foaf:Organization.1.dc:identifier" $order)
+        #multiValuedProperty($slot "dc:creator.foaf:Person" "foaf:Organization.1.skos:prefLabel" $order)
+        #multiValuedProperty($slot "dc:creator.foaf:Person" "foaf:Organization.2.dc:identifier" $order)
+        #multiValuedProperty($slot "dc:creator.foaf:Person" "foaf:Organization.2.skos:prefLabel" $order)
+        #multiValuedProperty($slot "dc:creator.foaf:Person" "foaf:Organization.3.dc:identifier" $order)
+        #multiValuedProperty($slot "dc:creator.foaf:Person" "foaf:Organization.3.skos:prefLabel" $order)
         #set($order = $order + 1)
     #end
     #end
@@ -372,8 +378,12 @@
         "dc:creator.foaf:Person.1.jcu:relationshipLabel",
         "dc:creator.foaf:Person.1.foaf:givenName",
         "dc:creator.foaf:Person.1.foaf:familyName",
-        "dc:creator.foaf:Person.1.foaf:Organization.dc:identifier",
-        "dc:creator.foaf:Person.1.foaf:Organization.skos:prefLabel",
+        "dc:creator.foaf:Person.1.foaf:Organization.1.dc:identifier",
+        "dc:creator.foaf:Person.1.foaf:Organization.1.skos:prefLabel",
+        "dc:creator.foaf:Person.1.foaf:Organization.2.dc:identifier",
+        "dc:creator.foaf:Person.1.foaf:Organization.2.skos:prefLabel",
+        "dc:creator.foaf:Person.1.foaf:Organization.3.dc:identifier",
+        "dc:creator.foaf:Person.1.foaf:Organization.3.skos:prefLabel",
         "locrel:prc.foaf:Person.dc:identifier",
         "locrel:prc.foaf:Person.foaf:name",
         "locrel:prc.foaf:Person.foaf:title",

@@ -655,8 +655,8 @@
                                                         var orField2 = jaffa.form.value(params[1]);
                                                         var orField3 = jaffa.form.value(params[2]);
                                                         var orField4 = jaffa.form.value(params[3]);
-                                                        var orField5 = jaffa.form.value(params[4]);     
-                                                        return (orField1 || orField2 || orField3 || orField4 || orField5);
+                                                        var orField5 = jaffa.form.value(params[4]);
+                                                        return (orField1 == 'on' || orField2 == 'on'  || orField3 == 'on'  || orField4 == 'on'  || orField5 == 'on' );
                                                     }
                                                 });
                                                 jaffa.valid.addNewRule('tropicalThemesOrRule', 'tropicalThemesOr', ['jcu:research.themes.tropicalEcoSystems', 'jcu:research.themes.industriesEconomies', 'jcu:research.themes.peopleSocieties', 'jcu:research.themes.tropicalHealth', 'jcu:research.themes.notAligned']);

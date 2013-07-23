@@ -63,9 +63,9 @@ $value
                 #displayRequiredKey($person "foaf:givenName")
                 #displayRequiredKey($person "foaf:familyName")
                 #displayOptionalKey($person "foaf:email")
-                #displayAffiliation($person "foaf:Organization.1.skos:prefLabel")
-                #displayAffiliation($person "foaf:Organization.2.skos:prefLabel")
-                #displayAffiliation($person "foaf:Organization.3.skos:prefLabel")
+                #displayAffiliation($person "foaf:Organization.skos:prefLabel")
+                #displayAffiliation($person "foaf:Organization.B.skos:prefLabel")
+                #displayAffiliation($person "foaf:Organization.C.skos:prefLabel")
             </li>
         #end
         </ol>

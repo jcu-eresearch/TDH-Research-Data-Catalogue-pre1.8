@@ -25,14 +25,12 @@
 #macro(multiValuedProperty $map $prefix $key $order)
 #set($queryKey = "${key}")
 #set ($value = $map.get($queryKey))
-"Jay:multiValuedProperty":"$util.encodeJson($!value)"
 "${prefix}.${order}.${key}": "$util.encodeJson($value)",
 #end
 
 #macro(multiValuedPropertyCheckbox $map $prefix $key $order)
 #set($queryKey = "${key}")
 #set ($value = $map.get($queryKey))
-"Jay:multiValuedPropertyCheckbox":"$util.encodeJson($!value)"
 #if ("$!value" == "on")
 "${prefix}.${order}.${key}": "$util.encodeJson($!value)",
 #end
@@ -173,12 +171,12 @@
         #if ("$!familyNameValue" != "") 
             "dc:creator.foaf:Person.${order}.foaf:name": "$util.encodeJson($familyNameValue), $util.encodeJson($givenNameValue)",
         #end
-        #multiValuedProperty($slot "dc:creator.foaf:Person" "foaf:Organization.1.dc:identifier" $order)
-        #multiValuedProperty($slot "dc:creator.foaf:Person" "foaf:Organization.1.skos:prefLabel" $order)
-        #multiValuedProperty($slot "dc:creator.foaf:Person" "foaf:Organization.2.dc:identifier" $order)
-        #multiValuedProperty($slot "dc:creator.foaf:Person" "foaf:Organization.2.skos:prefLabel" $order)
-        #multiValuedProperty($slot "dc:creator.foaf:Person" "foaf:Organization.3.dc:identifier" $order)
-        #multiValuedProperty($slot "dc:creator.foaf:Person" "foaf:Organization.3.skos:prefLabel" $order)
+        #multiValuedProperty($slot "dc:creator.foaf:Person" "foaf:Organization.dc:identifier" $order)
+        #multiValuedProperty($slot "dc:creator.foaf:Person" "foaf:Organization.skos:prefLabel" $order)
+        #multiValuedProperty($slot "dc:creator.foaf:Person" "foaf:Organization.B.dc:identifier" $order)
+        #multiValuedProperty($slot "dc:creator.foaf:Person" "foaf:Organization.B.skos:prefLabel" $order)
+        #multiValuedProperty($slot "dc:creator.foaf:Person" "foaf:Organization.C.dc:identifier" $order)
+        #multiValuedProperty($slot "dc:creator.foaf:Person" "foaf:Organization.C.skos:prefLabel" $order)
         #set($order = $order + 1)
     #end
     #end
@@ -378,12 +376,12 @@
         "dc:creator.foaf:Person.1.jcu:relationshipLabel",
         "dc:creator.foaf:Person.1.foaf:givenName",
         "dc:creator.foaf:Person.1.foaf:familyName",
-        "dc:creator.foaf:Person.1.foaf:Organization.1.dc:identifier",
-        "dc:creator.foaf:Person.1.foaf:Organization.1.skos:prefLabel",
-        "dc:creator.foaf:Person.1.foaf:Organization.2.dc:identifier",
-        "dc:creator.foaf:Person.1.foaf:Organization.2.skos:prefLabel",
-        "dc:creator.foaf:Person.1.foaf:Organization.3.dc:identifier",
-        "dc:creator.foaf:Person.1.foaf:Organization.3.skos:prefLabel",
+        "dc:creator.foaf:Person.1.foaf:Organization.dc:identifier",
+        "dc:creator.foaf:Person.1.foaf:Organization.skos:prefLabel",
+        "dc:creator.foaf:Person.1.foaf:Organization.B.dc:identifier",
+        "dc:creator.foaf:Person.1.foaf:Organization.B.skos:prefLabel",
+        "dc:creator.foaf:Person.1.foaf:Organization.C.dc:identifier",
+        "dc:creator.foaf:Person.1.foaf:Organization.C.skos:prefLabel",
         "locrel:prc.foaf:Person.dc:identifier",
         "locrel:prc.foaf:Person.foaf:name",
         "locrel:prc.foaf:Person.foaf:title",

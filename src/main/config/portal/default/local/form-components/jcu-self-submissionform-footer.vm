@@ -40,11 +40,90 @@ input:focus, textarea:focus, select:focus {
     font-weight: bold;
 }
 
-.mintNlaLookup {
-    padding-right:1em;
-    padding-left:1em;
-}
 </style>
+
+<script type="text/javascript">
+//Validate all tabs
+
+//Overwriting the original validationFail(). Code has been added to select the tab before focussing on the field.
+function validationFail(fieldId, testsFailed) {
+    $(".errorbox").show();
+    var validation = validationFieldMap[fieldId];
+    for(var i =0; i < testsFailed.length; i++) {
+        var message = validation["validationMessages"][testsFailed[i]];
+        $("#errorbox-list").append('<li>'+message+'<button id="'+fieldId+'-errorButton" class="jaffaHelpToggle ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary" role="button" aria-disabled="false"><span class="ui-button-icon-primary ui-icon ui-icon-circle-arrow-e"></span><span class="ui-button-text"></span></button></li>');
+        
+        $("[id='"+fieldId+"-errorButton']").click(function(e) {
+                                                    targetId = $(this).attr('id');
+                                                    targetId = targetId.replace("-errorButton", "");
+                                                    tabId = parent = $("[id='"+targetId+"']").closest('div[class^="tab"]').attr('id');
+                                                    tabId = tabId.replace("tab-", "");
+                                                    $("#simpleworkflow-form").tabs('select', tabId);
+                                                    $("[id='"+validation["focusId"]+"']").focus();
+        });
+    }
+}
+//Validate all the fields on all tabs. 
+//This function is called from the Final tab, before the user 'submits'
+function validateAllTabs() {
+    //Hide the error box.
+    $(".errorbox").hide();
+    $("#errorbox-list").html(''); 
+
+    var validationPassed = true;
+    
+    //Loop through all tabs
+    $("[id='"+ wizardTabIdentifier +"']").find('a').each(
+        function(){
+            thisTab = $(this).attr('href');
+            var tabId = thisTab.substring(1,thisTab.length);
+            var ids = [];
+
+            //get all input ids
+            var inputs = $("[id='"+tabId+"']").find(".component-wrapper input");
+            for(var i=0; i < inputs.length; i++) {
+                ids.push($(inputs[i]).attr('id'));
+            }
+            //get all textarea ids
+            var textareas = $("[id='"+tabId+"']").find(".component-wrapper textarea");
+            for(var i=0; i < textareas.length; i++) {
+                ids.push($(textareas[i]).attr('id'));
+            }
+            
+            //get all select ids
+            var selects = $("[id='"+tabId+"']").find(".component-wrapper select");
+            for(var i=0; i < selects.length; i++) {
+                ids.push($(selects[i]).attr('id'));
+            }
+            
+            //get all radiobutton names
+            var radios = $("[id='"+tabId+"']").find(".component-wrapper input[type='radio']");
+            for(var i=0; i < radios.length; i++) {
+                var name = $(radios[i]).attr('name');
+                if(ids.indexOf(name) == -1) {
+                    ids.push(name);
+                }
+            }
+            
+            //get all checkbox names
+            var checkboxes = $("[id='"+tabId+"']").find(".component-wrapper input[type='checkbox']");
+            for(var i=0; i < checkboxes.length; i++) {
+                var name = $(checkboxes[i]).attr('name');
+                if(ids.indexOf(name) == -1) {
+                    ids.push(name);
+                }
+            }
+            
+            if(!jaffa.valid.test("save", ids)){
+                validationPassed = false;
+            }
+        }
+    );
+    
+    return validationPassed;
+}
+
+</script>
 
 <script type="text/javascript">
 //Grants
@@ -301,7 +380,12 @@ function getDateTime(){
             if($("[id='readyforreview.1']").attr('checked') == null) { 
                 $("[transition-name='Submit']").hide(); 
             } else {
-               $("[transition-name='Submit']").show();
+                if(validateAllTabs()){
+                    $("[transition-name='Submit']").show();
+                }
+                else{
+                    $("[id='readyforreview.1']").attr('checked', false);
+                }
             }
         }
         
@@ -339,7 +423,11 @@ function getDateTime(){
                 $("[id='dc:accessRights.skos:prefLabel']").hide();
             }
         });
-        
+
+        //People
+        $('a.mintNlaLookup').button();
+        $('a.clearMintNlaLookup').button();
+
         //make the Grants Title field readonly
         $().attr("readonly", "readonly");
     })

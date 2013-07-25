@@ -6,7 +6,11 @@
     	<img src="$portalPath/images/tdh_black_full_logo.png" />
 	</div>
 	<h1 id="branding">
-    	<a href="$portalPath/home">Research Data</a>
+        #if($urlBase == "https://research.jcu.edu.au/researchdata/")
+             <a href="$portalPath/home">Research Data</a>
+        #else
+            <a href="$portalPath/home"> Research Data - Sandbox</a>
+        #end
 	</h1>
 </div>
 <div class="clear"></div>

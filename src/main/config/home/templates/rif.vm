@@ -382,7 +382,6 @@
         #################
         #showRelatedInfo("dc:relation.swrc:Publication", "publication", "uri")
         #showRelatedInfo("dc:relation.bibo:Website", "website", "uri")
-        #showRelatedObject("dc:relation.vivo:Service", "service", "local")
         #################
         ### Citation
         #################

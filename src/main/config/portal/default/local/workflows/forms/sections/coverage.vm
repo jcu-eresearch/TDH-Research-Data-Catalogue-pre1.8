@@ -316,6 +316,8 @@ $(function(){
     }).live("change", function(e){
         var elem = $(this);
         var baseId = elem.attr("id").replace(".dc:type", "");
+        lastTypeText = $("option:selected", this).text();
+        getReDBoxById(baseId+".dc:typeLabel").val(lastTypeText);
         var wktElem = getReDBoxById(baseId+".redbox:wktRaw");
         var wktString = wktElem.val();
         // OpenLayers Row

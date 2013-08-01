@@ -82,6 +82,7 @@
 	#foreach($key in $cList.keySet())
     	#set($slot = $cList.get($key))
     	#multiValuedProperty($slot "dc:coverage.vivo:GeographicLocation" "dc:type" $order)
+        #multiValuedProperty($slot "dc:coverage.vivo:GeographicLocation" "dc:typeLabel" $order)
     	#multiValuedProperty($slot "dc:coverage.vivo:GeographicLocation" "redbox:wktRaw" $order)
     	#multiValuedProperty($slot "dc:coverage.vivo:GeographicLocation" "rdf:PlainLiteral" $order)
     	#multiValuedProperty($slot "dc:coverage.vivo:GeographicLocation" "geo:long" $order)
@@ -334,17 +335,12 @@
         "dc:coverage.vivo:DateTimeInterval.vivo:end",
         "dc:coverage.redbox:timePeriod",
         "dc:coverage.vivo:GeographicLocation.1.dc:type",
-        "dc:coverage.vivo:GeographicLocation.2.dc:type",
+        "dc:coverage.vivo:GeographicLocation.1.dc:typeLabel",
         "dc:coverage.vivo:GeographicLocation.1.redbox:wktRaw",
-        "dc:coverage.vivo:GeographicLocation.2.redbox:wktRaw",
         "dc:coverage.vivo:GeographicLocation.1.rdf:PlainLiteral",
-        "dc:coverage.vivo:GeographicLocation.2.rdf:PlainLiteral",
         "dc:coverage.vivo:GeographicLocation.1.geo:long",
-        "dc:coverage.vivo:GeographicLocation.2.geo:long",
         "dc:coverage.vivo:GeographicLocation.1.geo:lat",
-        "dc:coverage.vivo:GeographicLocation.2.geo:lat",
         "dc:coverage.vivo:GeographicLocation.1.dc:identifier",
-        "dc:coverage.vivo:GeographicLocation.2.dc:identifier",
         "dc:description",
         "rif:description.1.type",
         "rif:description.1.value",

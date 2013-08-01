@@ -394,6 +394,11 @@ input.button:hover, .inputscreens button:hover {
 .box .article {
     margin-bottom: 19px;
 }
+
+.mapView {
+    margin-bottom: 0px;
+}
+
 /* Details accordian color scheme */
 .accordion-header {
     background: white;

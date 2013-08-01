@@ -1,11 +1,20 @@
-#sectionHeading("#displayMessage('jcu-self-submission.heading.label.coverage')")
+#sectionHeading("Coverage")
 <div class="meta">
     <dl>
-        #display("dc:coverage.vivo:DateTimeInterval.vivo:start" "#displayMessage('jcu-self-submission.field.label.dc-coverage.vivo-DateTimeInterval.From')")
-        #display("dc:coverage.vivo:DateTimeInterval.vivo:end" "#displayMessage('jcu-self-submission.field.label.dc-coverage.vivo-DateTimeInterval.To')")
-        #display("dc:coverage.redbox:timePeriod" "#displayMessage('jcu-self-submission.field.label.dc-coverage.redbox-timePeriod')")
+        <dt>Date Coverage</dt>
+        #set($dcCoverageFrom = $self.getFirst("dc:coverage.vivo:DateTimeInterval.vivo:start"))
+        #set($dcCoverageTo = $self.getFirst("dc:coverage.vivo:DateTimeInterval.vivo:end"))
+        #if ("$!dcCoverageFrom" != "" || "$!dcCoverageTo" != "")
+        <dd>$!dcCoverageFrom#if("$!dcCoverageTo"!="") to $dcCoverageTo#end</dd>
+        #else
+        <dd>
+        #noInformation()
+        </dd>
+        #end
+        #displayFirst("dc:coverage.redbox:timePeriod" "Time Period")
 
-        <dt>#displayMessage('jcu-self-submission.field.label.dc-coverage.vivo-GeographicLocation')</dt>
+        #######################################
+        <dt>Geospatial Location</dt>
         <div class='openLayersHolder'>
             <div class='mapView'>
                 <p class='meta attribution'>Map Credits: <span id='attribution'></span></p>

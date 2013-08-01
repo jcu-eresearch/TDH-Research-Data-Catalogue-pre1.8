@@ -134,6 +134,7 @@
         dc:coverage.vivo:DateTimeInterval.vivo:end,
         dc:coverage.redbox:timePeriod,
         dc:coverage.vivo:GeographicLocation.0.dc:type,
+        dc:coverage.vivo:GeographicLocation.0.dc:typeLabel,
         dc:coverage.vivo:GeographicLocation.0.redbox:wktRaw,
         dc:coverage.vivo:GeographicLocation.0.rdf:PlainLiteral,
         dc:coverage.vivo:GeographicLocation.0.geo:long,

@@ -462,11 +462,6 @@
                             "additional-classes":"containerLayout"        
                         },
                         {
-                            "component-type":"text-block",
-                            "type":"h5",
-                            "content":"Attachments widget. need to add it if possible."
-                        },
-                        {
                             "component-type": "transition-control",
                             "transitions": [
                                 {

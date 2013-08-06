@@ -391,9 +391,54 @@ input.button:hover, .inputscreens button:hover {
 }
 */
 
+.box .article {
+    margin-bottom: 19px;
+}
+
+.mapView {
+    margin-bottom: 0px;
+}
+
+/* Details accordian color scheme */
+.accordion-header {
+    background: white;
+    color: black;
+    font-size: 1.5em;
+    font-weight: bold;
+    border: 1px solid #eee;
+    border-width: 0 0 1px 0;
+    padding: .3em 0 .2em 26px;
+}
+.accordion-header.ui-state-active,
+.accordion-header:hover {
+    background: white;
+}
+.accordion-reset:hover {
+    border-color: #dedbc3;
+    border-width: 0 0 1px 0;
+}
+#content .ui-accordion-content {
+    background: white;
+    font-size: 1em;
+}
+.ui-widget-content {
+    border-color: #dedbc3;
+}
+.ui-state-active .ui-icon {
+    background-image: none;
+}
+.ui-accordion-header.ui-state-active {
+    cursor: default;
+}
+div.meta {
+    background: white;
+    padding-left: 26px ! important;
+    padding-bottom: 3em ! important;
+}
+
 div.meta dl {
     margin-bottom: 0;
-    padding: 8px;
+    padding: 8px 0;
 }
 
 div.meta dt {

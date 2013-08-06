@@ -1,6 +1,8 @@
 {
     "presentation-settings": {
-       "hide-funding-body-label" : "false"
+       "hide-funding-body-label" : "false",
+       "use-embargoes" : "true",
+       "use-technical-metadata" : "true"
      },
     "harvester": {
         "type": "workflow-harvester",
@@ -11,16 +13,17 @@
 
     "transformer": {
         "curation": ["local"],
-        "metadata": ["jsonVelocity"]
-    },
-    "transformerOverrides": {
-        "local": {
-            "template": "[[OID]]"
-        }
+        "metadata": ["jsonVelocity","selfSubtoDataset"]
     },
     "curation": {
         "neverPublish": false,
         "alreadyCurated": false
+    },
+
+    "transformerOverrides": {
+        "local": {
+            "template": "[[OID]]"
+        }
     },
 
     "indexer": {

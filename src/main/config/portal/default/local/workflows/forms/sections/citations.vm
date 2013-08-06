@@ -78,18 +78,18 @@
                                 <td>Identifier:</td>
                                 <td>
                                     <label for="useCuration">
-                                        <input type="radio" name="${citePart}.dc:identifier.skos:note" value="useCuration" />
+                                        <input type="radio" name="${citePart}.dc:identifier.skos:note" value="useCuration" checked/>
                                         Use the Identifier provided during curation
                                     </label>
                                     ## DOI Integration is disabled pending v1.1 of
                                     ##  ANDS 'Cite My Data' service being released
-                                    <!--
+                                    <span id="doiOptionSpan" style="display:none;">
                                     <strong>OR</strong>
                                     <label for="useDoi">
                                         <input type="radio" name="${citePart}.dc:identifier.skos:note" value="useDoi" />
                                         <span><button>Get me a DOI using ANDS 'Cite My Data'</button></span>
                                     </label>
-                                    -->
+                                    </span>
                                 </td>
                             </tr>
                             <tr><td colspan="2"><hr/></td></tr>
@@ -362,6 +362,7 @@
 
         var prefillBtn = getReDBoxById("${cite}.prefillBtn");
         prefillBtn.live("click", function() {
+			$(".validation-err-msg").hide();
             ### Collection Title
             var title = getReDBoxById("dc:title");
             if (title.size() != 0) {
@@ -370,6 +371,8 @@
                     getReDBoxById("${citePart}.dc:title").val(title);
                 }
             }
+
+            getReDBoxById("${citePart}.dc:publisher.rdf:PlainLiteral").val("James Cook University");
 
             ### List of creators
             var i = 1;
@@ -395,18 +398,18 @@
             }
 
             ### Date of creation
-            var created = getReDBoxById("dc:created");
-            if (created.size() != 0) {
-                created = created.val();
-                if (created != null && created != "") {
-                    getReDBoxById("${citePart}.dc:date.2.rdf:PlainLiteral").val(created);
-                    var dateDropDown = getReDBoxById("${citePart}.dc:date.2.dc:type.rdf:PlainLiteral").parent().parent();
-                    var select = dateDropDown.find("select");
-                    select.val("created"); // Change the drop-down
-                    select.change(); // Change the widget state (enables button)
-                    dateDropDown.find("button").click(); // Click the button
-                }
-            }
+            ##var created = getReDBoxById("dc:created");
+            ##if (created.size() != 0) {
+            ##    created = created.val();
+            ##    if (created != null && created != "") {
+            ##        getReDBoxById("${citePart}.dc:date.2.rdf:PlainLiteral").val(created);
+            ##        var dateDropDown = getReDBoxById("${citePart}.dc:date.2.dc:type.rdf:PlainLiteral").parent().parent();
+            ##        var select = dateDropDown.find("select");
+            ##        select.val("created"); // Change the drop-down
+            ##        select.change(); // Change the widget state (enables button)
+            ##        dateDropDown.find("button").click(); // Click the button
+            ##    }
+            ##}
 
             ### URL
             var url = getReDBoxById("bibo:Website.1.dc:identifier");

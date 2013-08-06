@@ -153,6 +153,7 @@ class IndexData:
             location = spatialCoverage[i]
             if  location["type"] == "text":
                 tfpackageData["dc:coverage.vivo:GeographicLocation." + str(i + 1) + ".dc:type"] = location["type"]
+                tfpackageData["dc:coverage.vivo:GeographicLocation." + str(i + 1) + ".dc:typeLabel"] = "Free Text"
                 if  (location["value"].startswith("POLYGON")):
                     tfpackageData["dc:coverage.vivo:GeographicLocation." + str(i + 1) + ".redbox:wktRaw"] = location["value"]
                 tfpackageData["dc:coverage.vivo:GeographicLocation." + str(i + 1) + ".rdf:PlainLiteral"] = location["value"]

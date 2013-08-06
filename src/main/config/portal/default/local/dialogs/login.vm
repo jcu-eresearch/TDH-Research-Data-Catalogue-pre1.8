@@ -4,8 +4,14 @@
         $("#login-message").empty();
         $("#login-error").hide();
         $("#login-form").dialog('open');
-        $("#username").focus();
     }
+
+    function minimiseLocalLogin() { 
+        $("#local-login").addClass('login-button');
+        $("#local-login-form").hide();
+        $("#login fieldset").addClass('no-border');
+    }
+
     $(function() {
         var dialogOpts = {
             title: "Login",
@@ -16,6 +22,7 @@
         }
         $(".login-now").click(function() {
             $("#login-form").dialog(dialogOpts);
+            minimiseLocalLogin();
             loginNow();
             return false;
         });
@@ -67,9 +74,10 @@
             }
         });
         $("#local-login").click(function() {
-            $("#local-login").toggleClass('login-button');
-            $("#local-login-form").toggle();
-            $("#login fieldset").toggleClass("no-border");
+            $("#local-login").removeClass('login-button');
+            $("#local-login-form").show();
+            $("#login fieldset").removeClass("no-border");
+            $("#username").focus();
         });
     });
 -->

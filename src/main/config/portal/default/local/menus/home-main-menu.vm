@@ -10,7 +10,7 @@
         #end
         #end
         <li>
-            #if($page.authentication.is_logged_in())
+            #if($page.authentication.is_admin())
             <a id="new-record" href="#">Add a new dataset</a>
             #end
         </li>
@@ -56,6 +56,41 @@ $(function() {
         });
         return false;
     });
+    jQ("#new-dmpt-record").click(function() {
+        if (processing) return;
+        processing = true;
+        jQ("#new-dmpt-record").append('<img class="right" src="$portalPath/images/icons/loading.gif" />');
+        jQ.ajax({
+            type: "POST",
+            url: "$portalPath/actions/packaging.ajax",
+            data: {
+                ajax: 1,
+                func: "create-new",
+                packageType: "dmpt",
+                metaList: ["title", "dc:description", "redbox:newForm", "redbox:formVersion"],
+                title: "[Untitled]",
+                description: "",
+                "redbox:newForm": "true",
+                "redbox:formVersion": "$systemConfig.getString("", "redbox.version.string")"
+            },
+            success: function(data) {
+                if (data.status == "ok") {
+                    function redirect() {
+                        window.location.href = data.url;
+                    }
+                    setTimeout(redirect, 1500);
+                } else {
+                    alert("Failed to create record!");
+                }
+            },
+            error: function(xhr, status, e) {
+                alert("Failed to create record!");
+            },
+            dataType: "json"
+        });
+        return false;
+    });
+    
 });
 </script>
 #end

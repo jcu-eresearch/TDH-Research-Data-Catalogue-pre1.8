@@ -1,0 +1,28 @@
+#sectionHeading("#displayMessage('jcu-self-submission.heading.label.dataManagement')")
+<div class="meta">
+    <dl>
+        #displayUrlList("bibo:Website" "URL" "dc:identifier" "")
+        #display("vivo:Location.vivo:GeographicLocation.gn:name" "Stored At")
+        #display("redbox:retentionPeriod" "Retention Period")
+        #display("dc:extent" "Size of Data/Collection")
+
+        <dt>Data Owner (IP)</dt>
+        #set($ownerList = $self.getList("locrel:own.foaf:Agent"))
+        #if ($ownerList.isEmpty())
+        <dd>
+        #noInformation()
+        </dd>
+        #else
+        <dd>
+            <ol>
+            #foreach($entry in $ownerList)
+                #set($owner = $entry.get("foaf:name"))
+                #if("$!owner"!="")
+                    <li>$page.escapeHtml($owner)</li>
+                #end
+            #end
+            </ol>
+        </dd>
+        #end
+    </dl>
+</div>

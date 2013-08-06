@@ -26,7 +26,7 @@ export CLASSPATH="plugins/*:lib/*"
 
 # jvm memory settings
 JVM_OPTS="-XX:MaxPermSize=2048m -Xmx2048m"
-# JVM_OPTS="-XX:MaxPermSize=1024m -Xmx1024m -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=1044"
+# JVM_OPTS="-XX:MaxPermSize=1024m -Xmx1024m -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=4000,suspend=n"
 
 # logging directories
 export SOLR_LOGS=$TF_HOME/logs/solr

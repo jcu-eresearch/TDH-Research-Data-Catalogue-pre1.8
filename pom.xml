@@ -1,19 +1,16 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <groupId>au.edu.jcu.redbox.build</groupId>
     <artifactId>redbox-jcu</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
-
     <name>JCU ReDBox institutional Build</name>
     <url>http://www.redboxresearchdata.com.au/</url>
-
     <parent>
         <groupId>com.googlecode.redbox-mint</groupId>
         <artifactId>redbox</artifactId>
-        <version>1.5.2.2</version>
+        <version>1.6.1</version>
     </parent>
 
     <properties>
@@ -65,6 +62,15 @@
             <groupId>com.googlecode.the-fascinator.plugins</groupId>
             <artifactId>plugin-harvester-directoryName</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <!-- this dependency was added to pick up a fix in Util.java so that we can escape the JSON properly
+             in selfsubToDataset.vm or JCUselfsubToDataset.vm. This functionality forms part of the transitionWorkflow process. 
+             See system-config.json for reference to these files. 
+             In future release upgrades, this dependency should be removed. e.g. after version 1.6.1-->        
+        <dependency>
+            <groupId>com.googlecode.the-fascinator.plugins</groupId>
+            <artifactId>plugin-transformer-jsonVelocity</artifactId>
+            <version>1.1.5-SNAPSHOT</version>
         </dependency>
     </dependencies>
 

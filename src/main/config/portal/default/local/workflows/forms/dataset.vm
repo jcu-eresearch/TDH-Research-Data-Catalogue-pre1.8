@@ -21,6 +21,7 @@
     </label>
 #end
 
+
 #macro(mintSelectField $id $labelId $sourceUrl $idKey $labelKey $listKey $defaultValue)
     <span class="data-source-drop-down"
           data-json-source-url="$sourceUrl"
@@ -133,6 +134,7 @@
         dc:coverage.vivo:DateTimeInterval.vivo:end,
         dc:coverage.redbox:timePeriod,
         dc:coverage.vivo:GeographicLocation.0.dc:type,
+        dc:coverage.vivo:GeographicLocation.0.dc:typeLabel,
         dc:coverage.vivo:GeographicLocation.0.redbox:wktRaw,
         dc:coverage.vivo:GeographicLocation.0.rdf:PlainLiteral,
         dc:coverage.vivo:GeographicLocation.0.geo:long,
@@ -173,6 +175,10 @@
         dc:creator.foaf:Person.0.foaf:familyName,
         dc:creator.foaf:Person.0.foaf:Organization.dc:identifier,
         dc:creator.foaf:Person.0.foaf:Organization.skos:prefLabel,
+        dc:creator.foaf:Person.0.foaf:Organization.B.dc:identifier,
+        dc:creator.foaf:Person.0.foaf:Organization.B.skos:prefLabel,
+        dc:creator.foaf:Person.0.foaf:Organization.C.dc:identifier,
+        dc:creator.foaf:Person.0.foaf:Organization.C.skos:prefLabel,
         locrel:prc.foaf:Person.dc:identifier,
         locrel:prc.foaf:Person.foaf:name,
         locrel:prc.foaf:Person.foaf:title,
@@ -270,7 +276,18 @@
         redbox:submissionProcess.locrel:prc.foaf:Person.foaf:phone,
         redbox:submissionProcess.locrel:prc.foaf:Person.foaf:mbox,
         redbox:submissionProcess.dc:title,
-        redbox:submissionProcess.skos:note
+        redbox:submissionProcess.skos:note,
+        redbox:embargo.redbox:isEmbargoed,
+        redbox:embargo.dc:date,
+        redbox:embargo.skos:note,
+        dc:relation.redbox:TechnicalMetadata.0.dc:identifier,
+        dc:relation.redbox:TechnicalMetadata.0.dc:title,
+        dc:relation.redbox:TechnicalMetadata.0.dc:type,
+        dc:relation.redbox:TechnicalMetadata.0.dc:conformsTo,
+        jcu:data.depositedBy.text,
+        jcu:data.depositedBy.userId,
+        jcu:data.depositedBy.name,
+        jcu:data.depositedBy.userSource
     " />
     <input type="hidden" class="form-fields-readonly" value="xmlns:dc, xmlns:foaf, xmlns:anzsrc, metaList" />
     <input type="hidden" id="metaList" value="[]" />
@@ -365,6 +382,9 @@ $(function(){
 
     $(".form-fields-save-close").click(function() {
         saveAndClose = true;
+		$(".save-note").each(function(idx){ 
+			this.click();
+		});
         $(".form-fields-save").click();
     });
 

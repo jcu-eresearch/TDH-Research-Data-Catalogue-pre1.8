@@ -294,7 +294,8 @@
              "dc:extent","redbox:disposalDate","locrel:dtm.foaf:Agent.foaf:name","foaf:Organization.dc:identifier",
              "foaf:Organization.skos:prefLabel","swrc:ResearchProject.dc:title","locrel:dpt.foaf:Person.foaf:name","dc:SizeOrDuration",
              "dc:Policy","dc:accessRights.dc:RightsStatement.skos:prefLabel","dc:accessRights.dc:RightsStatement.dc:identifier","dc:accessRights.skos:prefLabel","dc:accessRights.dc:identifier",
-             "dc:subject.anzsrc:toa.rdf:resource","dc:subject.anzsrc:toa.skos:prefLabel"
+             "dc:subject.anzsrc:toa.rdf:resource","dc:subject.anzsrc:toa.skos:prefLabel", "redbox:embargo.redbox:isEmbargoed", "redbox:embargo.dc:date", "redbox:embargo.skos:note",
+             "jcu:data.depositedBy.text", "jcu:data.depositedBy.userId", "jcu:data.depositedBy.name", "jcu:data.depositedBy.userSource"
              ])
     #set($v = $util.get($item, $key))
     #if ($v) "$key": "$util.encodeJson($!v)",
@@ -475,6 +476,11 @@
         "dc:relation.redbox:TechnicalMetadata.1.dc:conformsTo",
         "xmlns:dc",
         "xmlns:foaf",
-        "xmlns:anzsrc"
+        "xmlns:anzsrc",
+        "jcu:data.depositedBy.text",
+        "jcu:data.depositedBy.userId",
+        "jcu:data.depositedBy.name",
+        "jcu:data.depositedBy.userSource"
+        
     ]
 }

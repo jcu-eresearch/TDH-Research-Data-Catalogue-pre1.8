@@ -216,6 +216,30 @@ $(".clearNotAligned").click(function() {
     $("#jcu\\:research\\.themes\\.notAligned").attr('checked', false);
 });
 
+//Embargo
+$("[id='redbox:embargo.redbox:isEmbargoed']").change(function () {
+    var isChecked = $(this).is(':checked'); 
+    
+    if(isChecked) {
+        //enable notes and date
+        $(".embargo").removeAttr("disabled");
+    } else {
+        $(".embargo").attr("disabled","disabled");
+    }
+});
+
+//Legal Statement
+$(".legalStatement").click(function() {
+    var text = $("input:radio[name='depositedBy']:checked").val();
+    $("#jcu\\:data\\.depositedBy\\.text").val(text);
+    var userId = $("#udUsername").val();
+    $("#jcu\\:data\\.depositedBy\\.userId").val(userId);
+    var name = $("#name").val();
+    $("#jcu\\:data\\.depositedBy\\.name").val(name);
+    var userSource = $("#origin").val();
+    $("#jcu\\:data\\.depositedBy\\.userSource").val(userSource);
+});
+
 $(".clearOtherSelections").click(function() {
     $("#jcu\\:research\\.themes\\.tropicalEcoSystems").attr('checked', false);
     $("#jcu\\:research\\.themes\\.industriesEconomies").attr('checked', false);
@@ -430,6 +454,9 @@ function getDateTime(){
 
         //make the Grants Title field readonly
         $().attr("readonly", "readonly");
+        
+        //embargos
+        $('.embargo').attr("disabled", "disabled");
     })
     
 //****

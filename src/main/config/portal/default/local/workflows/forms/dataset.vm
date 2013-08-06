@@ -283,7 +283,11 @@
         dc:relation.redbox:TechnicalMetadata.0.dc:identifier,
         dc:relation.redbox:TechnicalMetadata.0.dc:title,
         dc:relation.redbox:TechnicalMetadata.0.dc:type,
-        dc:relation.redbox:TechnicalMetadata.0.dc:conformsTo
+        dc:relation.redbox:TechnicalMetadata.0.dc:conformsTo,
+        jcu:data.depositedBy.text,
+        jcu:data.depositedBy.userId,
+        jcu:data.depositedBy.name,
+        jcu:data.depositedBy.userSource
     " />
     <input type="hidden" class="form-fields-readonly" value="xmlns:dc, xmlns:foaf, xmlns:anzsrc, metaList" />
     <input type="hidden" id="metaList" value="[]" />

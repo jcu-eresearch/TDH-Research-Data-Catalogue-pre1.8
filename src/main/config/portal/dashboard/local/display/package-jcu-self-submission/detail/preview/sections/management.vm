@@ -5,7 +5,6 @@
         #display("vivo:Location.vivo:GeographicLocation.gn:name" "Stored At")
         #display("redbox:retentionPeriod" "Retention Period")
         #display("dc:extent" "Size of Data/Collection")
-        #display("storedData" "Current location of Electronic data")
 
         <dt>Data Owner (IP)</dt>
         #set($ownerList = $self.getList("locrel:own.foaf:Agent"))

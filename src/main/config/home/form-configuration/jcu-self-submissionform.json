@@ -1016,27 +1016,29 @@
                             "content":"<input type='radio' name='depositedBy' id='jcu:data.depositedBy.creator' 
                             				value='<b>For research data being deposited by its creator:</b>
                                              <ul><li>I declare that I am a creator of this research data, as a single or joint creator, and that the information provided is true and correct at time of submission.</li>
-                                                 <li>I declare that I have included in the metadata all relevant information relating to legal rights and ethical obligations held over the research data.</li>
-                                                 <li>In self-archiving this research data and associated metadata, I grant James Cook University an irrevocable, non-exclusive license to store both the data and metadata and make the metadata information (and research data where applicable) available online on a publicly accessible website, JCU Research Data.</li>
-                                                 <li>I understand that if I am the copyright owner, by depositing my work to Research Data there is no transfer of copyright ownership for the work to James Cook University.</li>
-                                                 <li>I understand that the University reserves the right to remove content from Research Data at any time for any reason.</li>
+                                                 <li>I declare that I have included in the metadata all relevant information relating to legal rights and ethical obligations that apply to the research data.</li>
+                                                 <li>In self-archiving this research data and associated metadata, I grant James Cook University an irrevocable, non-exclusive licence to store both the data and metadata and make the metadata information (and research data where applicable) available online on a publicly accessible website, JCU Research Data.</li>
+                                                 <li>To the extent that I am the copyright owner, I acknowledge that by depositing my work to Research Data there is no transfer of copyright ownership in the work to James Cook University.</li>
+                                                 <li>I understand that the University reserves the right to remove the metadata record from Research Data at any time for any reason.</li>
                                              </ul>' 
                                              class='jaffa-field legalStatement'><b>For research data being deposited by its creator:</b>
                                              <ul><li>I declare that I am a creator of this research data, as a single or joint creator, and that the information provided is true and correct at time of submission.</li>
-                                                 <li>I declare that I have included in the metadata all relevant information relating to legal rights and ethical obligations held over the research data.</li>
-                                                 <li>In self-archiving this research data and associated metadata, I grant James Cook University an irrevocable, non-exclusive license to store both the data and metadata and make the metadata information (and research data where applicable) available online on a publicly accessible website, JCU Research Data.</li>
-                                                 <li>I understand that if I am the copyright owner, by depositing my work to Research Data there is no transfer of copyright ownership for the work to James Cook University.</li>
-                                                 <li>I understand that the University reserves the right to remove content from Research Data at any time for any reason.</li>
+                                                 <li>I declare that I have included in the metadata all relevant information relating to legal rights and ethical obligations that apply to the research data.</li>
+                                                 <li>In self-archiving this research data and associated metadata, I grant James Cook University an irrevocable, non-exclusive licence to store both the data and metadata and make the metadata information (and research data where applicable) available online on a publicly accessible website, JCU Research Data.</li>
+                                                 <li>To the extent that I am the copyright owner, I acknowledge that by depositing my work to Research Data there is no transfer of copyright ownership in the work to James Cook University.</li>
+                                                 <li>I understand that the University reserves the right to remove the metadata record from Research Data at any time for any reason.</li>
                                              </ul>
                                        <input type='radio' name='depositedBy' id='jcu:data.depositedBy.onBehalf' 
                                              value='<b>For research data being deposited on behalf of the creator:</b>
                                              <ul><li>I am depositing this research data on behalf of the creator(s).</li>
-                                                 <li>I declare that I have included in the metadata all relevant information relating to legal rights and ethical obligations held over the research data.</li>
+                                                 <li>I declare that I have the creator(s)’s consent to deposit the research data.</li>
+                                                 <li>I declare that I have included in the metadata all relevant information relating to legal rights and ethical obligations that apply to the research data.</li>
                                                  <li>I understand that the University reserves the right to remove content from JCU Research Data at any time for any reason.</li>
                                              </ul>' 
                                              class='jaffa-field legalStatement'><b>For research data being deposited on behalf of the creator:</b>
                                              <ul><li>I am depositing this research data on behalf of the creator(s).</li>
-                                                 <li>I declare that I have included in the metadata all relevant information relating to legal rights and ethical obligations held over the research data.</li>
+                                                 <li>I declare that I have the creator(s)’s consent to deposit the research data.</li>
+                                                 <li>I declare that I have included in the metadata all relevant information relating to legal rights and ethical obligations that apply to the research data.</li>
                                                  <li>I understand that the University reserves the right to remove content from JCU Research Data at any time for any reason.</li>
                                              </ul>
                                        <!-- For more information please read the JCU Research Data policy at URL -->

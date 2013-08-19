@@ -490,4 +490,17 @@ div.meta ol, div.meta ul {
 	margin-right:0.5em;
 }
 
+.footer {
+    text-align: center;
+    border-top: 1px solid #cccc99;
+    padding-top: 1em;
+    	
+}
 
+.footer a {
+    color: blue ! important;
+    text-decoration: underline;
+}
+.footer a:visited {
+    color: #9d1619;
+}

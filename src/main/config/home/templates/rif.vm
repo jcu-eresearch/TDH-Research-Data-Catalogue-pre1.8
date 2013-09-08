@@ -185,8 +185,9 @@
         <rif:key>$identifier</rif:key>
         <rif:originatingSource>$urlBase</rif:originatingSource>
         #set($dateModified = "")
-        #if ($util.get($item, 'dc:modified') != "")
-            #set($rawModified = "$util.getDateTime($util.get($item, 'dc:modified'), $dateFormat)Z")
+        #set($dcModified = $util.get($item, 'dc:modified'))
+        #if ("$!dcModified" != "")
+            #set($rawModified = "$util.getDateTime($dcModified, $dateFormat)Z")
             #set($dateModified = "dateModified=${quote}${rawModified}${quote}")
         #end
         #set($dateAccessioned = "")

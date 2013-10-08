@@ -1641,7 +1641,7 @@ var widgets={forms:[], globalObject:this};
                         input.attr("checked", !!data[v]);
                         input.change().trigger("onDataChanged");
                       }else{
-                        input.val(data[v]).trigger("onDataChanged");
+                        input.val(data[v].replace(/\\n/g,"\n")).trigger("onDataChanged");
                       }
                   }
               }catch(e){

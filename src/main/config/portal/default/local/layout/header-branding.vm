@@ -1,6 +1,6 @@
 <div class="grid_16 branding">
     <div id="jcu-logo">
-        <a href="http://www.jcu.edu.au"><img height="85" src="http://www.jcu.edu.au/public/groups/everyone/documents/webgraphics/jcu_new_logo.gif" /></a>
+        <a href="http://www.jcu.edu.au"><img height="85" src="http://www.jcu.edu.au/css/webgraphics/jcu_new_logo.gif" /></a>
     </div>
 	<div id="tdh-logo">
     	<img src="$portalPath/images/tdh_black_full_logo.png" />

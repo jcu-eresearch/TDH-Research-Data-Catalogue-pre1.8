@@ -1,0 +1,9 @@
+# OS files
+###########
+.DS_Store
+.DS_Store?
+
+# Output files
+##############
+_build
+_build/*

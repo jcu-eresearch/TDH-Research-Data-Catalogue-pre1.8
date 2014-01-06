@@ -58,16 +58,18 @@ Creating a new JCU Research Record
 The Researcher Dashboard provides you with the facility to create a research record. A research 
 record contains information about your research data:
 
- * Who collected the data
- * Why it was collected
- * Where and when it was collected
- * What publications or other research outputs are related to your data
- * How your data can be accessed and how it should be cited.
+* Who collected the data
+* Why it was collected
+* Where and when it was collected
+* What publications or other research outputs are related to your data
+* How your data can be accessed and how it should be cited.
 
 To create a new research record, click on “Add a new JCU Research Record”.
 
-.. image:: _static/researcher-dashboard.png
+.. figure:: _static/researcher-dashboard.png
    :width: 100%
+   :figwidth: 100%
+
 
 The web form for a new research record consists of 8 tabs. You can save and close
 the form at any stage provided you have completed the required fields on the
@@ -76,8 +78,9 @@ Content tab shown above has Title, Descriptions, and Collection Type as
 required fields. Provide these have some data in them, you could save the form
 at this point without completing any of the other tabs.
 
-.. image:: _static/New-dataset-form.png
+.. figure:: _static/New-dataset-form.png
    :width: 100%
+   :figwidth: 100%
 
 Help for each field can be viewed by clicking on the orange question mark |help-icon|.
 
@@ -119,28 +122,29 @@ Possible description types are:
 **Note**
   The note type can be used to include additional information such as 
 
-     * the size of the data download,
-     * the different file formats used in the dataset
-     * acknowledgements of funding bodies
+  * the size of the data download,
+  * the different file formats used in the dataset
+  * acknowledgements of funding bodies
 
 **Logo**
    If your dataset is associated with a project or organisation with a logo
    that you would like displayed  on the dataset's page when it is displayed in
    Research Data Australia, you can include the url to the logo in this type.
 
-.. image:: _static/Description-widget.png
+.. figure:: _static/Description-widget.png
    :width: 100%
+   :figwidth: 100%
 
 Collection Type
 ```````````````
 
 Research data collections can be classified as a
 
- * Catalogue or Index
- * Collection
- * Registry
- * Repository
- * Dataset
+* Catalogue or Index
+* Collection
+* Registry
+* Repository
+* Dataset
 
 .. figure:: _static/cpgdectree.png
    :width: 100%
@@ -156,6 +160,58 @@ The Coverage tab contains metadata that specifies the time span and location rel
 
 Date Coverage
 `````````````
-The date coverage allows you to specify the time period relevant to your date - to could be a start and end date for the data collection or it could be a time period such as *World War II* or *The Dark Ages*. For example, if your research is 
+The date coverage allows you to specify the time period relevant to your date - to could be a start and end date for the data collection or it could be a time period such as *World War II* or *The Dark Ages*. For example, if your research data relates to samples you have collected and analysed (e.g. temperature readings, soil pH, blood tests, biological samples) then the date coverage would be:
+
+* start of data collection - 1st of October 2011 e.g. 2011-10-01
+* end of data analysis - 30th of November 2013 e.g. 2013-11-30
+
+In this case you would use the date picker widgets to enter in these exact dates in the **From:** and **To:** fields and you would leave the **Time Period** text field empty.
+
+.. figure:: _static/coverage-dates.png
+   :width: 100%
+   :figwidth: 50%
+   :align: center
+
+   When exact dates are relevant to the research dataset being describe, use the From and To fields.
+
+If your research was an analysis of the 1920s fashion then, rather than the dates you collected your material, the relevant time period would be "The 1920s" and you would leave the **From:** and **To:** fields empty and enter "The 1920s" into the **Time Period** field.
+
+.. figure:: _static/coverage-text.png
+   :width: 100%
+   :figwidth: 50%
+   :align: center
+
+   When a phrase describing the time period being consider is more appropriate then exact dates, use the Time Period field.
+
+So - use either the **From:** and **To:** fields *or* the **Time Period** field but not both!
+
+Hints
+~~~~~
+
+1. You can type your date into the **From:** and **To:** fields rather than
+   using the date picker widget if you prefer. Just ensure you use the
+   YYYY-MM-DD or YYYY format.  
+2. Not all research data collections have a
+   start and an end date. It may be that the research is ongoing and so you
+   only have a start date. In this case, leave the **To:** field empty.
+
+Geospatial Location
+````````````````````
+
+The Geospatial location is used to describe the region on Earth that is
+relevant to the research data. This is not a required field as not all datasets
+have a geospatial location. If this field is relevent to your research, there are three formats for adding geospatial data:
+
+1. Use the map widget to locate the area of interest and use the drawing tools to show the locations. 
+2. Provide a text description of the location - e.g. *30km SW of Port Douglas, Queensland, Australia*. 
+3. Provide the ISO 3166-1 code for a country (http://www.iso.org/iso/home/standards/country_codes/iso-3166-1_decoding_table.htm).
+
+Multiple geospatial locations can be provided for a single research record and any of the above methods can be provided.
+
+Using the map tool
+~~~~~~~~~~~~~~~~~~
+
+
+
 
 

@@ -517,7 +517,6 @@ div.figure {
 }
     
 .float-right {
-    position: relative;
     float: right;
     text-align: left;
     margin: 0 0 23px 20px;
@@ -525,14 +524,18 @@ div.figure {
 }
 
 .float-left {
-    position: relative;
     float: left;
     text-align: left;
-    margin: 0 20px 23px 0;
+    margin: 0 20px 3px 0;
     padding: 0;
 }
 
-.documentContent .float-right p.caption, .documentContent .float-left p.caption {
+.align-center {
+    text-align: center;
+    margin: auto;
+}
+
+.documentContent .float-right p.caption, .documentContent .float-left p.caption, .documentContent .align-centre p.caption {
      margin: 0 0 -18px 0;
      padding: 3px 0 0 0;
      bottom: 0;
@@ -543,5 +546,6 @@ div.figure {
 p.caption {
     font: normal 11px/13px Arial, Helvetica, sans-serif !important;;
     color: #0066B3;
+    text-align: left;
 }
 

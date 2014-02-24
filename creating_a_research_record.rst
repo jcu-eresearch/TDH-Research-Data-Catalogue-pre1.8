@@ -202,16 +202,73 @@ The Geospatial location is used to describe the region on Earth that is
 relevant to the research data. This is not a required field as not all datasets
 have a geospatial location. If this field is relevent to your research, there are three formats for adding geospatial data:
 
-1. Use the map widget to locate the area of interest and use the drawing tools to show the locations. 
-2. Provide a text description of the location - e.g. *30km SW of Port Douglas, Queensland, Australia*. 
-3. Provide the ISO 3166-1 code for a country (http://www.iso.org/iso/home/standards/country_codes/iso-3166-1_decoding_table.htm).
+1. Provide a text description of the location - e.g. *30km SW of Port Douglas, Queensland, Australia*. 
+2. Provide the ISO 3166-1 code for a country (http://www.iso.org/iso/home/standards/country_codes/iso-3166-1_decoding_table.htm).
+3. Use the map widget to locate the area of interest and use the drawing tools to show the locations. 
 
-Multiple geospatial locations can be provided for a single research record and any of the above methods can be provided.
+Multiple geospatial locations can be provided for a single research record and any of the above methods can be used.
 
-Using the map tool
+
+Adding a text description of country code can be acheived by using the Location Type and Value field - these can be seen below the map widget.
+
+
+
+
+Using the map widget
 ~~~~~~~~~~~~~~~~~~
 
+The table below explains the different tools available in the map and how to use them.
+
++--------------+---------------------+-------------------------------------------+
+| Icon         |  Action             | Explaination                              |
++==============+=====================+===========================================+
+| |drag|       | Drag map            | Click and hold the left mouse             |
+|              |                     | button key to drag the map.               |
+|              |                     | You can also click and hold               |
+|              |                     | the right mouse button to select          |
+|              |                     | an area and the map will zoom and         |
+|              |                     | centre the map over the selected area.    |
++--------------+---------------------+-------------------------------------------+
+| |point|      | Add a point         | Click on the map with the left mouse      |
+|              |                     | button to add a point.                    |
++--------------+---------------------+-------------------------------------------+
+| |bbox|       | Add an area using a | Click and hold the left mouse and         |
+|              | bounding box        | drag to the size wanted. Release the      |
+|              |                     | mouse button to finish the box.           |
++--------------+---------------------+-------------------------------------------+
+| |polygon|    | Add a polygon       | Click the left mouse to start the         |
+|              |                     | shape. Click as many points as needed     |
+|              |                     | and double click on the last point to     |
+|              |                     | close the shape.                          |
++--------------+---------------------+-------------------------------------------+
+| |linestring| | Add an open shape   | Click the left mouse to start the         |
+|              |                     | shape. Click as many points as needed     |
+|              |                     | and double click on the last point        |
+|              |                     | finish the shape.                         |
++--------------+---------------------+-------------------------------------------+
+| |circle|     | Draw a circle       | Click (on the location you want to        |
+|              |                     | have as the centr of the circle) and      |
+|              |                     | hold the left mouse button and drag to    |
+|              |                     | the desired size. Release the mouse button|
++--------------+---------------------+-------------------------------------------+
+| |edit|       | Edit the map        | Click on/inside the shape you want to     |
+|              |                     | edit - it will turn blue. To move the     |
+|              |                     | shape as a whole click and hold on the    |
+|              |                     | centre point for the shape and drag to    |
+|              |                     | the desired location. To move a single    |
+|              |                     | vertice, click and drag it to the new     |
+|              |                     | location.                                 |
++--------------+---------------------+-------------------------------------------+
 
 
+.. |drag| image:: _static/map-drag.png
+.. |point| image:: _static/map-point.png
+.. |bbox| image:: _static/map-bounding-box.png
+.. |polygon| image:: _static/map-polygon.png
+.. |linestring| image:: _static/map-linestring.png
+.. |circle| image:: _static/map-circle.png
+.. |edit| image:: _static/map-edit.png
 
+As you add items to the map, 
 
+.. note:: There is currently a bug in the *Edit the map* feature. When you edit a shape it will create new line

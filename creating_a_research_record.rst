@@ -109,6 +109,15 @@ acronyms.
 Descriptions
 ````````````
 
+.. important:: 
+   The description is the **most** important part of your data record. It
+   should be informative to other researchers and answer the what, why, and how
+   questions relating to your data and your research. When your record is
+   reviewed, if it is decided that your description is insufficent, you
+   **will** be contacted for more information and your record will **not** be
+   published until a more complete description is provided.
+
+
 Ideally, you should provide at least two descriptions: a `brief` description and a `full` description. Select the type of description you are adding from the **Type** drop down and provide the text in the **Description** box. To add another description, use the **Add description** button. Once more than one description is present, a **Remove** buttion appears at the end of each description allowing you to delete an entry.
 
 Possible description types are:
@@ -116,8 +125,8 @@ Possible description types are:
 **Brief**
   The brief description should be one or two sentences that describe the dataset in a manner understandable to the lay-person.
 **Full**
-  Include a description of the kind of data in the dataset, how it was
-  collected or analysed as well as describing what the dataset is about.
+  Include a description of the kind of data in the dataset, **how** it was
+  collected or analysed, **what** the dataset consists of (in some detail) and **why** the data was collected to provide context to your data.
   Remember describe the *dataset* not the overall project or the publication.
 **Note**
   The note type can be used to include additional information such as 
@@ -134,6 +143,7 @@ Possible description types are:
 .. figure:: _static/Description-widget.png
    :width: 100%
    :figwidth: 100%
+
 
 Collection Type
 ```````````````
@@ -215,7 +225,7 @@ Adding a text description of country code can be acheived by using the Location 
 
 
 Using the map widget
-~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~
 
 The table below explains the different tools available in the map and how to use them.
 
@@ -269,6 +279,19 @@ The table below explains the different tools available in the map and how to use
 .. |circle| image:: _static/map-circle.png
 .. |edit| image:: _static/map-edit.png
 
-As you add items to the map, 
+As you add items to the map, entries will appear in the (Location Type, Value) area below the map.
 
-.. note:: There is currently a bug in the *Edit the map* feature. When you edit a shape it will create new line
+.. figure:: _static/add-shape-to-map.png
+   :width: 100%
+   :figwidth: 50%
+   :align: center
+
+   When you add a shape to the map, a **Location Type** of *free text* is added with a **Value** of *POLYGON(....)*.
+
+To edit the shape, select the |edit| icon and click on the shape you wish to edit.
+
+
+.. note:: There is currently a bug in the *Edit the map* feature. When you edit a shape it will create a new (Location Type, Value) line in the area below the map for every edit you make. When you are finished editing, delete all lines accept the last one. Your shape will disappear from the map but it is still there provided you still have one entry in the (Location Type, Value) area. If you do not do this, then when you save the record, a new shape for each line containing a POLYGON(...) value will be added.
+
+People
+------

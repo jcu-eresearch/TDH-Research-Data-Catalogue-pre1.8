@@ -504,3 +504,9 @@ div.meta ol, div.meta ul {
 .footer a:visited {
     color: #9d1619;
 }
+
+/* padding around lookup and clear buttons */
+a.mintNlaLookup, a.clearMintNlaLookup {
+	padding: 0.5ex;
+	margin: 0 0.5ex;
+}

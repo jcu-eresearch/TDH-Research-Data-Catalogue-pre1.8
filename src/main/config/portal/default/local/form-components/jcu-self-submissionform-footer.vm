@@ -423,6 +423,14 @@ function getDateTime(){
         $("[id='readyforreview.1']").change(selfSubmission.toggle_submit);  
         prepareHelps();
 
+        //hide the dc:description field
+        $("[id='dc:description']").hide();
+        //copy the value from the first description to the field dc:description
+        $("[id='rif:description.1.value']").focusout(function() {
+            $("[id='dc:description']").val($("[id='rif:description.1.value']").val());
+        });
+        
+        
         //setting up the classes for Access Rights/Conditions
         $('#accessRight-selection').css("width", "375px");
         $('#accessRight-selection').parent().addClass('rights');

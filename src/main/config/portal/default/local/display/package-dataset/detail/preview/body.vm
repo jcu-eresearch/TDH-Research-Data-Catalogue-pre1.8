@@ -111,6 +111,12 @@ $self.escapeHtml($value)
     <dd>$name</dd>
     #end
 #end
+
+  #### Persistent Identifiers
+  #set ($pidProperty = $systemConfig.getString("error", "curation", "pidProperty"))
+  #set ($pId = $parent.getProperty($pidProperty))
+  #set ($allCurated = true)
+
 #parseDisplayTemplate("detail/preview/identification.vm")
 <div id="toggle-accordion" class="toggle-accordion">
     <span id="toggle-accordion-icon" class="ui-icon ui-icon-triangle-1-e"></span>
@@ -120,6 +126,43 @@ $self.escapeHtml($value)
     #if($page.authentication.is_admin())
         #parseDisplayTemplate("detail/preview/sections/curation.vm")
     #end
+
+  #### MANUAL CURATION
+  #if ($pId == $nullValue || $allCurated == false)
+    #if($page.authentication.is_admin())
+    <div class="pId">
+        <a id="curate-now" href="#">CURATE NOW</a>
+        <span id="curate-sent" class="hidden"></span>
+    </div>
+    <script type="text/javascript">
+    <!--
+        $(function() {
+            $("#curate-now").click(function() {
+                $("#curate-now").hide();
+                $("#curate-sent").show();
+                jQuery.ajax({
+                    type : "POST",
+                    url : "$portalPath/actions/curate.ajax",
+                    success:
+                        function(data, status) {
+                            $("#curate-sent").html(data);
+                        },
+                    error:
+                        function (data, status, e) {
+                            $("#curate-sent").html(data.responseText);
+                        },
+                    data: {
+                        oid: "${oid}"
+                    }
+                });
+                return false;
+            });
+        });
+    -->
+    </script>
+    #end
+  #end
+
     #parseDisplayTemplate("detail/preview/sections/general.vm")
     #parseDisplayTemplate("detail/preview/sections/embargo.vm")
     #parseDisplayTemplate("detail/preview/sections/coverage.vm")

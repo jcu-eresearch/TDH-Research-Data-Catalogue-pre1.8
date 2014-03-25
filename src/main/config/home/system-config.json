@@ -40,7 +40,8 @@
                 "feed/",
                 "images/",
                 "js/",
-                "flowplayer/"
+                "flowplayer/",
+                "jaffa/"
             ],
             "endsWith": [
                 ".ico"

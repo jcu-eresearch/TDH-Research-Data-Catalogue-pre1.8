@@ -291,7 +291,17 @@ As you add items to the map, entries will appear in the (Location Type, Value) a
 To edit the shape, select the |edit| icon and click on the shape you wish to edit.
 
 
-.. note:: There is currently a bug in the *Edit the map* feature. When you edit a shape it will create a new (Location Type, Value) line in the area below the map for every edit you make. When you are finished editing, delete all lines accept the last one. Your shape will disappear from the map but it is still there provided you still have one entry in the (Location Type, Value) area. If you do not do this, then when you save the record, a new shape for each line containing a POLYGON(...) value will be added.
+.. note:: There is currently a bug in the *Edit the map* feature. When you edit a shape it will create a new (Location Type, Value) line in the area below the map for every edit you make. When you are finished editing, delete all lines accept the last one. Your shape will disappear from the map but it is still there provided you have kept that last entry in the (Location Type, Value) area. If you do not do this, then when you save the record, a new shape for each line containing a POLYGON(...) value will be added.
+
+    .. raw:: html
+
+        <div style="text-align: center">
+        <video style="margin: 1em;" width="600" height="338" controls>
+            <source src="_static/Edit-map-1080p.mp4" type="video/mp4">
+        </video>
+        </div>
+
+
 
 People
 ------

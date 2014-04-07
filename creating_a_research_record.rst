@@ -74,7 +74,7 @@ To create a new research record, click on “Add a new JCU Research Record”.
 The web form for a new research record consists of 8 tabs. You can save and close
 the form at any stage provided you have completed the required fields on the
 open tab. Require fields are marked by an asterisk (*). For example, the
-Content tab shown above has Title, Descriptions, and Collection Type as
+Content tab shown below has Title, Descriptions, and Collection Type as
 required fields. Provide these have some data in them, you could save the form
 at this point without completing any of the other tabs.
 
@@ -302,6 +302,60 @@ To edit the shape, select the |edit| icon and click on the shape you wish to edi
         </div>
 
 
-
 People
 ------
+
+.. figure:: _static/people-screen.png
+   :width: 100%
+   :figwidth: 100%
+   :align: center
+
+The People tab has three (3) sections:
+
+ * Creators ( *required* )
+ * Primary Contact
+ * Collaborators
+
+Creators
+````````
+
+The Creators section is used to add JCU researchers who have contributed to the creation of the dataset. They may be data collectors, people who have helped clean the data or people who have contributed to make the data set better. 
+
+Adding a person's details to this section can only be done using the **lookup** facitily. Clicking on **lookup** will open a *Name lookup* box. By default the *Mint* tab will be showing - this searches the JCU researcher database.
+
+.. figure:: _static/name-lookup.png
+    :width: 100%
+    :figwidth: 50%
+    :align: center
+
+    When on the Mint tab, the search is performed against the JCU researcher database.
+
+If your search returns more than one person with the same name, you can click on the *details* link to view the details and check the email address to determine which is the person you were looking for.
+
+.. figure:: _static/name-lookup-check-details.png
+    :width: 100%
+    :figwidth: 75%
+    :align: center
+
+
+Once you have selected the right person, check the box next to their name and hit *OK*. The person's details will now be added to the Creators section. In addition to completing the title, names and email fields, the Affiliations will also be completed with up to three internal JCU units. Unlike the title, name and email fields, the affiliations can be adjusted - just select your prefered unit from the drop down list. To unset an affiliation just set the affiliation to the default "Please select one..."
+
+To add additional people, use the **Add** button found under the set of three affiliations.
+
+Primary Contact
+```````````````
+
+The *Primary Contact* fields can completed using the *lookup* or by manual entry. This is particularly useful for PhD students who may be leaving JCU but still wish to be the primary contact for their dataset. It can also be used by JCU staff who wish all enquires to be directed to a central email address, e.g. the school's contact email address, rather than their personal work email address.
+
+Collaborators
+`````````````
+
+The *Collaborators* section allows you to credit people and organisations outside JCU that contributed to the data. Please add a new line for each collaborator and include name, affiliations and possibly contact information is appropriate.
+
+.. figure:: _static/collaborators.png
+    :width: 100%
+    :figwidth: 50%
+    :align: center
+
+
+

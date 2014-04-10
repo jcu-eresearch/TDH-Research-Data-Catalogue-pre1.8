@@ -357,5 +357,55 @@ The *Collaborators* section allows you to credit people and organisations outsid
     :figwidth: 50%
     :align: center
 
+Data Management
+---------------
+
+The *Data Management* tab contains information relating to
+ * where the data lives - *Location*
+ * how long the data should be kept for - *Retention Period*
+ * size of the data - *Size of Data/Collection*
+ * who owns the data - *Data Owner (IP)*
+
+.. figure:: _static/data-management.png
+    :width: 100%
+    :figwidth: 100%
+    :align: center
+
+Location
+````````
+
+There are two options in the *Location* section; you can provide one or more *URL(s)* if your data already has a home that is accessible via the web, or you can provide an address or other information in the *Stored At* text box if your data has a physical location. For example, your data may be a collection of physical items located in a storage room at your place of work.
+
+.. note:: Please use the text box if your data doesn't have a permenant home and you need assistance with finding a suitable storage locations. For example, it may be you have your data stored on USB drives and you need assistance moving your data to a better long term home. Put this information in the *Stored At* text box and someone will contact you once your record has been submitted.
+
+Retention Period
+````````````````
+
+.. figure:: _static/retention-period.png
+    :width: 100%
+    :figwidth: 50%
+    :figclass: float-right
+
+Where possible, in general the intention is to retain research data for as long as feasible. The Code for the Responsible Conduct of Research recommends some minimum  retention periods. Please choose from the drop down list the period that you believe to be most applicable for a minimum retention period.
+
+
+Size of Data/Collection
+```````````````````````
+
+For electronic data, please provide the size of the data you want associated with this metadata record. This will be useful for people wanting to download your data and for the repository manager who may need to find storage to accommodate your collection.
+
+For physical data, provide a weight and/or volume or other information (e.g. count) that you think relevant. 
+
+Data Owner (IP)
+```````````````
+
+By default, this is prefilled with *James Cook University*. For students, depending on how your PhD has been funded, it may be that you are the data owner. If the data collection was part of an externally funded activity, you may need to check the contract to see if your funder has made claims to the data. If you are a staff member and the data has been collected as part of the research you have undertaken as part of your employment at JCU, then *James Cook University* is the data owner. In the case where there is joint data ownership, use the **Add owner** button to add additonal lines and enter one owner per line.
+
+.. figure:: _static/data-owner-ip.png
+    :width: 100%
+    :figwidth: 50%
+    :align: center
+
+
 
 

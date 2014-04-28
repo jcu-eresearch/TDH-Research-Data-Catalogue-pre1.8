@@ -166,6 +166,7 @@
         #multiValuedProperty($slot "dc:creator.foaf:Person" "foaf:title" $order)
         #multiValuedProperty($slot "dc:creator.foaf:Person" "foaf:givenName" $order)
         #multiValuedProperty($slot "dc:creator.foaf:Person" "foaf:familyName" $order)
+        #multiValuedProperty($slot "dc:creator.foaf:Person" "foaf:email" $order)
         #multiValuedProperty($slot "dc:creator.foaf:Person" "dc:identifier" $order)
         #set($familyNameValue = $slot.get("foaf:familyName"))
         #set($givenNameValue = $slot.get("foaf:givenName"))
@@ -178,6 +179,8 @@
         #multiValuedProperty($slot "dc:creator.foaf:Person" "foaf:Organization.B.skos:prefLabel" $order)
         #multiValuedProperty($slot "dc:creator.foaf:Person" "foaf:Organization.C.dc:identifier" $order)
         #multiValuedProperty($slot "dc:creator.foaf:Person" "foaf:Organization.C.skos:prefLabel" $order)
+        #multiValuedProperty($slot "dc:creator.foaf:Person" "jcu:relationshipType" $order)
+        #multiValuedProperty($slot "dc:creator.foaf:Person" "jcu:relationshipLabel" $order)
         #set($order = $order + 1)
     #end
     #end
@@ -195,19 +198,26 @@
     #end
 	#end
 	
-	#mapTo('swrc:supervisor.foaf:Person.foaf:title', 'swrc:supervisor.foaf:Person.1.foaf:title')
-	#mapTo('swrc:supervisor.foaf:Person.foaf:givenName', 'swrc:supervisor.foaf:Person.1.foaf:givenName')
-	#mapTo('swrc:supervisor.foaf:Person.foaf:familyName', 'swrc:supervisor.foaf:Person.1.foaf:familyName')
-	#mapTo('swrc:supervisor.foaf:Person.dc:identifier', 'swrc:supervisor.foaf:Person.1.dc:identifier')
-	#set($supFamilyName = $util.get($item, "swrc:supervisor.foaf:Person.foaf:familyName"))
-	#set($supGivenName = $util.get($item, "swrc:supervisor.foaf:Person.foaf:givenName"))
-	#if ("$!supFamilyName" != "") 
-		"swrc:supervisor.foaf:Person.1.foaf:name": "$util.encodeJson($supFamilyName), $util.encodeJson($supGivenName)",
-	#end
+    #set($cList = $util.getList($item, "swrc:supervisor.foaf:Person"))
+    #set($order = 1)
+    #if ($cList.size() > 0)
+    #foreach($key in $cList.keySet())
+        #set($slot = $cList.get($key))
+        #multiValuedProperty($slot "swrc:supervisor.foaf:Person" "foaf:title" $order)
+        #multiValuedProperty($slot "swrc:supervisor.foaf:Person" "foaf:givenName" $order)
+        #multiValuedProperty($slot "swrc:supervisor.foaf:Person" "foaf:familyName" $order)
+        #multiValuedProperty($slot "swrc:supervisor.foaf:Person" "foaf:email" $order)
+        #multiValuedProperty($slot "swrc:supervisor.foaf:Person" "dc:identifier" $order)
+        #set($supFamilyNameValue = $slot.get("foaf:familyName"))
+        #set($supGivenNameValue = $slot.get("foaf:givenName"))
+        #if ("$!supFamilyNameValue" != "") 
+            "swrc:supervisor.foaf:Person.${order}.foaf:name": "$util.encodeJson($supFamilyNameValue), $util.encodeJson($supGivenNameValue)",
+        #end
+        #set($order = $order + 1)
+    #end
+    #end	
 
-	
-	
-	#set($cList = $util.getList($item, "dc:subject.vivo:keyword"))
+    #set($cList = $util.getList($item, "dc:subject.vivo:keyword"))
 	#set($order = 1)
 	#if ($cList.size() > 0)
 	#foreach($key in $cList.keySet())
@@ -228,7 +238,21 @@
     #end
 	#end
 
-	#mapTo('redbox:retentionPeriod', 'redbox:retentionPeriod')
+    #set($cList = $util.getList($item, "rif:collection"))
+    #set($order = 1)
+    #if ($cList.size() > 0)
+    #foreach($key in $cList.keySet())
+        #set($slot = $cList.get($key))
+        #multiValuedProperty($slot "rif:collection" "identifier" $order)
+        #multiValuedProperty($slot "rif:collection" "jcu:comment" $order)
+        #multiValuedProperty($slot "rif:collection" "type" $order)
+        #multiValuedProperty($slot "rif:collection" "label" $order)
+        #set($order = $order + 1)
+    #end
+    #end
+    
+    
+    #mapTo('redbox:retentionPeriod', 'redbox:retentionPeriod')
 	
     #set($cList = $util.getList($item, "locrel:own.foaf:Agent"))
     #set($order = 1)
@@ -373,6 +397,7 @@
         "dc:creator.foaf:Person.1.jcu:relationshipLabel",
         "dc:creator.foaf:Person.1.foaf:givenName",
         "dc:creator.foaf:Person.1.foaf:familyName",
+        "dc:creator.foaf:Person.1.foaf:email",
         "dc:creator.foaf:Person.1.foaf:Organization.dc:identifier",
         "dc:creator.foaf:Person.1.foaf:Organization.skos:prefLabel",
         "dc:creator.foaf:Person.1.foaf:Organization.B.dc:identifier",
@@ -390,6 +415,7 @@
         "swrc:supervisor.foaf:Person.1.foaf:title",
         "swrc:supervisor.foaf:Person.1.foaf:givenName",
         "swrc:supervisor.foaf:Person.1.foaf:familyName",
+        "swrc:supervisor.foaf:Person.1.foaf:email",
         "dc:contributor.locrel:clb.1.foaf:Agent",
         "dc:subject.anzsrc:seo.1.skos:prefLabel",
         "dc:subject.anzsrc:seo.1.rdf:resource",
@@ -415,6 +441,10 @@
         "dc:identifier.dc:type.rdf:PlainLiteral",
         "dc:identifier.dc:type.skos:prefLabel",
         "dc:identifier.redbox:origin",
+        "rif:collection.1.identifier",
+        "rif:collection.1.jcu:comment",
+        "rif:collection.1.type",
+        "rif:collection.1.label",
         "bibo:Website.1.dc:identifier",
         "vivo:Location.vivo:GeographicLocation.gn:name",
         "vivo:Location.vivo:GeographicLocation.skos:note",

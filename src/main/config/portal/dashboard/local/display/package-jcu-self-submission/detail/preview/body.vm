@@ -18,80 +18,6 @@
     #end
 #end
 
-#macro(displayList $listName $label)
-    <dt>$label</dt>
-    #set($items = $metadata.getList("$listName"))
-    <dd>
-    #if ($items && $items.size() > 0)
-        #set($i = 0)
-#foreach($item in $items)
-#if($i > 0),#else #set($i = 1) #end $item#end
-    #else
-        #noInformation()
-    </dd>
-    #end
-#end
-
-#macro(getValue $key)
-    #set($v = $metadata.get("$key"))
-    #if ($v && "$!v" != "")
-        $page.escapeHtml($v)
-    #else
-        #noInformation()
-    #end
-#end
-
-#macro(getList $listName)
-    #set($items = $metadata.getList("$listName"))
-    #if ($items && $items.size() > 0)
-        #set($i = 0)
-#foreach($item in $items)
-#if($i > 0),#else #set($i = 1) #end $page.escapeHtml($item)#end
-    #else
-        #noInformation()
-    #end    
-#end
-
-#macro(displayRow $key $name $type)
-    <tr>
-    <td>$name</td>
-    <td>#if ( $type == "list" ) #getList($key) #else #getValue($key) #end </td>
-    </tr>
-#end
-
-## display a list in a row 
-#macro(displayRowList $label $baseKey $subKey)
-<tr>
-<td>$label</td>
-<td>
-#set($forList = $self.getList("$baseKey"))
-#if ($forList.isEmpty())
-#noInformation()
-#else
-    #set($i = 0)
-#foreach($key in $forList.keySet())
-#set($item = $forList.get($key))
-#if($i > 0), #else #set($i = 1) #end $item.get("$subKey")#end
-#end
-</td>
-</tr>
-#end
-
-#macro(displayMintLabelByLookup $key $name $urlName, $resKey, $valKey)
-    <tr>
-    <td>$name</td>
-    #set($label= $self.getMintLabelByLookup($urlName, $key, $resKey, $valKey))
-    <td>
-        #if($label)
-            $label.get(0)
-        #else
-            #noInformation()
-        #end
-    </td>
-    </tr>
-#end
-
-
 #macro(displayArrayList $label $baseKey $subKey)
     <dt>$label</dt>
     #set($forList = $self.getList("$baseKey"))
@@ -104,7 +30,7 @@
 			<dd>
             #set($item = $forList.get($key))            
             #set($subv = $item.get("$subKey"))
-            $!subv
+            $page.escapeHtml($!subv)
 			</dd>
         #end
     #end
@@ -126,7 +52,7 @@
             #foreach($subKey in $subKeys)
             #if($i>0)$sep #end 
             #set($subv = $item.get("$subKey"))
-            #set($i = $i+1)$!subv#end
+            #set($i = $i+1)$page.escapeHtml($!subv)#end
 			</li>
 		#end
 		</ol>

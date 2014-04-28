@@ -73,7 +73,7 @@
                                 </td>
                                 <td>
                                     <input type="text" placeholder="given name" size="25"
-                                           class="nameLookup-name creatorGivenName creatorName givenName"
+                                           class="nameLookup-name creatorGivenName creatorName givenName focusAfterClone"
                                            id="dc:creator.foaf:Person.0.foaf:givenName" />
                                 </td>
                                 <td>
@@ -85,6 +85,16 @@
                                            id="dc:creator.foaf:Person.0.foaf:familyName" />
                                     <input type="hidden" id="dc:creator.foaf:Person.0.redbox:isCoPrimaryInvestigator" />
                                     <input type="hidden" id="dc:creator.foaf:Person.0.redbox:isPrimaryInvestigator" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label for="dc:creator.foaf:Person.0.foaf:email">Email:</label>
+                                </td>
+                                <td>
+                                    <input type="text" placeholder="email" size="40"
+                                        class="nameLookup-name creatorEmail"
+                                        id="dc:creator.foaf:Person.0.foaf:email" />
                                 </td>
                             </tr>
                             <tr>
@@ -102,7 +112,8 @@
                                                                     f=jQ.trim(f); g=jQ.trim(g);
                                                                     r=(g=='')&&(f=='');
                                                                     id=gid;
-																	lid=id+'ErrMsg';
+																	lid=id+'ErrMsg';																	                                                                   
+                                                                    label=$('.'+lid);
                                                                 );
                                                                 liveFor(.creatorName);">
                                         A creator's given name or family name is required!
@@ -281,6 +292,91 @@
         </tbody>
     </table>
 
+    #fieldTitle("swrc:supervisor.foaf:Person" "Supervisors" false)
+    <div class="help-content" id="help-swrc:supervisor.foaf:Person">
+        Record name of supervisor associated with the data creation if
+        applicable. Enter a given name and/or family name and click 'lookup' to
+        search and select the name authority record.
+    </div>
+    <table class="input-list">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Display Name</th>
+                <th>Name Authority</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="item-input-display sortable-item">
+                <td class="sort-number"></td>
+                <td>
+                    <table class="lookup">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <label for="swrc:supervisor.foaf:Person.0.foaf:title">Title:</label>
+                                </td>
+                                <td>
+                                    <input type="text" placeholder="title" size="5"
+                                           id="swrc:supervisor.foaf:Person.0.foaf:title" />
+                                </td>
+                                <td>
+                                    <label for="swrc:supervisor.foaf:Person.0.foaf:givenName">Given name:</label>
+                                </td>
+                                <td>
+                                    <input type="text" placeholder="given name" size="25"
+                                           class="nameLookup-name supGivenName supName givenName"
+                                           id="swrc:supervisor.foaf:Person.0.foaf:givenName" />
+                                </td>
+                                <td>
+                                    <label for="swrc:supervisor.foaf:Person.0.foaf:familyName">Family name:</label>
+                                </td>
+                                <td>
+                                    <input type="text" placeholder="family name" size="25"
+                                           class="nameLookup-name supFamilyName supName familyName"
+                                           id="swrc:supervisor.foaf:Person.0.foaf:familyName" />
+                                </td>
+                                <td>
+                                    <label for="swrc:supervisor.foaf:Person.0.foaf:email">Email:</label>
+                                </td>
+                                <td>
+                                    <input type="text" placeholder="email" size="40"
+                                           class="nameLookup-name supEmail"
+                                           id="swrc:supervisor.foaf:Person.0.foaf:email" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+                <td>
+                    <span class="lookup-show">
+                        <span class="identified-as-name"></span>
+                        <a href="#" class="nameLookup-lookup" data-selected-func="lookupDone"
+                            data-cleared-func="lookupCleared">lookup</a>
+                        <span class="nameLookup-progress hidden">
+                            <img src="$portalPath/images/icons/loading.gif" />
+                        </span>
+                        <input id="swrc:supervisor.foaf:Person.0.foaf:name"
+                               type="hidden"
+                               class="nl nl-rdfs:label nlLabel" readonly="readonly"/>
+                        <input type="hidden" id="swrc:supervisor.foaf:Person.0.dc:identifier"
+                               class="nl nl-dc:identifier nlId" value="" />
+                    </span>
+                </td>
+                <td class="valign-middle"><a class="delete-item" href="#">delete</a></td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td></td>
+                <td colspan="3">
+                    <input type="button" class="button add-another-item" value="Add supervisor" />
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
     #fieldTitle("dc:contributor.locrel:clb" "Collaborators" false)
     <div class="help-content" id="help-dc:contributor.locrel:clb">
         Names of other collaborators in the research project, if applicable,
@@ -330,6 +426,7 @@ function lookupDone(target,data){
         $("input[id='"+baseId+".foaf:title']").val(lookupData["Honorific"]);
         $("input[id='"+baseId+".foaf:givenName']").val(lookupData["Given_Name"]);
         $("input[id='"+baseId+".foaf:familyName']").val(lookupData["Family_Name"]);
+        $("input[id='"+baseId+".foaf:email']").val(lookupData["Email"]);
         $("input[id='"+baseId+".foaf:Organization.dc:identifier']").parents("td").find("option").each(function(c,e){
             var groupID_1 = "jcu.edu.au/parties/group/" + lookupData["GroupID_1"];
             var option=$(e);
@@ -386,6 +483,12 @@ function pcLookupCleared(target,data){
     $("#locrel\\:prc\\.foaf\\:Person\\.foaf\\:email").val("");
 }
 
+$(function(){    
+    $("#people")[0].onActivate = function() {
+        setTimeout(function(){$(".creatorGivenName")[$(".creatorGivenName").length -1].focus();}, 200);        
+    };    
+});
+
 function copyToPrimaryContact(obj){
     var par=obj.parentNode; 
     while(par.nodeName.toLowerCase()!='tr'){ 
@@ -397,10 +500,11 @@ function copyToPrimaryContact(obj){
     titleId = '#dc\\:creator\\.foaf\\:Person\\.' + index + '\\.foaf\\:title';
     givenNameId = '#dc\\:creator\\.foaf\\:Person\\.' + index + '\\.foaf\\:givenName';
     familyNameId = '#dc\\:creator\\.foaf\\:Person\\.' + index + '\\.foaf\\:familyName';
+    emailId = '#dc\\:creator\\.foaf\\:Person\\.' + index + '\\.foaf\\:email';
 
     $("#locrel\\:prc\\.foaf\\:Person\\.foaf\\:title").val($(titleId).val());
     $("#locrel\\:prc\\.foaf\\:Person\\.foaf\\:givenName").val($(givenNameId).val());
     $("#locrel\\:prc\\.foaf\\:Person\\.foaf\\:familyName").val($(familyNameId).val());
-    $("#locrel\\:prc\\.foaf\\:Person\\.foaf\\:email").val("");
+    $("#locrel\\:prc\\.foaf\\:Person\\.foaf\\:email").val($(emailId).val());
 }
 </script>

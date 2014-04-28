@@ -10,3 +10,5 @@ ${project.home}
 .DS_Store.log
 
 .project-home
+
+src/main/config/portal/dashboard/local/scripts/display/stuff.json

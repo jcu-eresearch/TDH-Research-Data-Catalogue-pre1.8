@@ -128,8 +128,14 @@ $self.escapeHtml($value)
     #end
 
   #### MANUAL CURATION
+    #set($hasWorkflow = $self.hasWorkflow())
+    #set($hasWorkflowAccess = $self.hasWorkflowAccess())
+    #if($hasWorkflow && $hasWorkflowAccess)
+        #set($workflowStep = $self.getWorkflowStep())
+    #end
+  
   #if ($pId == $nullValue || $allCurated == false)
-    #if($page.authentication.is_admin())
+    #if($page.authentication.is_admin() && $workflowStep == 'Published')
     <div class="pId">
         <a id="curate-now" href="#">CURATE NOW</a>
         <span id="curate-sent" class="hidden"></span>
@@ -190,6 +196,7 @@ $(function(){
     function addAccordion() {
         $(".accordion").accordion({
             autoHeight:false,
+            heightStyle:content,
             clearStyle:true,
             collapsible:false,
             header:".accordion-header"

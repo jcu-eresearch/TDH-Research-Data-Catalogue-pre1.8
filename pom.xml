@@ -10,7 +10,7 @@
     <parent>
         <groupId>com.googlecode.redbox-mint</groupId>
         <artifactId>redbox</artifactId>
-        <version>1.6.1</version>
+        <version>1.7</version>
     </parent>
 
     <properties>
@@ -48,33 +48,48 @@
             <version>${redbox.version}</version>
         </dependency>
         <dependency>
-            <groupId>fascinator-shibboleth</groupId>
+            <groupId>au.com.redboxresearchdata</groupId>
             <artifactId>fascinator-shibboleth</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
-        <!-- Local Curation Plugin (from Mint) -->
+		<!-- Local Curation Plugin (from Mint) -->
         <dependency>
             <groupId>com.googlecode.redbox-mint</groupId>
             <artifactId>plugin-transformer-local</artifactId>
             <version>${redbox.version}</version>
         </dependency>
-        <dependency>
+		<dependency>
+			<groupId>com.googlecode.the-fascinator.plugins</groupId>
+			<artifactId>plugin-transformer-basicVersioning</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>        <dependency>
             <groupId>com.googlecode.the-fascinator.plugins</groupId>
             <artifactId>plugin-harvester-directoryName</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
-        <!-- this dependency was added to pick up a fix in Util.java so that we can escape the JSON properly
-             in selfsubToDataset.vm or JCUselfsubToDataset.vm. This functionality forms part of the transitionWorkflow process. 
-             See system-config.json for reference to these files. 
-             In future release upgrades, this dependency should be removed. e.g. after version 1.6.1-->        
+		<!-- new velocity plugins -->
+		<dependency>
+			<groupId>com.googlecode.the-fascinator.plugins</groupId>
+			<artifactId>plugin-transformer-jsonVelocity</artifactId>
+			<version>1.2</version>
+		</dependency>
         <dependency>
             <groupId>com.googlecode.the-fascinator.plugins</groupId>
-            <artifactId>plugin-transformer-jsonVelocity</artifactId>
-            <version>1.1.5-SNAPSHOT</version>
+            <artifactId>plugin-subscriber-solrEventLog</artifactId>
+            <version>1.3-SNAPSHOT</version>
         </dependency>
+		<dependency>
+			<groupId>com.googlecode.the-fascinator.plugins</groupId>
+			<artifactId>plugin-transformer-jsonVelocity-pdf</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+		<!-- JSON harvester plugin -->
+		<dependency>
+			<groupId>au.com.redboxresearchdata.fascinator</groupId>
+			<artifactId>plugin-harvester-json</artifactId>
+			<version>1.2</version>
+		</dependency>		
     </dependencies>
-
-
     <profiles>
         <profile>
             <id>build-package</id>
@@ -96,6 +111,8 @@
                                     <goal>single</goal>
                                 </goals>
                                 <configuration>
+                                    <classifier>${classifier.value}</classifier>
+                                    <finalName>${package.finalname}</finalName>
                                     <descriptors>
                                         <descriptor>package.xml</descriptor>
                                     </descriptors>
@@ -106,30 +123,71 @@
                 </plugins>
             </build>
         </profile>
+    <profile>
+      <id>ide</id>
+      <properties>
+        <packaging>jar</packaging>
+        <project.home>../</project.home>
+      </properties>
+      <build>
+      	<resources>
+      		<resource>
+                  <directory>src/main/config/home</directory>
+                  <filtering>false</filtering>
+                </resource>
+                <resource>
+                   <directory>src/main/config/home</directory>
+					<includes>
+						<include>system-config.json</include>
+					</includes>
+                  <filtering>false</filtering>
+                </resource>
+                <resource>
+                  <directory>src/main/config/portal</directory>
+                  <filtering>false</filtering>
+                </resource>
+                 <resource>
+                  <directory>src/main/config/server</directory>
+                  <filtering>false</filtering>
+                  <excludes>
+                    <exclude>**/*.bat</exclude>
+                    <exclude>**/*.sh</exclude>
+                  </excludes>
+                </resource>
+                <resource>
+                  <directory>src/main/config/server</directory>
+                  <filtering>true</filtering>
+                  <includes>
+                    <include>**/*.bat</include>
+                    <include>**/*.sh</include>
+                  </includes>
+                </resource>
+                <resource>
+                  <directory>src/main/config/solr</directory>
+                  <filtering>true</filtering>
+                </resource>
+      	</resources>
+      </build>
+    </profile>
     </profiles>
 
     <!-- The standard build/deploy process for making a server -->
     <build>
+        <resources>
+          <resource>
+            <directory>src/main/config/home</directory>
+          </resource>
+          <resource>
+            <directory>src/main/config/portal</directory>
+          </resource>
+          <resource>
+            <directory>src/main/config/server</directory>
+          </resource>
+          <resource>
+            <directory>src/main/config/solr</directory>
+          </resource>
+        </resources>
         <plugins>
-            <!--<plugin>-->
-                <!--<groupId>org.codehaus.mojo</groupId>-->
-                <!--<artifactId>properties-maven-plugin</artifactId>-->
-                <!--<version>1.0-alpha-2</version>-->
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<phase>initialize</phase>-->
-                        <!--<goals>-->
-                            <!--<goal>read-project-properties</goal>-->
-                        <!--</goals>-->
-                        <!--<configuration>-->
-                            <!--<files>-->
-                                <!--<file>build.properties</file>-->
-                            <!--</files>-->
-                        <!--</configuration>-->
-                    <!--</execution>-->
-                <!--</executions>-->
-            <!--</plugin>-->
-
             <plugin>
                 <groupId>org.codehaus.groovy.maven</groupId>
                 <artifactId>gmaven-plugin</artifactId>
@@ -191,7 +249,7 @@
                             <outputDirectory>${project.home}</outputDirectory>
                             <artifactItems>
                                 <artifactItem>
-                                    <groupId>fascinator-shibboleth</groupId>
+                                    <groupId>au.com.redboxresearchdata</groupId>
                                     <artifactId>fascinator-shibboleth</artifactId>
                                     <classifier>redbox-config</classifier>
                                     <type>zip</type>
@@ -199,7 +257,6 @@
                             </artifactItems>
                         </configuration>
                     </execution>
-
                 </executions>
             </plugin>
 
@@ -232,6 +289,13 @@
                                 <resource>
                                     <directory>src/main/config/home</directory>
                                     <filtering>false</filtering>
+                                </resource>
+                                <resource>
+                                    <directory>src/main/config/home</directory>
+                                    <includes>
+                                        <include>system-config.json</include>
+                                    </includes>
+                                <filtering>false</filtering>
                                 </resource>
                             </resources>
                         </configuration>
@@ -417,12 +481,91 @@
                 </executions>
             </plugin>
         </plugins>
-    </build>
-    <scm>
-        <url>https://github.com/jcu-eresearch/TDH-Research-Data-Catalogue</url>
-        <connection>scm:git:https://github.com/jcu-eresearch/TDH-Research-Data-Catalogue.git</connection>
-        <developerConnection>scm:git:git@github.com:jcu-eresearch/TDH-Research-Data-Catalogue.git</developerConnection>
-    </scm>
+    <pluginManagement>
+      <plugins>
+        <!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
+        <plugin>
+          <groupId>org.eclipse.m2e</groupId>
+          <artifactId>lifecycle-mapping</artifactId>
+          <version>1.0.0</version>
+          <configuration>
+            <lifecycleMappingMetadata>
+              <pluginExecutions>
+                <pluginExecution>
+                  <pluginExecutionFilter>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <versionRange>[2.1,)</versionRange>
+                    <goals>
+                      <goal>copy-dependencies</goal>
+                      <goal>unpack</goal>
+                      <goal>unpack-dependencies</goal>
+                    </goals>
+                  </pluginExecutionFilter>
+                  <action>
+                    <ignore />
+                  </action>
+                </pluginExecution>
+                <pluginExecution>
+                  <pluginExecutionFilter>
+                    <groupId>org.codehaus.groovy.maven</groupId>
+                    <artifactId>gmaven-plugin</artifactId>
+                    <versionRange>[1.0,)</versionRange>
+                    <goals>
+                      <goal>execute</goal>
+                    </goals>
+                  </pluginExecutionFilter>
+                  <action>
+                    <ignore />
+                  </action>
+                </pluginExecution>
+                <pluginExecution>
+                  <pluginExecutionFilter>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-antrun-plugin</artifactId>
+                    <versionRange>[1.3,)</versionRange>
+                    <goals>
+                      <goal>run</goal>
+                    </goals>
+                  </pluginExecutionFilter>
+                  <action>
+                    <ignore />
+                  </action>
+                </pluginExecution>
+                <pluginExecution>
+                  <pluginExecutionFilter>
+                    <groupId>org.appfuse</groupId>
+                    <artifactId>maven-warpath-plugin</artifactId>
+                    <versionRange>[2.0.2,)</versionRange>
+                    <goals>
+                      <goal>add-classes</goal>
+                    </goals>
+                  </pluginExecutionFilter>
+                  <action>
+                    <ignore />
+                  </action>
+                </pluginExecution>
+                <pluginExecution>
+                	<pluginExecutionFilter>
+                		<groupId>org.codehaus.mojo</groupId>
+                		<artifactId>exec-maven-plugin</artifactId>
+                		<versionRange>[1.1,)</versionRange>
+                		<goals>
+                			<goal>exec</goal>
+                		</goals>
+                	</pluginExecutionFilter>
+                	<action>
+                		<ignore />
+                	</action>
+                </pluginExecution>
+              </pluginExecutions>
+            </lifecycleMappingMetadata>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
     <repositories>
         <repository>
             <id>fascinator-snapshots</id>
@@ -439,5 +582,21 @@
             <url>http://dev.redboxresearchdata.com.au/nexus/content/groups/public/</url>
         </repository>
     </repositories>
-
+    <scm>
+        <url>https://github.com/jcu-eresearch/TDH-Research-Data-Catalogue</url>
+        <connection>scm:git:https://github.com/jcu-eresearch/TDH-Research-Data-Catalogue.git</connection>
+        <developerConnection>scm:git:git@github.com:jcu-eresearch/TDH-Research-Data-Catalogue.git</developerConnection>
+    </scm>
+  <distributionManagement>
+		<snapshotRepository>
+			<id>redbox-nexus-snapshots</id>
+			<name>Redbox Nexus Snapshots</name>
+			<url>http://dev.redboxresearchdata.com.au/nexus/content/repositories/snapshots/</url>
+		</snapshotRepository>
+		<repository>
+			<id>redbox-nexus-releases</id>
+			<name>Redbox Nexus Releases</name>
+			<url>http://dev.redboxresearchdata.com.au/nexus/content/repositories/releases/</url>
+		</repository>
+	</distributionManagement>
 </project>

@@ -1,7 +1,7 @@
 #sectionHeading("Data Management")
 <div class="meta">
     <dl>
-        <dt>Additional Identifiers</dt>
+        <dt>Primary Identifier</dt>
         <div class="group">
             #set($origin = $self.getFirst("dc:identifier.redbox:origin"))
             #if($origin == "internal")
@@ -11,6 +11,29 @@
                 #displayFirst("dc:identifier.dc:type.skos:prefLabel" "Type of Identifier")
             #end
         </div>
+        <dt>Additional Identifier(s)</dt>
+        <dd>
+            #set($identifierList = $self.getList("rif:collection"))
+            <ol>
+            #foreach($key in $identifierList.keySet())
+                #set($additionalIdentifier = $identifierList.get($key))
+                <li>
+                    #set($label = $additionalIdentifier.get("label"))
+                    #if("$!label"!="")
+                        <b>Type:</b> $self.escapeHtml($label)
+                    #end
+                    #set($additionalIdentifierId = $additionalIdentifier.get("identifier"))
+                    #if("$!additionalIdentifierId"!="")
+                        <b>Identifier:</b> $self.escapeHtml($additionalIdentifierId)
+                    #end
+                    #set($additionalIdentifierComment = $additionalIdentifier.get("jcu:comment"))
+                    #if("$!additionalIdentifierComment"!="")
+                        <b>Comment:</b> $self.escapeHtml($additionalIdentifierComment)
+                    #end
+                </li>
+            #end
+            </ol>
+        </dd>
         <dt>Location</dt>
         <div class="group">
             #displayUrlList("bibo:Website" "URL" "dc:identifier" "")

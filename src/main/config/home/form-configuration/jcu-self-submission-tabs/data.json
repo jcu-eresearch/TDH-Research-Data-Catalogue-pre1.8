@@ -1,0 +1,159 @@
+{
+    "heading":"Data Management",
+    "fields":[
+        {
+            "component-type":"text-block",
+            "type":"label",
+            "content":"jcu-self-submission.field.label.vivo-Location"
+            "help":"jcu-self-submission.field.help.vivo-Location",
+            "additional-class":"jcuFieldLabel"
+        },
+        {
+            "component-type":"text-block",
+            "type":"label",
+            "content":"jcu-self-submission.field.label.bibo-Website.dc-identifier",
+            "help":"jcu-self-submission.field.help.bibo-Website.dc-identifier",
+            "additional-class":"jcuFieldLabel"
+        },
+        {
+            "component-type":"repeatable-container",
+            "containter-for":"bibo:Website",
+            "sub-elements":{"settings":[
+                                {"jaffaText":{"label":"", "class-list":"jaffa-field", "suffix":"dc:identifier", "size":"60", "placeholder":"url"}}
+                                ]
+                           },
+            "add-item-text":"Add url",                                           
+            "additional-classes":"containerLayout"                                           
+        },
+        {
+            "component-type":"text-block",
+            "type":"label",
+            "content":"jcu-self-submission.field.label.vivo-Location.vivo-GeographicLocation.gn-name",
+            "help":"jcu-self-submission.field.help.vivo-Location.vivo-GeographicLocation.gn-name",
+            "additional-class":"jcuFieldLabel"
+        },
+        {
+            "component-type":"textarea",
+            "field-name":"vivo:Location.vivo:GeographicLocation.gn:name",
+            "label":"",
+            "content":"",
+            "placeholder":"e.g. Biology Lab 1 Room 126, Biological Sciences Building 34, James Cook University, Townsville Campus"
+        },
+        {
+            "component-type":"text-block",
+            "type":"label",
+            "content":"jcu-self-submission.field.label.rif-collection.identifier",
+            "help":"jcu-self-submission.field.help.rif-collection.identifier",
+            "additional-class":"jcuFieldLabel"
+        },
+        {
+            "component-type":"repeatable-container",
+            "containter-for":"rif:collection",
+            "sub-elements":{"settings":[
+                                {"jaffaText":{"label":"", "class-list":"jaffa-field", "suffix":"identifier", "size":"60", "placeholder":"url"}},
+                                {"jaffaText":{"textarea":{"rows":4, "cols":80}, "label":"", "class-list":"jaffa-field", "suffix":"jcu:comment", "placeholder":"Comments"}},
+                                {"jaffaText":{"type":"hidden", "class-list":"jaffa-field", "suffix":"type"}},
+                                {"jaffaText":{"type":"hidden", "class-list":"jaffa-field", "suffix":"label"}},
+                                ]
+                           },
+            "add-item-text":"Add identifier",                                           
+            "additional-classes":"containerLayout"                                           
+        },
+        {
+            "component-type":"text-block",
+            "type":"label",
+            "content":"jcu-self-submission.field.label.redbox.retentionPeriod",
+            "help":"jcu-self-submission.field.help.redbox.retentionPeriod",
+            "additional-class":"jcuFieldLabel"
+        },
+        {
+            "component-type":"dropdown-fixedvalue",
+            "field-name":"redbox:retentionPeriod",
+            "label":"",
+            "options":[
+                {
+                    "value":"",
+                    "label":"Please select one...",
+                    "default":"true"
+                },
+                {
+                    "value":"12 months (minor project)",
+                    "label":"12 months (minor project)"
+                },
+                {
+                    "value":"5 years (minimum for projects with publications)",
+                    "label":"5 years (minimum for projects with publications)"
+                },
+                {
+                    "value":"7 years",
+                    "label":"7 years"
+                },
+                {
+                    "value":"10 years",
+                    "label":"10 years"
+                },
+                {
+                    "value":"15 years (all clinical trials)",
+                    "label":"15 years (all clinical trials)"
+                },
+                {
+                    "value":"Indefinitely",
+                    "label":"Indefinitely"
+                }
+            ],
+            "validation": {
+                            "save-rules": ["required"],
+                            "validation-id": "redbox:retentionPeriod",
+                            "focus-id": "redbox:retentionPeriod",
+                            "validation-messages":{"required": "Please select the applicable Retention Period"}
+                           }                        
+        },
+        {
+            "component-type":"text-block",
+            "type":"label",
+            "content":"jcu-self-submission.field.label.dc-extent",
+            "help":"jcu-self-submission.field.help.dc-extent",
+            "additional-class":"jcuFieldLabel"
+        },
+        {
+            "component-type":"text-input",
+            "field-name":"dc:extent",
+            "label":"",
+            "size":"60", 
+            "placeholder":"quantity"
+        },
+        {
+            "component-type":"text-block",
+            "type":"label",
+            "content":"jcu-self-submission.field.label.locrel-own.foaf-Agent.foaf-name"
+            "help":"jcu-self-submission.field.help.locrel-own.foaf-Agent.foaf-name",
+            "additional-class":"jcuFieldLabel"
+        },
+        {
+            "component-type":"repeatable-container",
+            "containter-for":"locrel:own.foaf:Agent",
+            "sub-elements":{"settings":[
+                                {"jaffaText":{"label":"", "class-list":"jaffa-field", "suffix":"foaf:name", "size":"60", "default-value":"James Cook University"}}
+                                ]
+                           },
+            "add-item-text":"Add owner",
+            "additional-classes":"containerLayout"
+        },
+        {
+            "component-type": "transition-control",
+            "transitions": [
+                {
+                    "name": "Save and close",
+                    "form-submit-action": "save",
+                    "type": "button",
+					"close": "true",
+					"closeUrl": "detail"
+                }
+            ]
+        },
+        {
+            "component-type":"native-html",
+            "content":"<button class='prevtab'>Previous</button><button class='nexttab'>Next</button>"
+        }
+    ]
+}

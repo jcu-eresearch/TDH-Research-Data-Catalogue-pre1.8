@@ -20,7 +20,7 @@
 #macro(displayKey $map $key $required)
 #set ($value = $map.get($key))
 #if ("$!value" != "")
-$value
+$page.escapeHtml($value)
 #else
     #if ($required)
 #missing($key)
@@ -59,6 +59,7 @@ $value
         #foreach($key in $personList.keySet())
             #set($person = $personList.get($key))
             <li>
+                #displayOptionalKey($person "jcu:relationshipLabel")
                 #displayOptionalKey($person "foaf:title")
                 #displayRequiredKey($person "foaf:givenName")
                 #displayRequiredKey($person "foaf:familyName")
@@ -73,6 +74,29 @@ $value
     #end
     
     #displayPerson("locrel:prc.foaf:Person.foaf" "#displayMessage('jcu-self-submission.field.label.locrel-prc.foaf-person')")
+    
+    <dt>#displayMessage('jcu-self-submission.field.label.swrc-supervisor.foaf-person')</dt>
+    #set($supervisorList = $self.getList("swrc:supervisor.foaf:Person"))
+    #if($supervisorList.isEmpty())
+    <dd>
+    #noInformation()
+    </dd>
+    #else
+    <dd>
+        <ol>
+        #foreach($key in $supervisorList.keySet())
+            #set($supervisor = $supervisorList.get($key))
+            <li>
+                #displayOptionalKey($supervisor "foaf:title")
+                #displayRequiredKey($supervisor "foaf:givenName")
+                #displayRequiredKey($supervisor "foaf:familyName")
+                #displayOptionalKey($supervisor "foaf:email")
+            </li>
+        #end
+        </ol>
+    </dd>
+    #end
+    
     #displayArrayList("#displayMessage('jcu-self-submission.field.label.dc-contributor.locrel-clb.foaf-Agent')" "dc:contributor.locrel:clb" "foaf:Agent")
     </dl>
 </div>

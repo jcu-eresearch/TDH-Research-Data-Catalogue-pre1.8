@@ -214,6 +214,14 @@
         
         <rif:collection type="$util.get($item, "dc:type.rdf:PlainLiteral")" $dateModified $dateAccessioned>
             <rif:identifier type="$identifierType">$identifier</rif:identifier>
+
+        #set($additionalIds = $util.getList($item, "rif:collection"))
+        #foreach($key in $additionalIds.keySet())
+            #set($additionalId = $util.encodeXml($additionalIds.get($key).get('identifier')))
+            #set($additionalIdType = $util.encodeXml($additionalIds.get($key).get('type')))
+            <rif:identifier type="$additionalIdType">$additionalId</rif:identifier>
+        #end
+
             <rif:name type="primary" $lang>
                 <rif:namePart>$util.encodeXml($util.get($item, "dc:title"))</rif:namePart>
             </rif:name>
@@ -360,8 +368,8 @@
                 #set ($licenceUriStr = " rightsUri=${quote}${licenceUri}${quote}")
             #end
         #end
-        #if ("$!accessRights" != "" || "$!rights" != "" || "$!licence" != "")
 
+        #if ("$!accessRights" != "" || "$!rights" != "" || "$!licence" != "")
             <rif:rights>
             #if ("$!rights" != "")
 

@@ -1,3 +1,30 @@
+#macro(getSingleValue $key)
+    #set($v = $metadata.get("$key"))
+    #if ($v && "$!v" != "")
+        $page.escapeHtml($v)
+    #else
+        #noInformation()
+    #end
+#end
+
+#macro(getListValues $listName)
+    #set($items = $metadata.getList("$listName"))
+    #if ($items && $items.size() > 0)
+        #set($i = 0)
+#foreach($item in $items)
+#if($i > 0),#else #set($i = 1) #end $page.escapeHtml($item)#end
+    #else
+        #noInformation()
+    #end    
+#end
+
+#macro(displayRow $key $name $type)
+    <tr>
+    <td>$name</td>
+    <td>#if ( $type == "list" ) #getListValues($key) #else #getSingleValue($key) #end </td>
+    </tr>
+#end
+
 <style>
 	#pdf-like a { text-decoration: underline; }
 	#pdf-like td:first-child { width: 17em; }

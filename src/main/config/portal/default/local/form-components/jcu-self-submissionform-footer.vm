@@ -58,7 +58,7 @@ function validationFail(fieldId, testsFailed) {
                                                     targetId = targetId.replace("-errorButton", "");
                                                     tabId = parent = $("[id='"+targetId+"']").closest('div[class^="tab"]').attr('id');
                                                     tabId = tabId.replace("tab-", "");
-                                                    $("#simpleworkflow-form").tabs('select', tabId);
+                                                    $("#simpleworkflow-form").tabs("option", "active", tabId - 1);
                                                     $("[id='"+validation["focusId"]+"']").focus();
         });
     }
@@ -249,32 +249,24 @@ $(".clearOtherSelections").click(function() {
 //Buttons
 $(".nexttab").click(function() {
 
-    var validationPassed = validateTab(); 
+    var validationPassed = validateSave(); 
 
     if(validationPassed) {
         jaffa.form.save(true);
-        var active = $("#simpleworkflow-form").tabs("option", "selected");
-        $("#simpleworkflow-form").tabs("option", "selected", active + 1);
+        var active = $("#simpleworkflow-form").tabs("option", "active");
+        $("#simpleworkflow-form").tabs("option", "active", active + 1);
     }
 });
 
 $(".prevtab").click(function() {
 
-    var validationPassed = validateTab(); 
+    var validationPassed = validateSave(); 
 
     if(validationPassed) {
         jaffa.form.save(true);
-        var active = $("#simpleworkflow-form").tabs("option", "selected");
-        $("#simpleworkflow-form").tabs("option", "selected", active - 1);
+        var active = $("#simpleworkflow-form").tabs("option", "active");
+        $("#simpleworkflow-form").tabs("option", "active", active - 1);
     }
-});
-
-$("button[form-action='save']").click(function() {
-
-    var label = $("[id='dc:language.dc:identifier']").find(":selected").text();
-    $("[id='dc:language.skos:prefLabel']").val(label);
-    jaffa.form.synch(false);
-    transition_click(this);
 });
 
 function splitData(row) {
@@ -401,14 +393,14 @@ function getDateTime(){
     var selfSubmission = {
         submit_hidden: true,
         toggle_submit: function () {
-            if($("[id='readyforreview.1']").attr('checked') == null) { 
+            if($("[id='readyforreview']").attr('checked') == null) { 
                 $("[transition-name='Submit']").hide(); 
             } else {
                 if(validateAllTabs()){
                     $("[transition-name='Submit']").show();
                 }
                 else{
-                    $("[id='readyforreview.1']").attr('checked', false);
+                    $("[id='readyforreview']").attr('checked', false);
                 }
             }
         }
@@ -416,11 +408,36 @@ function getDateTime(){
     };
 
 	$(document).ready(function() {
-   		$(widgets.contentLoaded);
-        
+        //unhook old save button handling and rehook with code to set language label.
+        var saveButtons = $("button[form-action='save']");
+        for(var i =0; i< saveButtons.length; i++) {
+            saveButtons[i].onclick = null;
+        }
+
+        $("button[form-action='save']").click(function() {
+
+            //var label = $("[id='dc:language.dc:identifier']").find(":selected").text();
+            //$("[id='dc:language.skos:prefLabel']").val(label);
+            jaffa.form.synch(false);
+            transition_click(this);
+        });
+/*
+*        wizard_init('#simpleworkflow-form','h1.tab-heading', "$portalPath/form-components/dmpt-self-submission.json", "dmptTabs");
+*        
+*        //The anonymous function below is called when the user clicks on a new tab. It validates all fields on the current tab, if valid, the clicked tab is selected 
+*        jaffa.ui.changeToTabLayout($('#simpleworkflow-form'), 'h1',
+*                                   function(){
+*                                               var validationPassed = validateTab();
+*                                               if  (validationPassed){jaffa.form.save();}
+*                                               else{
+*                                                     event.stopPropagation();
+*                                                     return false;
+*                                               }}, 
+*                                   wizardTabIdentifier);
+*/        
         // hide Submit link until user acknowledges 
         $("[transition-name='Submit']").hide();
-        $("[id='readyforreview.1']").change(selfSubmission.toggle_submit);  
+        $("[id='readyforreview']").change(selfSubmission.toggle_submit);  
         prepareHelps();
 
         //hide the dc:description field

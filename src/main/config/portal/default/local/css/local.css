@@ -2,6 +2,20 @@ body {
     font-size: 75%;
 }
 
+#notifications h2 {
+    color: white;
+}
+
+/** JCU Red colour palette **/
+.menu .selected, .facet-list .selected {
+    background-color: #e31f26;
+}
+
+.sorting, .paging {
+    font-size: 100%;
+}
+
+
 /** Banner styling **/
 #jcu-logo {
     float: left;
@@ -27,18 +41,6 @@ h1#branding a, .branding {
     padding-bottom: 0.5em;
 }
 
-/** JCU Red colour palette **/
-#notifications h2 {
-    color: white;
-}
-
-.menu .selected, .facet-list .selected {
-    background-color: #e31f26;
-}
-
-.sorting, .paging {
-    font-size: 100%;
-}
 .box {
     background: #dedbc3;
 }
@@ -247,6 +249,7 @@ span.required {
     display: none;
     margin: 4px 2em;
     padding: 4px;
+    font-weight: normal;
 }
 
 .help-content dl {
@@ -265,6 +268,10 @@ span.required {
     color: red;
     cursor: pointer;
     vertical-align: top;
+}
+
+h3 div.help-content {
+    font-size: 63%;
 }
 
 #validation-summary .validation-err-msg {
@@ -373,8 +380,6 @@ div.or {
     cursor: hand; cursor: pointer;
 }
 
-
-
 /*
 input.button, .inputscreens button {
     -moz-border-radius: 4px;
@@ -438,7 +443,7 @@ div.meta {
 
 div.meta dl {
     margin-bottom: 0;
-    padding: 8px 0;
+    padding: 8px;
 }
 
 div.meta dt {
@@ -505,8 +510,81 @@ div.meta ol, div.meta ul {
     color: #9d1619;
 }
 
+.component-wrapper > label {
+	 display:block;
+}
+
+.component-wrapper .widgetLabel {
+	display:block;
+}
+
+.component-wrapper .peopleWidgetLabel{
+	display:inline;
+	padding-right:0.3em;
+	padding-left:0.3em;
+}
+
+.component-wrapper .grant-description{
+	width:400px;
+}
+
+.simple-workflow.component-wrapper > label {
+    font-size: 105%;
+    font-weight: bold;
+}
+
+.component-wrapper > hr {
+	padding-bottom:0;
+}
+.component-wrapper{
+	padding-bottom:0.5em;
+}
+
+button.anzsrcSelection {
+    margin-top:1.5em
+}
+
+.reportImages { 
+	width:1220px;
+ }
+
+.report-img { 
+  display:inline-block; 
+  border: solid 1px; 
+  margin:5px; 
+  padding:10px 
+}
+
+.errorbox{
+   display:none;
+   background-color:#FFDDDD;
+   padding: 10px;
+}
+
+#reportCriteria input {
+	margin:5px;
+}
+
+#reportCriteria select {
+	margin:5px;
+	/*display:none;*/
+}
+
 /* padding around lookup and clear buttons */
 a.mintNlaLookup, a.clearMintNlaLookup {
 	padding: 0.5ex;
 	margin: 0 0.5ex;
+}
+
+.printDetailLink{
+   font-family: Arial,Helvetica,sans-serif;
+   font-size: 1.02em;
+   font-weight: normal;
+}
+.jaffa2Loading{
+	color:green;
+}
+
+.HiddenWidget {
+	display:none;
 }

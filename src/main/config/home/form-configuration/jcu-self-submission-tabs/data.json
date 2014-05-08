@@ -62,6 +62,29 @@
         {
             "component-type":"text-block",
             "type":"label",
+            "content":"jcu-self-submission.field.label.file",
+            "help":"jcu-self-submission.field.help.file",
+            "additional-class":"jcuFieldLabel"
+        },
+        {
+          "component-type": "file-attachments",
+          "widgetname": "storage_attachment",
+          "attachType": "storage-attachments",
+          "accessRights": "public",
+          "enableDescription": "true",
+          "addFunction": "addfileUploadModelRow"
+        },
+        {
+          "component-type": "file-upload-table",
+          "metadataPrefix": "storageFileUpload",
+          "modelName": "fileUploadModel",
+          "tableName": " fileUploadTable",
+          "initialiseFunctionName": "storage_attachment_getUploadedFiles",
+          "removeFunction": "storage_attachment_deleteFile"
+        },
+        {
+            "component-type":"text-block",
+            "type":"label",
             "content":"jcu-self-submission.field.label.redbox.retentionPeriod",
             "help":"jcu-self-submission.field.help.redbox.retentionPeriod",
             "additional-class":"jcuFieldLabel"

@@ -5,6 +5,7 @@ from java.io import ByteArrayInputStream, ByteArrayOutputStream, File
 from java.lang import Exception, System, String
 from java.util import TreeMap, TreeSet, ArrayList, HashMap
 from com.googlecode.fascinator.portal.lookup import MintLookupHelper
+from com.googlecode.fascinator.common.solr import SolrResult
 
 from org.apache.commons.lang import StringEscapeUtils, WordUtils
 from org.json.simple import JSONArray
@@ -18,6 +19,7 @@ class DetailData:
         self.metadata = context["metadata"]
         self.log = context["log"]
         self.systemConfig = context["systemConfig"]
+        self.Services = context["Services"]
     
     # get a list of metadata using basekey. Used by repeatable elements like FOR code or people
     def getList(self, baseKey):
@@ -119,3 +121,23 @@ class DetailData:
         if value:
             return StringEscapeUtils.escapeHtml(value) or ""
         return ""
+    
+    #JCU - added to support file attachments in self submission workflow
+    def getAttachedFiles(self, oid):
+        # Build a query
+        req = SearchRequest("attached_to:%s" % oid)
+        req.setParam("rows", "1000")
+        # Run a search
+        out = ByteArrayOutputStream()
+        self.Services.getIndexer().search(req, out)
+        result = SolrResult(ByteArrayInputStream(out.toByteArray()))
+
+        # Process results
+        docs = JSONArray()
+        for doc in result.getResults():
+            entry = JsonObject()
+            entry.put("filename",        self.escapeHtml(doc.getFirst("filename"))) 
+            entry.put("fileDescription",    self.escapeHtml(doc.getFirst("fileDescription")))
+            entry.put("oid",             self.escapeHtml(doc.getFirst("oid")))
+            docs.add(entry)
+        return docs

@@ -78,6 +78,7 @@
             "component-type":"repeatable-container",
             "containter-for":"dc:coverage.vivo:GeographicLocation",
             "additional-classes":"containerLayout redboxGeoData",
+            "additional-container-classes":"redboxGeoDataRow",
             "add-item-text":"Add location",
             "sub-elements":{"settings":[
                                 {"jaffaDropDown":{"label":"Location Type", "suffix":"dc:type", "field":"dc:type", "label-field":"dc:typeLabel", 

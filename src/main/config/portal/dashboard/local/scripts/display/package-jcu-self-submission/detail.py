@@ -44,8 +44,8 @@ class DetailData:
             if not data:
                 data = TreeMap()
                 valueMap.put(valueMapIndex, data)
-            if len(value) == 1:
-                value = value.get(0)
+            ##if len(value) == 1:
+            ##    value = value.get(0)
             data.put(dataIndex, value)
         return valueMap
     

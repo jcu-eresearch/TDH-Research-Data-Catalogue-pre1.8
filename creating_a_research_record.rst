@@ -1,24 +1,19 @@
 Adding a new Research Data Record
 =================================
 
-To add a new research record to Research Data, you need to access the Dashboard. You can 
-access the Dashboard from the home page by clicking on Dashboard in the menu bar or be 
-going directly to http://research.jcu.edu.au/researchdata/dashboard. If you are not already
-logged into the site, the login box will appear at this point.
-
+To add a new research record to Research Data, you need to access the Dashboard. You can  access the Dashboard from the home page by clicking on Dashboard in the menu bar or be  going directly to http://research.jcu.edu.au/researchdata/dashboard. If you are not already logged into the site, the login box will appear at this point.
 
 Logging In
 ----------
 
-.. figure:: _static/Login-Dialog.png 
+.. figure:: _static/Login-Dialog.png
    :width: 100%
    :figwidth: 50%
    :figclass: float-right
-   
+
    Click on the orange AAF logo to log in to the site
 
-JCU staff and students can authenticate to the site via the Australian Access Federation 
-login.
+JCU staff and students can authenticate to the site via the Australian Access Federation login.
 
 .. raw:: html
 
@@ -29,13 +24,13 @@ login.
    :figwidth: 50%
    :figclass: float-right
 
-   Pick your institution from the list. You can check the second tick box to remember this 
-   setting from now on.
+   Pick your institution from the list. You can check the second tick box to
+   remember this setting from now on.
 
 You will need to specify James Cook University as your institution
 
 .. raw:: html
-   
+
    <div style="clear: both" ></div>
 
 .. figure:: _static/JCU-CAS-login.png
@@ -45,18 +40,16 @@ You will need to specify James Cook University as your institution
 
    Log in with your normal JCU username and password
 
-Then authenticate at the normal JCU login page. Once you have logged in you will be 
-returned to the dashboard.
+Then authenticate at the normal JCU login page. Once you have logged in you will be returned to the dashboard.
 
 .. raw:: html
-   
+
    <div style="clear: both" ></div>
 
 Creating a new JCU Research Record
 ----------------------------------
 
-The Researcher Dashboard provides you with the facility to create a research record. A research 
-record contains information about your research data:
+The Researcher Dashboard provides you with the facility to create a research record. A research record contains information about your research data:
 
 * Who collected the data
 * Why it was collected
@@ -94,7 +87,7 @@ This section of the form contains three fields - all of which are required:
 Title
 `````
 
-Remember, the title will be what appears in any citation of your dataset - 
+Remember, the title will be what appears in any citation of your dataset -
 `Fred's Dataset` is not ideal.
 Titles should be as descriptive as possible. They should include keywords to
 provide context for non-specialist users, as well as information such as the
@@ -104,12 +97,12 @@ discipline database, but not in a repository that contains multiple discipline
 outputs.  It would be more informative to provide a name like `Western
 Australian Geological Survey: Pilbara` or `Aboriginal Art Collection: Pilbara,
 1950-1965`.  Research record titles should be unique and generally should not use
-acronyms. 
+acronyms.
 
 Descriptions
 ````````````
 
-.. important:: 
+.. important::
    The description is the **most** important part of your data record. It
    should be informative to other researchers and answer the what, why, and how
    questions relating to your data and your research. When your record is
@@ -129,7 +122,7 @@ Possible description types are:
   collected or analysed, **what** the dataset consists of (in some detail) and **why** the data was collected to provide context to your data.
   Remember describe the *dataset* not the overall project or the publication.
 **Note**
-  The note type can be used to include additional information such as 
+  The note type can be used to include additional information such as
 
   * the size of the data download,
   * the different file formats used in the dataset
@@ -200,7 +193,7 @@ Hints
 
 1. You can type your date into the **From:** and **To:** fields rather than
    using the date picker widget if you prefer. Just ensure you use the
-   YYYY-MM-DD or YYYY format.  
+   YYYY-MM-DD or YYYY format.
 2. Not all research data collections have a
    start and an end date. It may be that the research is ongoing and so you
    only have a start date. In this case, leave the **To:** field empty.
@@ -212,9 +205,9 @@ The Geospatial location is used to describe the region on Earth that is
 relevant to the research data. This is not a required field as not all datasets
 have a geospatial location. If this field is relevent to your research, there are three formats for adding geospatial data:
 
-1. Provide a text description of the location - e.g. *30km SW of Port Douglas, Queensland, Australia*. 
+1. Provide a text description of the location - e.g. *30km SW of Port Douglas, Queensland, Australia*.
 2. Provide the ISO 3166-1 code for a country (http://www.iso.org/iso/home/standards/country_codes/iso-3166-1_decoding_table.htm).
-3. Use the map widget to locate the area of interest and use the drawing tools to show the locations. 
+3. Use the map widget to locate the area of interest and use the drawing tools to show the locations.
 
 Multiple geospatial locations can be provided for a single research record and any of the above methods can be used.
 
@@ -319,7 +312,7 @@ The People tab has three (3) sections:
 Creators
 ````````
 
-The Creators section is used to add JCU researchers who have contributed to the creation of the dataset. They may be data collectors, people who have helped clean the data or people who have contributed to make the data set better. 
+The Creators section is used to add JCU researchers who have contributed to the creation of the dataset. They may be data collectors, people who have helped clean the data or people who have contributed to make the data set better.
 
 Adding a person's details to this section can only be done using the **lookup** facitily. Clicking on **lookup** will open a *Name lookup* box. By default the *Mint* tab will be showing - this searches the JCU researcher database.
 
@@ -394,7 +387,7 @@ Size of Data/Collection
 
 For electronic data, please provide the size of the data you want associated with this metadata record. This will be useful for people wanting to download your data and for the repository manager who may need to find storage to accommodate your collection.
 
-For physical data, provide a weight and/or volume or other information (e.g. count) that you think relevant. 
+For physical data, provide a weight and/or volume or other information (e.g. count) that you think relevant.
 
 Data Owner (IP)
 ```````````````
@@ -406,6 +399,75 @@ By default, this is prefilled with *James Cook University*. For students, depend
     :figwidth: 50%
     :align: center
 
+
+Associations
+------------
+
+The *Associations* tab allows you to link to your dataset information about grants, publications, websites and other related datasets and services that have an association with your data.
+
+.. figure:: _static/associations.png
+    :width: 100%
+    :figwidth: 100%
+    :align: center
+
+Grants
+``````
+
+The *Grants* section is connected to RIMS (the Research Information Management System) that contains all the grants that have been processed through the Research Services office. You can search by the internal grant ID or by the title. To perform a search, type either the number or a part of the title in the **Number** box.
+
+.. hint:: If you are unsure of the title for a grant title, try searching the Research Portfolio (http://jcu.me) page of one of the investigating researchers. Alternatively, talk to Research Services or the eResearch Centre for assistance.
+
+
+
+.. figure:: _static/grant-search.png
+    :width: 100%
+    :figwidth: 100%
+    :align: center
+
+    Type either the start of the grant number or some key words from the title in the *Number* box and the system will return a list of matching records from the grants database.
+
+The search returns a list of matches - this box is scrollable and the records are presented in alphabetical order by title.
+
+.. figure:: _static/grant-search-complete.png
+    :width: 100%
+    :figwidth: 100%
+    :align: center
+
+    Once the chosen record is selected from the list, the grant number and title fields will be completed.
+
+Related Publications
+````````````````````
+
+To help ensure people who have found your dataset also find the associated research, please provide the *URL* to any publications that have a relationship to the data. It may be the URL to the entry in `ResearchOnline@JCU`_ or the URL based on a doi (e.g. http://doi.org/xxxxxx)
+
+.. _`ResearchOnline@JCU`: http://researchonline.jcu.edu.au
+
+The *Title* field is self-explanatory but some researchers prefer to put the citation text in the *Title* field - this is fine. The *Notes* field can be left blank, used to provide information about the publication (e.g. PhD Thesis) or can be used to explain the relationship between the data and the publication.
+
+If a publication is pending and you don't have a URL to link to yet, provide what information you have and you can email researchdata@jcu.edu.au with the URL when you have that information and we will add it to your record.
+
+Related Websites
+````````````````
+
+You might want to link back to a project site or your research group's website. Provide the *URL* and the page title in the fields provided. The *Notes* field can be used to explain the relationship between the data and the website.
+
+Related Data
+````````````
+Is your data generated from another dataset you used as input? Is your dataset a refinement of an earlier dataset? Is your dataset a small part of some larger collection? Whatever the situation, if your data has a link/relationship to another dataset and you know the identifier for that dataset, you can make a note of that relationship here.
+
+Why would you want to do this? When the data record is imported into ANDS, the system will cross link your dataset with its related datasets - thus increasing the number of ways someone can discover your dataset.
+
+To create the relationship, pick a relationship that best describes the nature on the link between the datasets (e.g. this new dataset is part of this other dataset and here is its identifier).
+
+Related Services
+````````````````
+Services refers to research infrastructure that may have been used in the collection/generation of the research data. For example, you may have used the James Kirby research vessel to get to a dive site or an election microscope from the Advanced Analytical Centre or even some software tool developed at JCU, like CliMAS. All of these are classified as a Service and you should link to them if you have made use of them. All/most research infrastructure at JCU is listed in the JCU NameAuthority and this can be searched by typing a keyword in to the *Title* field.
+
+If you have used research infrastructure from another university, if you can find the identifier and title for that service you can add them in here. 
+
+.. figure:: _static/services.png
+  :width: 100%
+  :figwidth: 100%
 
 
 

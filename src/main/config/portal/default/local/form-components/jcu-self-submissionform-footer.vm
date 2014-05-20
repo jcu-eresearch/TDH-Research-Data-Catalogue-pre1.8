@@ -421,20 +421,7 @@ function getDateTime(){
             jaffa.form.synch(false);
             transition_click(this);
         });
-/*
-*        wizard_init('#simpleworkflow-form','h1.tab-heading', "$portalPath/form-components/dmpt-self-submission.json", "dmptTabs");
-*        
-*        //The anonymous function below is called when the user clicks on a new tab. It validates all fields on the current tab, if valid, the clicked tab is selected 
-*        jaffa.ui.changeToTabLayout($('#simpleworkflow-form'), 'h1',
-*                                   function(){
-*                                               var validationPassed = validateTab();
-*                                               if  (validationPassed){jaffa.form.save();}
-*                                               else{
-*                                                     event.stopPropagation();
-*                                                     return false;
-*                                               }}, 
-*                                   wizardTabIdentifier);
-*/        
+
         // hide Submit link until user acknowledges 
         $("[transition-name='Submit']").hide();
         $("[id='readyforreview']").change(selfSubmission.toggle_submit);  

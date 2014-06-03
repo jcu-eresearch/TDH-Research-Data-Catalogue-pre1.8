@@ -125,6 +125,10 @@
 		},
         {
             "component-type":"native-html",
+            "content":"<input type='hidden' class='jaffa-field' id='dc:created' />"
+        }
+        {
+            "component-type":"native-html",
             "content":"<button class='prevtab'>Previous</button>"
         },
         {

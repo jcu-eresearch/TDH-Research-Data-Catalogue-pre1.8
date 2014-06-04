@@ -188,17 +188,28 @@ function NameLookUp(ids, lookup_source) {
 					// Mint Only
 					var lookupData=result["result-metadata"].all;
 					//JCU: populate the Affilation combos with GroupID values
-					if (lookupData["GroupID_1"] > "" && document.getElementById(ids[5]) != null){
-						document.getElementById(ids[5]).value = "jcu.edu.au/parties/group/" + lookupData["GroupID_1"];
-						$(document.getElementById(ids[5])).change();
-					}
-					if (lookupData["GroupID_2"] > "" && document.getElementById(ids[6]) != null){
-						document.getElementById(ids[6]).value = "jcu.edu.au/parties/group/" + lookupData["GroupID_2"];
+					if (lookupData["GroupID_1"] > "" && document.getElementById(ids[6]) != null){
+						document.getElementById(ids[6]).value = "jcu.edu.au/parties/group/" + lookupData["GroupID_1"];
+						$(document.getElementById(ids[6])).change();
+					} else if (lookupData["GroupID_1"] == "" && document.getElementById(ids[6]) != null) {
+						document.getElementById(ids[6]).value = "";
 						$(document.getElementById(ids[6])).change();
 					}
-					if (lookupData["GroupID_3"] > "" && document.getElementById(ids[7]) != null){
-						document.getElementById(ids[7]).value = "jcu.edu.au/parties/group/" + lookupData["GroupID_3"];
+
+					if (lookupData["GroupID_2"] > "" && document.getElementById(ids[7]) != null){
+						document.getElementById(ids[7]).value = "jcu.edu.au/parties/group/" + lookupData["GroupID_2"];
 						$(document.getElementById(ids[7])).change();
+					} else if (lookupData["GroupID_2"] == "" && document.getElementById(ids[7]) != null) {
+						document.getElementById(ids[7]).value = "";
+						$(document.getElementById(ids[7])).change();
+					}
+
+					if (lookupData["GroupID_3"] > "" && document.getElementById(ids[8]) != null){
+						document.getElementById(ids[8]).value = "jcu.edu.au/parties/group/" + lookupData["GroupID_3"];
+						$(document.getElementById(ids[8])).change();
+					} else if (lookupData["GroupID_3"] == "" && document.getElementById(ids[8]) != null) {
+						document.getElementById(ids[8]).value = "";
+						$(document.getElementById(ids[8])).change();
 					}
 				}
 			} catch(e) {

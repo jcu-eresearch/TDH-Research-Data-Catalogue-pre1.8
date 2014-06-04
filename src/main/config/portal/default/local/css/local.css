@@ -574,7 +574,25 @@ button.anzsrcSelection {
 a.mintNlaLookup, a.clearMintNlaLookup {
 	padding: 0.5ex;
 	margin: 0 0.5ex;
+	border: 1px solid silver;
+	border-radius: 5px;
+	color: #1c94c4;
+	font-weight: bold;
+	background-color: rgb(246, 246, 246)
+	
 }
+
+a.mintNlaLookup:hover, a.clearMintNlaLookup:hover {
+    padding: 0.5ex;
+    margin: 0 0.5ex;
+    border: 1px solid silver;
+    border-radius: 5px;
+    color: rgb(199, 116, 5);
+    font-weight: bold;
+    background-color: rgb(253, 245, 206);
+    
+}
+
 
 .printDetailLink{
    font-family: Arial,Helvetica,sans-serif;

@@ -466,10 +466,6 @@ function getDateTime(){
             }
         });
 
-        //People
-        $('a.mintNlaLookup').button();
-        $('a.clearMintNlaLookup').button();
-
         //make the Grants Title field readonly
         $().attr("readonly", "readonly");
         

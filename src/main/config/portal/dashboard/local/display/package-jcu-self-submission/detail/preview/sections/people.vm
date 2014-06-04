@@ -86,12 +86,16 @@ $page.escapeHtml($value)
         <ol>
         #foreach($key in $supervisorList.keySet())
             #set($supervisor = $supervisorList.get($key))
+            #set($givenName = $supervisor.get("foaf:givenName"))
+            #set($familyName = $supervisor.get("foaf:familyName"))
+            #if ($givenName != '' && $familyName != '')
             <li>
                 #displayOptionalKey($supervisor "foaf:title")
                 #displayRequiredKey($supervisor "foaf:givenName")
                 #displayRequiredKey($supervisor "foaf:familyName")
                 #displayOptionalKey($supervisor "foaf:email")
             </li>
+            #end
         #end
         </ol>
     </dd>

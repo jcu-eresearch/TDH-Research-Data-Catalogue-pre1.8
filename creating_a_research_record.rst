@@ -94,9 +94,10 @@ provide context for non-specialist users, as well as information such as the
 nature of the data and spatial and temporal coverage.  For example, a
 collection named "Pilbara" may be adequate in the context of a particular
 discipline database, but not in a repository that contains multiple discipline
-outputs.  It would be more informative to provide a name like `Western
-Australian Geological Survey: Pilbara` or `Aboriginal Art Collection: Pilbara,
-1950-1965`.  Research record titles should be unique and generally should not use
+outputs.  It would be more informative to provide a name like
+`Western Australian Geological Survey: Pilbara` or
+`Aboriginal Art Collection: Pilbara, 1950-1965`.  Research record titles
+should be unique and generally should not use
 acronyms.
 
 Descriptions
@@ -463,11 +464,96 @@ Related Services
 ````````````````
 Services refers to research infrastructure that may have been used in the collection/generation of the research data. For example, you may have used the James Kirby research vessel to get to a dive site or an election microscope from the Advanced Analytical Centre or even some software tool developed at JCU, like CliMAS. All of these are classified as a Service and you should link to them if you have made use of them. All/most research infrastructure at JCU is listed in the JCU NameAuthority and this can be searched by typing a keyword in to the *Title* field.
 
-If you have used research infrastructure from another university, if you can find the identifier and title for that service you can add them in here. 
+If you have used research infrastructure from another university, if you can find the identifier and title for that service you can add them in here.
 
 .. figure:: _static/services.png
   :width: 100%
   :figwidth: 100%
 
+Keywords
+--------
 
+This section of the form collects Fields of Research (FoR) and Socio-Economic Objective (SEO) codes, JCU Research Themes and any keyworks you would like associated with your research. Keywords, FoR and SEO codes are key search terms used by the various portals that store the research records.
+
+.. figure:: _static/keywords.png
+  :width: 100%
+  :figwidth: 100%
+
+
+Fields of Research
+``````````````````
+You are required to select at least one FoR code, preferably a six-digit code though it is possible to select a two or four digit code.
+
+To select a code, pick from the first drop down list to select the two digit Division code. This will trigger the loading of the next drop down list with the four digit group codes. Selecting a group code will trigger the loading of the six-digit field codes.
+
+.. note:: If you stop at any point in this process and the FoR will be set at the last level completed.
+
+.. figure:: _static/FoR_codes.png
+  :width: 100%
+  :figwidth: 100%
+
+  Add as many FoR codes as you think are appropriate. You are required to add at least one. In this example, there is a four-digit group code and a six-digit field code.
+
+Socio-Economic Objectives
+`````````````````````````
+The SEO selecter works in a the same manner as the FoR codes. The key difference being that the SEO codes are optional.
+
+Research Themes
+```````````````
+This field is used for internal reporting and is mandatory. Select any of the JCU Tropical Research Themes that apply.
+
+Keywords
+````````
+Enter the keywords or phrases that you think people would search on that relate to your dataset. One word or phrase per line.
+
+Rights
+------
+The Rights section lets people know if they can access your data and the conditions associated with that access. Where JCU is the data owner, it is desirable to make the data as open as possible.
+
+.. figure:: _static/rights.png
+  :width: 100%
+  :figwidth: 100%
+
+Access/Rights
+`````````````
+The *Access/Rights* section contains two fields: *Access Rights/Conditions* and *Right*. At least one of these two fields must be completed.
+
+Access Rights/Conditions
+~~~~~~~~~~~~~~~~~~~~~~~~
+This field explains how people can access your data. A drop down list of the most common access conditions is provided but if none of these seem to fit your situation, selecting *Other* will open a new text field for you to enter a custom statement.
+
+.. figure:: _static/access_conditions.png
+  :width: 100%
+  :figwidth: 50%
+  :align: center
+
+
+Rights
+~~~~~~
+This field should be used if your research funding contract contains any statement about the rights to the data. For example, an industry funder might retain joint IP rights or even usage rights on the data collected during the project. If the rights statement is long and you would like it to be displayed in full, email researchdata@jcu.edu.au and we can look at creating a webpage for the rights statement that you can link to in the *URI* field.
+
+Licence
+```````
+The preferred licence for JCU research data is the Creative Commons - Attribution, Non-Commercial (CC-BY-NC), but you can apply any of the listed licences. For more information on the available licences see:
+ * `Creative Commons AU licences <http://creativecommons.org.au/learn/licences>`_
+ * `Open Data Commons Attribution licence <http://opendatacommons.org/licenses/by/summary/>`_
+ * `Open Data Commons Open Database Licence <http://opendatacommons.org/licenses/odbl/summary/>`_
+ * `Open Data Commons Public Domain Dedication and Licence <http://opendatacommons.org/licenses/odbl/summary/>`_
+
+All these licences are open data licences. The Creative Commons licences are recommended for use by the `Australian Governments Open Access and Licensing Framework (AusGOAL) <http://www.ausgoal.gov.au>`_ but the others are provided for completeness. For more information about data licencing, see:
+ * `Copyright, Data and Licensing <http://ands.org.au/guides/copyright-and-data-awareness.html>`_
+ * `AusGOAL - Research Data FAQs <http://www.ausgoal.gov.au/research-data-faqs>`_
+
+To set a licence, select a licence from the list and a brief statement showing a summary of the licence details is shown.
+
+.. figure:: _static/licence.png
+  :width: 100%
+  :figwidth: 100%
+  :align: center
+
+  If you click on the help button, the help text that appears contains a link to the Creative Commons licence webpage so you can quickly double check the details on the licences.
+
+Licence - Other
+```````````````
+In the event that you have constraints on your data set that need to be fulfilled before sharing of data can take place then the AusGOAL framework provides a Restricted Licence template that can be used to specify the restrictions and/or additional conditions that need to be complied with. This will then need to go to the University Legal unit for checking. After this process, the licence can be attached to the Research Data record.
 

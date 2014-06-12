@@ -374,7 +374,8 @@
             "security": [
                 "librarian",
                 "reviewer",
-                "admin"
+                "admin",
+                "researcher"
             ],
             "upload-path": "${fascinator.home}/uploads/attachments",
             "json-config": "${fascinator.home}/harvest/workflows/attachment-file.json"

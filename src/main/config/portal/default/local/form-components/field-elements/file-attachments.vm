@@ -9,7 +9,7 @@
 
 #if($enableDescription.equals("true"))
 ##JCU - change from input type=text to a textarea
-<label for="${widgetname}_filedesc">Description:</label><textarea cols="80" rows="4" id="${widgetname}_filedesc"></textarea>>
+<label for="${widgetname}_filedesc">Description:</label><textarea cols="80" rows="4" id="${widgetname}_filedesc"></textarea>
 #end
 <input type="button" id="${widgetname}_startupload" value="Start upload" />
 

@@ -170,7 +170,9 @@ $self.escapeHtml($value)
   #end
 
     #parseDisplayTemplate("detail/preview/sections/general.vm")
+    #if($page.authentication.is_logged_in())
     #parseDisplayTemplate("detail/preview/sections/embargo.vm")
+    #end
     #parseDisplayTemplate("detail/preview/sections/coverage.vm")
     #parseDisplayTemplate("detail/preview/sections/description.vm")
     #parseDisplayTemplate("detail/preview/sections/people.vm")

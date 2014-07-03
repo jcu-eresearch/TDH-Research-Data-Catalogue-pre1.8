@@ -178,6 +178,10 @@
 ####set($lang = "xml:lang=${quote}$util.get($item, 'dc:language.dc:identifier')${quote}")
 #set($lang = "xml:lang=${quote}en${quote}")
 
+##DOI Identifier
+#set($doiProperty = $systemConfig.getString("", "andsDoi", "doiProperty"))
+#set($doi = $util.getMetadata($object, $doiProperty))
+
 <rif:registryObjects xmlns:rif="http://ands.org.au/standards/rif-cs/registryObjects"
                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                      xsi:schemaLocation="http://ands.org.au/standards/rif-cs/registryObjects http://services.ands.org.au/documentation/rifcs/1.3/schema/registryObjects.xsd">
@@ -219,7 +223,12 @@
         #foreach($key in $additionalIds.keySet())
             #set($additionalId = $util.encodeXml($additionalIds.get($key).get('identifier')))
             #set($additionalIdType = $util.encodeXml($additionalIds.get($key).get('type')))
+            #if($!additionalId != "")
             <rif:identifier type="$additionalIdType">$additionalId</rif:identifier>
+            #end
+        #end
+        #if("$!doi" != "")
+            <rif:identifier type="doi">$doi</rif:identifier>
         #end
 
             <rif:name type="primary" $lang>
@@ -403,7 +412,7 @@
                     #set ($citeId = $identifier)
                 #set ($citeIdType = $identifierType)
             #else
-                #set ($citeId = "http://dx.doi.org/${doi}")
+                #set ($citeId = "http://doi.org/${doi}")
                 #set ($citeIdType = "doi")
             #end
 

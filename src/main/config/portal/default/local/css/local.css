@@ -505,6 +505,7 @@ div.meta ol, div.meta ul {
 .footer a {
     color: blue ! important;
     text-decoration: underline;
+    padding: 0 1em;
 }
 .footer a:visited {
     color: #9d1619;

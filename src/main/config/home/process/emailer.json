@@ -1,0 +1,26 @@
+{
+    "host":"${smtp.host}",
+    "port":"25",
+    "username":"${admin.email}",
+    "password":"",
+    "tls":"true",
+    "ssl":"true",
+    "notifyNewSubmission" : [             
+      {
+          "from":"${admin.email}",
+          "to":"${admin.email}",
+          "subject":"Approval needed - New Request submission: '$title'",
+          "body":"Reviewer,\n\nA new submission is waiting for your approval: '$title'. To view this request, use this link: ${server.url.base}$viewId/detail/$oid \n\nCheers,\nRequest Notifier",
+          "vars":[
+              "$oid",
+              "$title",
+              "$viewId"              
+          ],
+          "mapping": {
+              "$oid":"id",
+              "$title":"dc_title",
+              "$viewId":"viewId"
+          }
+      }
+    ]
+}

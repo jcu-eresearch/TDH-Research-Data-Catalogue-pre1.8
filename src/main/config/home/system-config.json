@@ -526,12 +526,6 @@
 						"url": "http://localhost:${jetty.port}/researchdata/default/hkjobs/newalerts.script",		
 						"timing": "0 0 1 * * ?"
 		    		},
-                    {
-                        "name": "notifyNewSubmission",
-                        "type": "external",
-                        "url": "http://localhost:${jetty.port}/researchdata/default/process/launch.script?processingSet=notifyNewSubmission",
-                        "timing": "0 0/15 * * * ?"
-                    },
 					{
 					  "name": "transitionWorkflow",
 					  "type": "external",

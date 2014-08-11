@@ -158,7 +158,8 @@
             "type_of_research_label": "dc:subject.anzsrc:toa.skos:prefLabel",
             "use_curation": "dc:biblioGraphicCitation.dc:hasPart.dc:identifier.skos:note",
             "use_record_id": "dc:identifier.checkbox",
-            "view_id": "viewId"
+            "view_id": "viewId",
+            "date_record_modified": "dc:modified"
         }
     }
 }

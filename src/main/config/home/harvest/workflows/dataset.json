@@ -23,7 +23,7 @@
 
     "transformerOverrides": {
         "local": {
-            "template": "jcu.edu.au/tdh/collection/[[OID]]"
+            "template": "[[OID]]"
         }
     },
     "indexer": {

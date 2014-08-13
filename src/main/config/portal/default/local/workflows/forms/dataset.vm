@@ -275,6 +275,7 @@
         dc:biblioGraphicCitation.dc:hasPart.bibo:Website.dc:identifier,
         dc:biblioGraphicCitation.dc:hasPart.skos:scopeNote,
         dc:biblioGraphicCitation.dc:hasPart.jcu:dataType,
+        jcu:request.doi
         ## submission request
         redbox:submissionProcess.redbox:submitted,
         redbox:submissionProcess.dc:date,

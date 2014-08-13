@@ -490,6 +490,10 @@ div.meta ol, div.meta ul {
     float: left;
 }
 
+.citation-block .doiNote {
+	border: 2px solid red;
+}
+
 .vrights {
 	float:left;
 	margin-right:0.5em;

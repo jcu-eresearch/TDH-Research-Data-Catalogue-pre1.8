@@ -329,7 +329,7 @@
 	#end
 	
     #foreach( $key in ["jcu:research.themes.industriesEconomies", "jcu:research.themes.notAligned", "jcu:research.themes.peopleSocieties",
-             "jcu:research.themes.tropicalEcoSystems", "jcu:research.themes.tropicalHealth"])
+             "jcu:research.themes.tropicalEcoSystems", "jcu:research.themes.tropicalHealth", "jcu:request.doi"])
     #set($v = $util.get($item, $key))
     #if ($v == 'on') "$key": "$util.encodeJson($!v)",
     #end
@@ -510,7 +510,8 @@
         "jcu:data.depositedBy.text",
         "jcu:data.depositedBy.userId",
         "jcu:data.depositedBy.name",
-        "jcu:data.depositedBy.userSource"
+        "jcu:data.depositedBy.userSource",
+        "jcu:request.doi"
         
     ]
 }

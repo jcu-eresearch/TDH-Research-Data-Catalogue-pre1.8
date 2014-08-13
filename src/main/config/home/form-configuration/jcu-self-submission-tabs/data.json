@@ -42,6 +42,26 @@
         {
             "component-type":"text-block",
             "type":"label",
+            "content":"jcu-self-submission.field.label.jcu-request.doi",
+            "help":"jcu-self-submission.field.help.jcu-request.doi",
+            "additional-class":"jcuFieldLabel"
+        },
+        {
+            "component-type": "checkbox2",
+            "box-for": "",
+            "multiline": true,
+            "boxes": [
+                {
+                    "label": "Request a DOI ?",
+                    "field-name": "jcu:request.doi",
+                    "checkbox-id": "jcu:request.doi",
+                    "value": "on",
+                    "additional-classes":"clearNotAligned"
+                }]
+        },
+        {
+            "component-type":"text-block",
+            "type":"label",
             "content":"jcu-self-submission.field.label.rif-collection.identifier",
             "help":"jcu-self-submission.field.help.rif-collection.identifier",
             "additional-class":"jcuFieldLabel"

@@ -4,6 +4,10 @@
         #displayUrlList("bibo:Website" "URL" "dc:identifier" "")
         #display("vivo:Location.vivo:GeographicLocation.gn:name" "Stored At")
 
+        #set($requestDoi = $metadata.get("jcu:request.doi"))
+        <dt>Request a DOI ?</dt>
+        <dd>#if("$!requestDoi" == "on")<em>Yes</em>#else<em>No</em>#end</dd>
+        
         <dt>Other Known Identifiers</dt>
         #set($otherIdList = $self.getList("rif:collection"))
         #if ($otherIdList.isEmpty())

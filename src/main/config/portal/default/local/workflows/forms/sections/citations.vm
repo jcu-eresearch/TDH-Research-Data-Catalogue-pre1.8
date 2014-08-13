@@ -14,6 +14,10 @@
 
     <label>I will provide a citation:</label>
     <input type="checkbox" id="${cite}.redbox:sendCitation" />
+    
+    ##Added to control display of span id='requestedDOI'
+    <input type="checkbox" id="jcu:request.doi" style="display:none;"/>
+
     <div class="hidden citation-block">
         <input type="button" id="${cite}.prefillBtn" value="PREFILL*" />
         <input type="button" id="${cite}.renderBtn" value="Render Citation" />
@@ -89,6 +93,7 @@
                                         <input type="radio" name="${citePart}.dc:identifier.skos:note" value="useDoi" />
                                         <span><button>Get me a DOI using ANDS 'Cite My Data'</button></span>
                                     </label>
+                                    <span class="requestedDOI doiNote" style="display:none; ">Note: The researcher has requested a DOI be assigned to this record.</span>
                                     </span>
                                 </td>
                             </tr>
@@ -289,6 +294,28 @@
             }
         }
 
+        ### Toggle display of Note: DOI Reqeusted by Researcher during self submission
+        var doiRequestedCheckbox = getReDBoxById("jcu:request.doi");
+        function doiRequestNoteDisabled() {
+            return !doiRequestedCheckbox.is(":checked");
+        }
+        function toggleDoiRequestNote() {
+            if (doiRequestNoteDisabled()) {
+                $(".requestedDOI").hide();
+            } else {
+                $(".requestedDOI").show();
+            }
+        }
+ 
+        doiRequestedCheckbox.live("click", function() {
+            toggleDoiRequestNote($(this));
+        });
+
+        doiRequestedCheckbox.live("onDataChanged", function() {
+            toggleDoiRequestNote($(this));
+        });
+
+        
         ### Toggle Citations on/off - both on form load, or user click
         var citationsCheckbox = getReDBoxById("${cite}.redbox:sendCitation");
         function citationsDisabled() {

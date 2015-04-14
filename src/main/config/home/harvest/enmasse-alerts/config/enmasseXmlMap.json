@@ -18,9 +18,11 @@
                 "description",
                 "dc:description"
             ],
-            "brief_desc | full_desc | notes/*/note_desc": "rif:description.0.value",
-            "brief_desc_label | full_desc_label | notes/*/note_desc_label": "rif:description.0.label",
-            "brief_desc_type | full_desc_type | notes/*/note_desc_type": "rif:description.0.type",
+            "descriptions/*": {
+                "description": "rif:description.0.value"
+                "type" : "rif:description.0.type",
+                "label" : "rif:description.0.label"
+            }
             "ccdam_identifier": "bibo:Website.0.dc:identifier",
             "citation_context": "dc:biblioGraphicCitation.dc:hasPart.skos:scopeNote",
             "citation_creators/*": {
@@ -87,7 +89,10 @@
             "parties/*": {
                 "association": "dc:creator.foaf:Person.0.foaf:Organization.dc:identifier",
                 "association_label": "dc:creator.foaf:Person.0.foaf:Organization.skos:prefLabel",
-                "email": "locrel:prc.foaf:Person.foaf:email",
+                "email": [
+                    "dc:creator.foaf:Person.0.foaf:email",
+                    "locrel:prc.foaf:Person.foaf:email",
+                ],
                 "family_name": [
                     "dc:creator.foaf:Person.0.foaf:familyName",
                     "locrel:prc.foaf:Person.foaf:familyName"

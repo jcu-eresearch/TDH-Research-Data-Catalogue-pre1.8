@@ -5,7 +5,8 @@
     "harvester": {
         "type": "workflow-harvester",
         "workflow-harvester": {
-            "force-storage": "true"
+            "force-storage": "true",
+            "force-update" : "true"
         }
     },
 

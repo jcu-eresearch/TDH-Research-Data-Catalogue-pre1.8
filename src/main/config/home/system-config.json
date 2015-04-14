@@ -606,7 +606,7 @@
 				    "workflow_source": "EnMaSSe Alert"
 				    "viewId": "default",
 				    "packageType": "dataset",
-		    		"redbox:formVersion": "1.5.2",
+		    		"redbox:formVersion": "1.7",
 				    "redbox:newForm": "true",
   				    "redbox:submissionProcess.redbox:submitted": "true",
 				    "xmlns:dc": "http://dublincore.org/documents/2008/01/14/dcmi-terms/",

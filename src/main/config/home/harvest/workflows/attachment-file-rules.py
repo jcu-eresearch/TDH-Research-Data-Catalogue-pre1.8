@@ -85,9 +85,9 @@ class IndexData:
                       self.log.warn("No filename for attachment!")
                       filename = "UNKNOWN"
                   self.__index("dc_title", "Attachment-%s" % filename)
-                  #if wfMeta.getString("private", ["formData", "access_rights"]) == "public":
-                  #    self.item_security.append("guest")
-                  #    self.__index("workflow_security", "guest")
+                  if wfMeta.getString("private", ["formData", "access_rights"]) == "public":
+                      self.item_security.append("guest")
+                      self.__index("workflow_security", "guest")
             except:
                 self.log.warn("Form data not available.")
 

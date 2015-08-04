@@ -50,7 +50,7 @@
         <dependency>
             <groupId>au.com.redboxresearchdata</groupId>
             <artifactId>fascinator-shibboleth</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>0.0.1</version>
         </dependency>
 		<!-- Local Curation Plugin (from Mint) -->
         <dependency>
@@ -463,9 +463,10 @@
                         <configuration>
                             <target>
                                 <mkdir dir="${icons.dir}"/>
-                                <get skipexisting="true"
-                                     src="http://www.aaf.edu.au/wp-content/uploads/2010/08/aaf_service_buttons.zip"
-                                     dest="target/aaf_service_buttons.zip"/>
+                                <copy file="src/main/config/portal/shibboleth/aaf_service_buttons.zip" tofile="target/aaf_service_buttons.zip" />
+                                <!-- get verbose="true" skipexisting="true"
+                                     src="https://www.aaf.edu.au/wp-content/uploads/2010/08/aaf_service_buttons.zip"
+                                     dest="target/aaf_service_buttons.zip"/ -->
                                 <unzip src="target/aaf_service_buttons.zip"
                                        dest="${icons.dir}">
                                     <patternset>

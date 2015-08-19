@@ -118,7 +118,7 @@
 			"box-for": "",
 			"boxes": [
 				{
-					"label": "self-submission.field.label.readyforreview",
+					"label": "jcu-self-submission.field.label.readyforreview",
 					"value": "ready"
 				}
 			]
@@ -135,7 +135,7 @@
             "component-type": "transition-control",
             "transitions": [
                 {
-                    "name": "Save and close",
+                    "name": "Save and Return Later",
                     "form-submit-action": "save",
                     "type": "button",
 					"close": "true",

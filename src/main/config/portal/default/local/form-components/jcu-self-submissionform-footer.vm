@@ -1,5 +1,6 @@
 <script type="text/javascript" src="$portalPath/js/autocomplete/jquery.autocomplete.pack.js"></script>
 <script src="$portalPath/js/wizard.js"></script>
+<link rel="stylesheet" href="$portalPath/css/font-awesome-4.4.0/css/font-awesome.min.css">
 
 <style>
 .containerLayout .jaffaListItem > div > div {
@@ -394,10 +395,10 @@ function getDateTime(){
         submit_hidden: true,
         toggle_submit: function () {
             if($("[id='readyforreview']").attr('checked') == null) { 
-                $("[transition-name='Submit']").hide(); 
+                $("[transition-name='Submit']").prop('disabled', true); 
             } else {
                 if(validateAllTabs()){
-                    $("[transition-name='Submit']").show();
+                    $("[transition-name='Submit']").prop('disabled', false);
 
                     var fullDate = new Date();
                     var twoDigitMonth = fullDate.getMonth()+1+"";if(twoDigitMonth.length==1)  twoDigitMonth="0" +twoDigitMonth;
@@ -429,7 +430,7 @@ function getDateTime(){
         });
 
         // hide Submit link until user acknowledges 
-        $("[transition-name='Submit']").hide();
+        $("[transition-name='Submit']").prop('disabled', true);
         $("[id='readyforreview']").change(selfSubmission.toggle_submit);  
         prepareHelps();
 

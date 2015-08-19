@@ -366,10 +366,13 @@ function loadOpenLayers() {
     //***************************
     // Event handling for feature edits
     var featureTable = $(".redboxGeoData");
-    var closeIcon = "<span class=\"ui-button-icon-primary ui-icon ui-icon-closethick\"></span>";
-    var selectIcon = "<span class=\"ui-button-icon-primary ui-icon ui-icon-arrow-4\"></span>";
-    var deleteButton = "<button class=\"deleteFeature ui-button ui-widget ui-state-default ui-corner-all\">"+closeIcon+"</span></button>";
-    var selectButton = "<button class=\"selectFeature ui-button ui-widget ui-state-default ui-corner-all\">"+selectIcon+"</span></button>";
+    //JCU: updated to make the icons larger. Now using Font-Awesome icons.
+    //var closeIcon = "<span class=\"ui-button-icon-primary ui-icon ui-icon-closethick\"></span>";
+    //var selectIcon = "<span class=\"ui-button-icon-primary ui-icon ui-icon-arrow-4\"></span>";
+    var closeIcon = "<i class=\"fa fa-trash fa-2x\"></i>";
+    var selectIcon = "<i class=\"fa fa-crosshairs fa-2x\"></i>";
+    var deleteButton = "<button class=\"deleteFeature ui-button ui-widget ui-state-default ui-corner-all\" title=Delete>"+closeIcon+"</span></button>";
+    var selectButton = "<button class=\"selectFeature ui-button ui-widget ui-state-default ui-corner-all\" title=Select>"+selectIcon+"</span></button>";
     function featureUpdate(event) {
         var element, rowElement, fIdElement;
         var fId = event.feature.id;

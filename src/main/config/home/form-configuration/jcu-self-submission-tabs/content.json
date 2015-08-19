@@ -104,7 +104,7 @@
             "component-type": "transition-control",
             "transitions": [
                 {
-                    "name": "Save and close",
+                    "name": "Save and Return Later",
                     "form-submit-action": "save",
                     "type": "button",
 					"close": "true",
@@ -114,7 +114,7 @@
         },
         {
             "component-type":"native-html",
-            "content":"<button class='nexttab'>Next</button>"
+            "content":"<button class='nexttab'>Save and Next</button>"
         }
     ]
 }

@@ -73,7 +73,7 @@ function NameLookUp(ids, lookup_source) {
 	var mintDiv = $("<div id=\"mintLookupDialog\"></div>");
 	var nlaDiv = $("<div id=\"nlaLookupDialog\"><div class='nameLookup-waiting'>Searching National Library. Please wait... "+loaderGif+"</div></div>");
 	//JCU: Updated tab titles to 'James Cook University' and 'National Library of Australia'. Previously, Mint and NLA.
-	var tabbedDiv = $("<div><ul><li><a href=\"#mintLookupDialog\">James Cook University</a></li><li><a href=\"#nlaLookupDialog\">Naional Library of Australia<span class=\"nlaLookup-progress\"> "+loaderGif+"</span></a></li></ul></div>");
+	var tabbedDiv = $("<div><ul><li><a href=\"#mintLookupDialog\">James Cook University</a></li><li><a href=\"#nlaLookupDialog\">National Library of Australia<span class=\"nlaLookup-progress\"> "+loaderGif+"</span></a></li></ul></div>");
 	
 	var dlgMint, detailDialog;
 	dlgMint = $("<div>Mint lookup dialog place holder</div>").dialog({

@@ -6,7 +6,7 @@
         #display("dc:coverage.redbox:timePeriod" "#displayMessage('jcu-self-submission.field.label.dc-coverage.redbox-timePeriod')")
 
         <dt>#displayMessage('jcu-self-submission.field.label.dc-coverage.vivo-GeographicLocation')</dt>
-        <div class='openLayersHolder'>
+        <div class='openLayersHolder' style='width:718px; height:458px'>
             <div class='mapView'>
                 <div id='polygonHelp' class='hidden'>
                     <div><span class='ui-button-icon-primary ui-icon ui-icon-lightbulb'></span></div>

@@ -21,7 +21,7 @@
                     <div><span class='ui-button-icon-primary ui-icon ui-icon-lightbulb'></span></div>
                     Use double-click to 'close' your polygon.
                 </div>
-                <div class='mapHolder' style='width:748px; height:456px'>
+                <div class='mapHolder' style='width:716px; height:456px'>
                     <div id='map' class='smallmap'></div>
                 </div>
             </div>

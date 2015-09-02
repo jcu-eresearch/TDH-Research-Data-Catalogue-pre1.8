@@ -131,10 +131,14 @@
 	    				}
         },
         {
+            "component-type":"native-html",
+            "content":"<hr />"
+        },
+        {
             "component-type": "transition-control",
             "transitions": [
                 {
-                    "name": "Save and Return Later",
+                    "name": "Save and Exit",
                     "form-submit-action": "save",
                     "type": "button",
 					"close": "true",

@@ -25,7 +25,7 @@
 .olControlDrawFeatureCircleItemInactive {
     background-position: -178px -1px;
 }
-#JCU Issue 19: added .olControlAttribution and .olImageLoadError
+/*** JCU Issue 19: added .olControlAttribution and .olImageLoadError ***/
 .olControlAttribution {
     font-size: smaller;
     left: 3px;

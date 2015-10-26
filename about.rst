@@ -7,6 +7,12 @@ who contributed to the datasets, where it is stored and how it can be used. This
 JCU to build a profile of the research data and facilitate sharing and collaboration both within 
 JCU and externally. 
 
+Data Storage
+------------
+The TDH Research Data repository can be used to store publicly available data up to 50 MB in size
+per data record. James Cook University can cater for research data storage in the 100s of TBs on other
+systems. Please contact researchdata@jcu.edu.au to discuss your storage requirements.
+
 TDH Research Data Repository and Research Data Australia
 --------------------------------------------------------
 

@@ -14,7 +14,7 @@
         
         #set ($identifier = "")
         #if ($formOrigin == "internal")
-            #if ($pid != "")
+            #if ("$!pid" != "")
                 #set ($identifier = $pid)
             #else
                 #set ($identifier = $urlBase + "/detail/" + $oid))

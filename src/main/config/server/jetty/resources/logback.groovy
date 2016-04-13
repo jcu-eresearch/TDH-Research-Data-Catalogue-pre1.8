@@ -99,8 +99,8 @@ appender("SPRING", RollingFileAppender) {
 }
 root(ALL)
 logger("au.edu.jcu", TRACE, ["JCU"])
-logger("com.googlecode.fascinator", DEBUG, ["SIFT"])
+logger("com.googlecode.fascinator", INFO, ["SIFT"])
 logger("org.apache.activemq", WARN, ["AMQ"])
 logger("org.apache.solr", INFO, ["SOLR"])
-logger("org.springframework", DEBUG, ["SPRING"])
-logger("au.com.redboxresearchdata", DEBUG, ["SIFT"])
+logger("org.springframework", INFO, ["SPRING"])
+logger("au.com.redboxresearchdata", INFO, ["SIFT"])

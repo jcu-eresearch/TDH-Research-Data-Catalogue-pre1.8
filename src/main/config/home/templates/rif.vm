@@ -1,4 +1,3 @@
-##### showElementRifCS #######
 #macro(showElementRifCS $tag $field $attr $label $anzsrc)
     #set($valueMap = $util.getList($item, $field))
     #foreach($key in $valueMap.keySet())
@@ -14,9 +13,7 @@
         #end
     #end
 #end
-###############################
-####### showRelatedInfo #######
-###############################
+
 #macro(showRelatedInfo $field $relatedInfoType $identifierType)
     #set($valueMap = $util.getList($item, $field))
     #foreach($key in $valueMap.keySet())
@@ -41,9 +38,7 @@
         #end
     #end
 #end
-###############################
-###### showRelatedObject ######
-###############################
+
 #macro(showRelatedObject $field $relatedInfoType $identifierType)
     #set($valueMap = $util.getList($item, $field))
     #foreach($key in $valueMap.keySet())
@@ -63,9 +58,7 @@
         #end
     #end
 #end
-###############################
-###### geoSpatialMacro ########
-###############################
+
 #macro(geoSpatialMacro $field)
     #set($valueMap = $util.getList($item, $field))
     #foreach($key in $valueMap.keySet())
@@ -121,9 +114,7 @@
         #end
     #end
 #end
-###############################
-###### descriptionMacro #######
-###############################
+
 #macro(descriptionMacro $field)
     #set($valueMap = $util.getList($item, $field))
     #foreach($key in $valueMap.keySet())
@@ -136,11 +127,12 @@
         #end
     #end
 #end
-###############################
+
 #set($quote='"')
 #set($dateFormat = "yyyy-MM-dd'T'HH:mm:ss")
 #set($defaultOnError = "&Invalid XML placeholder... prevents ANDS Harvesting records in error&")
-#set($group = $systemConfig.getString($defaultOnError, "redbox.identity", "RIF-CS Group"))
+#set($group = $systemConfig.getString($defaultOnError, "identity", "RIF_CSGroup"))
+
 ### Resolve the identifier
 #set ($formId = $util.get($item, 'dc:identifier.rdf:PlainLiteral'))
 #set ($formOrigin = $util.get($item, 'dc:identifier.redbox:origin'))
@@ -189,9 +181,8 @@
         <rif:key>$identifier</rif:key>
         <rif:originatingSource>$urlBase</rif:originatingSource>
         #set($dateModified = "")
-        #set($dcModified = $util.get($item, 'dc:modified'))
-        #if ("$!dcModified" != "")
-            #set($rawModified = "$util.getDateTime($dcModified, $dateFormat)Z")
+        #if ($util.get($item, 'dc:modified') != "")
+            #set($rawModified = "$util.getDateTime($util.get($item, 'dc:modified'), $dateFormat)Z")
             #set($dateModified = "dateModified=${quote}${rawModified}${quote}")
         #end
         #set($dateAccessioned = "")
@@ -241,7 +232,7 @@
             #set($firstValue = $valueMap.get("1").get("dc:identifier"))
         #end
         #set ($physicalLocation = $util.get($item, "vivo:Location.vivo:GeographicLocation.gn:name"))
-        
+        #if ("$!physicalLocation" != "" || "$!firstValue" != "")
             <rif:location>
                 <rif:address>
                     <rif:electronic type="url">
@@ -271,6 +262,8 @@
             #end
             
             </rif:location>
+        #end
+
         #set ($covFrom = $util.get($item, "dc:coverage.vivo:DateTimeInterval.vivo:start"))
         #set ($covTo = $util.get($item, "dc:coverage.vivo:DateTimeInterval.vivo:end"))
         #set ($covPeriod = $util.get($item, "dc:coverage.redbox:timePeriod"))
@@ -295,9 +288,8 @@
             </rif:coverage>
         #end
         #geoSpatialMacro("dc:coverage.vivo:GeographicLocation")
-        ######################## 
-        #### Relations
-        ######################## 
+
+        ### Relations
         #set($valueList = $item.getJsonSimpleList("relationships"))
         #if($valueList)
             #foreach($value in $valueList)
@@ -324,9 +316,8 @@
                 #end
             #end
         #end
-        ############################################
+
         ### National Library Creators - Non-curated
-        ############################################
         #set($valueMap = $util.getList($item, "dc:creator.foaf:Person"))
         #foreach($key in $valueMap.keySet())
             #set ($value = $valueMap.get($key).get("dc:identifier"))
@@ -338,9 +329,7 @@
         </rif:relatedObject>
             #end
         #end
-        #################
-        ### Subjects
-        #################
+
        	#showElementRifCS ("rif:subject"  "dc:subject.vivo:keyword"  " type=${quote}local${quote} $lang"  "rdf:PlainLiteral"  "")
         #showElementRifCS ("rif:subject"  "dc:subject.anzsrc:for"  " type=${quote}anzsrc-for${quote} $lang"  "rdf:resource"  "anzsrc")
         #showElementRifCS ("rif:subject"  "dc:subject.anzsrc:seo"  " type=${quote}anzsrc-seo${quote} $lang"  "rdf:resource"  "anzsrc")
@@ -350,9 +339,9 @@
             <rif:subject type="anzsrc-toa">$util.encodeXml($value)</rif:subject>
         #end
         #descriptionMacro("rif:description")
+
         #################
         ## Rights
-        #################
         #set ($accessRights = $util.get($item, "dc:accessRights.skos:prefLabel"))
         #set ($accessRightsUri = $util.get($item, "dc:accessRights.dc:identifier"))
         #set ($accessRightsUriStr = "")
@@ -396,13 +385,11 @@
             </rif:rights>
         #end
         #################
-        ### Related Info
-        #################
+
         #showRelatedInfo("dc:relation.swrc:Publication", "publication", "uri")
         #showRelatedInfo("dc:relation.bibo:Website", "website", "uri")
-        #################
-        ### Citation
-        #################
+        #showRelatedInfo("dc:relation.vivo:Service", "service", "uri")
+        #showRelatedObject("dc:relation.vivo:Service", "service", "local")
         #set($showCitation = $util.get($item, "dc:biblioGraphicCitation.redbox:sendCitation"))
         #if ("$!showCitation" != "" && $showCitation == "on")
             #set($doiProperty = $systemConfig.getString($defaultOnError, "andsDoi", "doiProperty"))
@@ -412,7 +399,7 @@
                     #set ($citeId = $identifier)
                 #set ($citeIdType = $identifierType)
             #else
-                #set ($citeId = "http://doi.org/${doi}")
+                #set ($citeId = "http://dx.doi.org/${doi}")
                 #set ($citeIdType = "doi")
             #end
 

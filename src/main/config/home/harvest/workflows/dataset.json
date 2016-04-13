@@ -11,16 +11,29 @@
             "force-storage": "true"
         }
     },
-
     "transformer": {
-        "curation": ["local"],
-        "metadata": ["jsonVelocity","selfSubtoDataset"]
+        "curation": [
+          "local"
+        ],
+        "metadata": [
+          "jsonVelocity",
+          "selfSubtoDataset"
+        ]
     },
     "curation": {
         "neverPublish": false,
-        "alreadyCurated": false
+        "alreadyCurated": false,
+        "curation-state": "live",
+        "requiredIdentifiers": [
+            "local"
+        ],
+        "identifierDataMapping": {
+          "general": {
+            "title": "${title}",
+            "type": "dataset"
+          }
+        }
     },
-
     "transformerOverrides": {
         "local": {
             "template": "[[OID]]"
@@ -36,14 +49,19 @@
             "repository.type": "Metadata Registry"
         }
     },
-
     "stages": [
         {
             "name": "inbox",
             "label": "Inbox",
             "description": "Potential records for investigation.",
-            "security": ["guest"],
-            "visibility": ["librarian", "reviewer", "admin"]
+      "security": [
+        "guest"
+      ],
+      "visibility": [
+        "librarian",
+        "reviewer",
+        "admin"
+      ]
         },
         {
             "name": "investigation",

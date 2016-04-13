@@ -526,7 +526,13 @@ var widgets={forms:[], globalObject:this};
                 target = ctx.find(lf);
                 label=dict.label;
                 if(label){
+                	if (Object.prototype.hasOwnProperty.call(label[0],'id')) {
+						// Display to its own error message label: people lookup widgets
+						t="";
+					} else {
+						// Display to common error message label;
                     t="r?label.show():label.hide();"
+                 }
                 }
                 testFunc = "testFunc=function(){var r,e,zid,v;"+
                     "v=$.trim($(this).val());"+
@@ -815,6 +821,14 @@ var widgets={forms:[], globalObject:this};
           tmp.find(".delete-item").not(tmp.find(".input-list .delete-item")).click(getDelFuncFor(tmp));
           if(count>=maxSize){addButton.attr("disabled", true);}
           contentSetup(tmp);
+          defFocus = tmp.find(".focusAfterClone");
+          if (defFocus) {
+            defFocus.focus();
+          }
+          tmp.find(".validation-err-msg").each(function(c,i) {
+            i=$(i);
+            i.hide();
+          });
         };
         for(var x=0;x<minSize;x++){
             add();

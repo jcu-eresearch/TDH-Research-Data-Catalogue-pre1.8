@@ -7,7 +7,8 @@ body {
 }
 
 /** JCU Red colour palette **/
-.menu .selected, .facet-list .selected {
+.menu .selected,
+.facet-list .selected {
     background-color: #e31f26;
 }
 
@@ -26,7 +27,8 @@ body {
     float: right;
 }
 
-h1#branding, .branding {
+h1#branding,
+.branding {
     background: white;
     padding-top: 1.5em;
 }

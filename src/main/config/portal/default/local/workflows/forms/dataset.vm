@@ -326,15 +326,15 @@
     <div id="form-heading" >
 		<span class="right">
 			<a id="view-record-link" href="$portalPath/detail/$oid">View record</a>
-			&nbsp;&nbsp;&nbsp;<a class="updateDlgLink" href="#">$updateLinkMsg</a>
+			##&nbsp;&nbsp;&nbsp;<a class="updateDlgLink" href="#">$updateLinkMsg</a>
 		</span>
         <span><img src="${portalPath}/images/icons/wf_${stage}.png" />$stageLabel</span>
-		#set($updateList = $self.getPendingUpdates($oid))
-		#if ($self.pendingUpdateSize > 0)
-			<span><br/>
-			$self.pendingUpdateSize $updateNotifyMsg <a class="updateDlgLink" href="#">$updateLinkMsg2</a>
-			</span>
-		#end
+		##set($updateList = $self.getPendingUpdates($oid))
+		##if ($self.pendingUpdateSize > 0)
+	##		<span><br/>
+	##		$self.pendingUpdateSize $updateNotifyMsg <a class="updateDlgLink" href="#">$updateLinkMsg2</a>
+	##		</span>
+	##end
         <script type="text/javascript">
 			$(function(){
 				$(".updateDlgLink").click(function() {

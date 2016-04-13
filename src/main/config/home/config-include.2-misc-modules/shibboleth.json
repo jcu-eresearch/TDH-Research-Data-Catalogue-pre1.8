@@ -1,0 +1,30 @@
+{
+  "Shibboleth": {
+        "use_headers":"false",
+        "username_attribute":"auEduPersonSharedToken",
+        "cn_attribute":"displayName",
+    "session_attribute": "Shib-Session-ID",
+    "idp_attribute": "Shib-Identity-Provider",
+        "attributes":["eduPersonAffiliation", "commonName", "auEduPersonSharedToken", "email"],
+    "delimiter": ";",
+        "rolePlugins":["SimpleShibbolethRoleManager"],
+    "SimpleShibbolethRoleManager": {
+      "system": [
+
+      ],
+      "admin": [
+       
+      ],
+      "reviewer": [
+                [
+                    ["affiliation", "is", "member@edu.au"]
+                ]
+      ],
+            "jcu":[
+                [
+                    ["Shib-Identity-Provider", "is", "https://idp.jcu.edu.au/idp/shibboleth"]
+                ]
+      ]
+    }
+  }
+}

@@ -50,7 +50,7 @@ class IndexData:
         self.pid = self.payload.getId()
         metadataPid = self.params.getProperty("metaPid", "DC")
 
-        self.utils.add(self.index, "storage_id", self.oid)
+        self.__index("storage_id", self.oid)
         if self.pid == metadataPid:
             self.itemType = "object"
         else:
@@ -65,7 +65,6 @@ class IndexData:
         self.__index("display_type", "attachment")
 
     def __metadata(self):
-        #wfMeta = self.__getJsonPayload("workflow.metadata")
         wfMeta = self.__getJsonPayload("attachments.metadata")
         if wfMeta is None:        
             self.log.debug("Without formdata...")
@@ -77,7 +76,6 @@ class IndexData:
               formData = wfMeta.getObject(["formData"])
               if formData is not None:
                   for key in formData.keySet():
-                      #JCU: This if statement was added to ensure file attachments are correctly indexed, prevents an exception
                       if key != "owner":
                           self.__index(key, formData.get(key))
                   filename = wfMeta.getString(None, ["formData", "filename"])
@@ -85,6 +83,7 @@ class IndexData:
                       self.log.warn("No filename for attachment!")
                       filename = "UNKNOWN"
                   self.__index("dc_title", "Attachment-%s" % filename)
+                  #JCU: uncommented these lines when fixing file attachments. Redbox team left them commented in 1.8
                   if wfMeta.getString("private", ["formData", "access_rights"]) == "public":
                       self.item_security.append("guest")
                       self.__index("workflow_security", "guest")
@@ -117,7 +116,7 @@ class IndexData:
         roles = self.utils.getRolesWithAccess(self.oid)
         if roles is not None:
             # For every role currently with access
-            for role in roles:
+            for role in roles and len(roles):
                 # Should show up, but during debugging we got a few
                 if role != "":
                     if role in self.item_security:
@@ -150,14 +149,15 @@ class IndexData:
         else:
             self.__index("owner", self.owner)
 
+    # TODO: get accesscontrol from system-config.json
     def __grantAccess(self, newRole):
-        schema = self.utils.getAccessSchema("derby");
+        schema = self.utils.getAccessSchema("hibernateAccessControl");
         schema.setRecordId(self.oid)
         schema.set("role", newRole)
-        self.utils.setAccessSchema(schema, "derby")
+        self.utils.setAccessSchema(schema, "hibernateAccessControl")
 
     def __revokeAccess(self, oldRole):
-        schema = self.utils.getAccessSchema("derby");
+        schema = self.utils.getAccessSchema("hibernateAccessControl");
         schema.setRecordId(self.oid)
         schema.set("role", oldRole)
-        self.utils.removeAccessSchema(schema, "derby")
+        self.utils.removeAccessSchema(schema, "hibernateAccessControl")

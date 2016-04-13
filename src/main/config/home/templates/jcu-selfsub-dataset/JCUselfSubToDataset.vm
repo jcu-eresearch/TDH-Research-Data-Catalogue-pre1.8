@@ -1,8 +1,10 @@
+#macro(EscapeForJson $value)
+#set($escaped = $value.replaceAll("\"","\\\"").replaceAll("\n","\\n"))$escaped#end
 #macro(Collaborators $map $key $order)
 #set($queryKey = "person.${key}")
 #set ($value = $map.get($queryKey))
 #if ("$!value" != "")
-	"dc:contributor.locrel:clb.${order}.foaf:Agent.${key}": "$util.encodeJson($value)",
+	"dc:contributor.locrel:clb.${order}.foaf:Agent.${key}": "#EscapeForJson($value)",
 #end
 #end
 
@@ -10,7 +12,7 @@
 #set($queryKey = "${key}")
 #set ($value = $map.get($queryKey))
 #if ("$!value" != "")
-	"foaf:fundedBy.vivo:Grant.${order}.${key}": "$util.encodeJson($value)",
+	"foaf:fundedBy.vivo:Grant.${order}.${key}": "#EscapeForJson($value)",
 #end
 #end
 
@@ -18,21 +20,21 @@
 #set($queryKey = "${key}")
 #set ($value = $map.get($queryKey))
 #if ("$!value" != "")
-	"foaf:fundedBy.foaf:Agent.${order}.${key}": "$util.encodeJson($value)",
+	"foaf:fundedBy.foaf:Agent.${order}.${key}": "#EscapeForJson($value)",
 #end
 #end
 
 #macro(multiValuedProperty $map $prefix $key $order)
 #set($queryKey = "${key}")
 #set ($value = $map.get($queryKey))
-"${prefix}.${order}.${key}": "$util.encodeJson($value)",
+"${prefix}.${order}.${key}": "#EscapeForJson($value)",
 #end
 
 #macro(multiValuedPropertyCheckbox $map $prefix $key $order)
 #set($queryKey = "${key}")
 #set ($value = $map.get($queryKey))
 #if ("$!value" == "on")
-"${prefix}.${order}.${key}": "$util.encodeJson($!value)",
+"${prefix}.${order}.${key}": "#EscapeForJson($!value)",
 #end
 #end
 
@@ -40,20 +42,20 @@
 #set($queryKey = "${key}")
 #set ($value = $map.get($queryKey))
 #if ("$!value" != "") 
-"${prefix}.${order}.${suffix}": "$util.encodeJson($value)",
+"${prefix}.${order}.${suffix}": "#EscapeForJson($value)",
 #end
 #end
 
 #macro(copyCodes $map $key $order $type)
 #set ($value = $map.get($key))
 #if ("$!value" != "")
-    "dc:subject.anzsrc:${type}.${order}.${key}": "$util.encodeJson($value)",	
+	"dc:subject.anzsrc:${type}.${order}.${key}": "#EscapeForJson($value)",
 #end
 #end
 
 #macro(mapTo $from $to)
     #set($v = $util.get($item, $from))
-    #if ($v) "$to": "$util.encodeJson($!v)",
+    #if ($v) "$to": "#EscapeForJson($!v)",
     #end
 #end
 {
@@ -63,14 +65,14 @@
     #mapTo('dc:description', 'description')
 	"redbox:newForm": "$util.get($item, 'redbox:newForm')",
 	"redbox:formVersion": "$util.get($item, 'redbox:formVersion')",
-	"dc:title": "$util.encodeJson($util.get($item, 'dc:title'))",
+	"dc:title": "#EscapeForJson($util.get($item, 'dc:title'))",
 	#foreach( $key in ["dc:type.rdf:PlainLiteral","dc:type.skos:prefLabel","dc:created",
 			 "dc:modified","dc:language.dc:identifier","dc:language.skos:prefLabel",
 			 "dc:coverage.vivo:DateTimeInterval.vivo:start","dc:coverage.vivo:DateTimeInterval.vivo:end",
 			 "dc:coverage.redbox:timePeriod"
              ])
     #set($v = $util.get($item, $key))
-    #if ($v) "$key": "$util.encodeJson($!v)",
+    #if ($v) "$key": "#EscapeForJson($!v)",
     #else
     	"$key": "",
     #end
@@ -171,7 +173,7 @@
         #set($familyNameValue = $slot.get("foaf:familyName"))
         #set($givenNameValue = $slot.get("foaf:givenName"))
         #if ("$!familyNameValue" != "") 
-            "dc:creator.foaf:Person.${order}.foaf:name": "$util.encodeJson($familyNameValue), $util.encodeJson($givenNameValue)",
+			"dc:creator.foaf:Person.${order}.foaf:name": "#EscapeForJson($familyNameValue), #EscapeForJson($givenNameValue)",
         #end
         #multiValuedProperty($slot "dc:creator.foaf:Person" "foaf:Organization.dc:identifier" $order)
         #multiValuedProperty($slot "dc:creator.foaf:Person" "foaf:Organization.skos:prefLabel" $order)
@@ -322,7 +324,7 @@
              "jcu:data.depositedBy.text", "jcu:data.depositedBy.userId", "jcu:data.depositedBy.name", "jcu:data.depositedBy.userSource"
              ])
     #set($v = $util.get($item, $key))
-    #if ($v) "$key": "$util.encodeJson($!v)",
+    #if ($v) "$key": "#EscapeForJson($!v)",
     #else
     	"$key": "",
     #end
@@ -337,7 +339,7 @@
     
 	#set($noteValue = $util.get($item, "skos:note.0.dc:description"))
     #if ("$!noteValue" != "") 
-     "skos:note.1.dc:description": "$util.encodeJson($!noteValue)",
+     "skos:note.1.dc:description": "#EscapeForJson($!noteValue)",
      "skos:note.1.dc:created": "1970-01-01 00:00:00",
      "skos:note.1.foaf:name": "Self-submission User"
     #end

@@ -13,42 +13,32 @@
         <version>1.8</version>
     </parent>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <redbox.version>${project.parent.version}</redbox.version>
-        <icons.dir>target/aaf_icons</icons.dir>
-    </properties>
-
     <dependencies>
+        <!-- ReDBox Core - We want to explicitly define versions here because ReDBox
+            is listed as both a dependency and a parent. Some odd consequences of using
+            ${project.version} can result -->
         <dependency>
             <groupId>com.googlecode.redbox-mint</groupId>
             <artifactId>redbox-project</artifactId>
             <type>pom</type>
-            <version>${redbox.version}</version>
+            <version>1.8</version>
         </dependency>
         <dependency>
             <groupId>com.googlecode.redbox-mint</groupId>
             <artifactId>redbox</artifactId>
             <type>pom</type>
-            <version>${redbox.version}</version>
+            <version>1.8</version>
         </dependency>
         <dependency>
             <groupId>com.googlecode.redbox-mint</groupId>
             <artifactId>redbox-config</artifactId>
-            <version>${redbox.version}</version>
+            <version>1.8</version>
         </dependency>
         <dependency>
             <groupId>com.googlecode.redbox-mint</groupId>
             <artifactId>redbox-secure-api</artifactId>
-            <version>${redbox.version}</version>
+            <version>1.8</version>
         </dependency>
-        <!-- Jay: old curation not in new 1.8 pom-->
-        <dependency>
-            <groupId>com.googlecode.redbox-mint</groupId>
-            <artifactId>plugin-transaction-curation-redbox</artifactId>
-            <version>${redbox.version}</version>
-        </dependency>
-
         <dependency>
             <groupId>com.googlecode.redbox-mint</groupId>
             <artifactId>plugin-transaction-external-curation</artifactId>
@@ -58,6 +48,60 @@
             <groupId>com.googlecode.the-fascinator.plugins</groupId>
             <artifactId>plugin-storage-filesystem</artifactId>
             <version>1.3</version>
+        </dependency>
+        <dependency>
+            <groupId>com.googlecode.the-fascinator.plugins</groupId>
+            <artifactId>plugin-storage-fedora3</artifactId>
+            <version>1.1.1</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.activemq</groupId>
+                    <artifactId>activemq-all</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.fcrepo</groupId>
+                    <artifactId>persistence-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.abdera</groupId>
+                    <artifactId>abdera-i18n</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.ws.commons.axiom</groupId>
+                    <artifactId>axiom-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.ws.commons.axiom</groupId>
+                    <artifactId>axiom-impl</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.google.collections</groupId>
+                    <artifactId>google-collections</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.hp.hpl.jena</groupId>
+                    <artifactId>iri</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.sun.jersey</groupId>
+                    <artifactId>jersey-bundle</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.googlecode.the-fascinator.plugins</groupId>
+            <artifactId>plugin-storage-fedora36</artifactId>
+            <version>1.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.activemq</groupId>
+                    <artifactId>activemq-all</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.fcrepo</groupId>
+                    <artifactId>persistence-api</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>commons-digester</groupId>
@@ -211,9 +255,44 @@
                 <server.url.base>http://localhost:${server.port}/redbox/</server.url.base>
             </properties>
 
-            <!-- Used for creating an install - omits local build system settings -->
             <build>
                 <plugins>
+                    <plugin>
+                        <artifactId>maven-clean-plugin</artifactId>
+                        <configuration>
+                            <filesets>
+                                <fileset>
+                                    <directory>../home</directory>
+                                    <includes>
+                                        <include>**/*</include>
+                                    </includes>
+                                    <followSymlinks>false</followSymlinks>
+                                </fileset>
+                                <fileset>
+                                    <directory>../portal</directory>
+                                    <includes>
+                                        <include>**/*</include>
+                                    </includes>
+                                    <followSymlinks>false</followSymlinks>
+                                </fileset>
+                                <fileset>
+                                    <directory>../server</directory>
+                                    <includes>
+                                        <include>**/*</include>
+                                    </includes>
+                                    <followSymlinks>false</followSymlinks>
+                                </fileset>
+                                <fileset>
+                                    <directory>../solr</directory>
+                                    <includes>
+                                        <include>**/*</include>
+                                    </includes>
+                                    <followSymlinks>false</followSymlinks>
+                                </fileset>
+                            </filesets>
+                        </configuration>
+                    </plugin>
+                    <!-- Used for creating an install - omits local build system settings -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-assembly-plugin</artifactId>
@@ -360,9 +439,9 @@
                             </artifactItems>
                         </configuration>
                     </execution>
-                    <!-- Shibboleth Resources -->
+                    <!-- RapidAAF Resources -->
                     <execution>
-                        <id>unpack-shib-conf</id>
+                        <id>unpack-rapidaaf-conf</id>
                         <phase>process-resources</phase>
                         <goals>
                             <goal>unpack</goal>
@@ -371,9 +450,9 @@
                             <outputDirectory>${project.home}</outputDirectory>
                             <artifactItems>
                                 <artifactItem>
-                                    <groupId>au.com.redboxresearchdata</groupId>
-                                    <artifactId>fascinator-shibboleth</artifactId>
-                                    <classifier>redbox-config</classifier>
+                                    <groupId>au.com.redboxresearchdata.fascinator</groupId>
+                                    <artifactId>plugin-sso-rapidaaf</artifactId>
+                                    <classifier>rapidaaf-config</classifier>
                                     <type>zip</type>
                                 </artifactItem>
                             </artifactItems>
@@ -437,28 +516,6 @@
                                 <resource>
                                     <directory>src/main/config/portal</directory>
                                     <filtering>false</filtering>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                    <!-- Copy Icons -->
-                    <execution>
-                        <id>copy-icons</id>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${dir.portal}/default/redbox/images/aaf/</outputDirectory>
-                            <includeEmptyDirs>false</includeEmptyDirs>
-                            <overwrite>true</overwrite>
-                            <resources>
-                                <resource>
-                                    <directory>${icons.dir}/aaf_service_buttons</directory>
-                                    <filtering>false</filtering>
-                                    <includes>
-                                        <include>**/**.png</include>
-                                    </includes>
                                 </resource>
                             </resources>
                         </configuration>
@@ -563,10 +620,8 @@
             <!-- Set executable attribute for shell scripts -->
             <plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
-                <version>1.7</version>
                 <executions>
                     <execution>
-                        <id>perms</id>
                         <phase>process-resources</phase>
                         <configuration>
                             <tasks>
@@ -579,29 +634,6 @@
                             <goal>run</goal>
                         </goals>
                     </execution>
-                    <execution>
-                        <phase>generate-sources</phase>
-                        <id>aaf_logos</id>
-                        <configuration>
-                            <target>
-                                <mkdir dir="${icons.dir}"/>
-                                <copy file="src/main/config/portal/shibboleth/aaf_service_buttons.zip" tofile="target/aaf_service_buttons.zip" />
-                                <!-- get verbose="true" skipexisting="true"
-                                     src="https://www.aaf.edu.au/wp-content/uploads/2010/08/aaf_service_buttons.zip"
-                                     dest="target/aaf_service_buttons.zip"/ -->
-                                <unzip src="target/aaf_service_buttons.zip"
-                                       dest="${icons.dir}">
-                                    <patternset>
-                                        <include name="aaf_service_buttons/aaf_200x50.png"/>
-                                    </patternset>
-                                </unzip>
-                            </target>
-                        </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     <pluginManagement>

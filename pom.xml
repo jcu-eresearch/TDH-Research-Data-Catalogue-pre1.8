@@ -448,6 +448,9 @@
                                     <directory>src/main/config/home</directory>
                                     <includes>
                                         <include>system-config.json</include>
+                                        <!-- Added to include the files, otherwise complete base folder overwritten-->
+                                        <include>config-include/1-main-modules/*.json</include>
+                                        <include>config-include/2-misc-modules/*.json</include>
                                     </includes>
                                 <filtering>false</filtering>
                                 </resource>

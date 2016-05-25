@@ -277,31 +277,32 @@ class IndexData:
         relationshipData = file.read()
         file.close()
         associatedParty = data.get("associatedParty")
-        for i in range(len(associatedParty)):
-            party = associatedParty[i]
-            email = party.get("who").get("value")
-            if email is not None:
-                whoType = party.get("who").get("type")
-                if (whoType == 'people'):
-                    tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".dc:identifier"] = party.get("who").get("identifier")
-                    tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".foaf:name"] = party.get("who").get("name")
-                    tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".foaf:title"] = party.get("who").get("title")
-                    tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".redbox:isCoPrimaryInvestigator"] = "off"
-                    tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".redbox:isPrimaryInvestigator"] = "on"
-                    tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".foaf:givenName"] = party.get("who").get("givenName")
-                    tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".foaf:familyName"] = party.get("who").get("familyName")
-                    tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".jcu:relationshipType"] = party.get("relationship")
-                    tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".foaf:Organization.dc:identifier"] = party.get("affiliation").get("id")
-                    tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".foaf:Organization.skos:prefLabel"] = party.get("affiliation").get("label")
-                    jsonSimple = JsonSimple(relationshipData)
-                    jsonObj = jsonSimple.getJsonObject()
-                    results = jsonObj.get("results")
-                    #ensuring the Relationship Type exists
-                    if  results:
-                        for j in range(len(results)):
-                            relationshipType = results[j]
-                            if  (party.get("relationship") == relationshipType.get("id")):
-                                tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".jcu:relationshipLabel"] = relationshipType.get("label")
+        if associatedParty is not None:
+            for i in range(len(associatedParty)):
+                party = associatedParty[i]
+                email = party.get("who").get("value")
+                if email is not None:
+                    whoType = party.get("who").get("type")
+                    if (whoType == 'people'):
+                        tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".dc:identifier"] = party.get("who").get("identifier")
+                        tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".foaf:name"] = party.get("who").get("name")
+                        tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".foaf:title"] = party.get("who").get("title")
+                        tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".redbox:isCoPrimaryInvestigator"] = "off"
+                        tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".redbox:isPrimaryInvestigator"] = "on"
+                        tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".foaf:givenName"] = party.get("who").get("givenName")
+                        tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".foaf:familyName"] = party.get("who").get("familyName")
+                        tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".jcu:relationshipType"] = party.get("relationship")
+                        tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".foaf:Organization.dc:identifier"] = party.get("affiliation").get("id")
+                        tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".foaf:Organization.skos:prefLabel"] = party.get("affiliation").get("label")
+                        jsonSimple = JsonSimple(relationshipData)
+                        jsonObj = jsonSimple.getJsonObject()
+                        results = jsonObj.get("results")
+                        #ensuring the Relationship Type exists
+                        if  results:
+                            for j in range(len(results)):
+                                relationshipType = results[j]
+                                if  (party.get("relationship") == relationshipType.get("id")):
+                                    tfpackageData["dc:creator.foaf:Person." + str(i + 1) + ".jcu:relationshipLabel"] = relationshipType.get("label")
                     
         ###Processing 'contactInfo.email' metadata
         tfpackageData["locrel:prc.foaf:Person.dc:identifier"] = data.get("contactInfo").get("identifier")

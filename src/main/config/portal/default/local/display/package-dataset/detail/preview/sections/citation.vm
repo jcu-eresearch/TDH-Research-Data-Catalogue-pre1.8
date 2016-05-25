@@ -17,7 +17,7 @@
             #if ("$!pid" != "")
                 #set ($identifier = $pid)
             #else
-                #set ($identifier = $urlBase + "/detail/" + $oid))
+                #set ($identifier = $urlBase + "/detail/" + $oid)
             #end
         #else
             #set ($identifier = $formId)

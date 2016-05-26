@@ -122,7 +122,7 @@
         },
         {
             "component-type":"native-html",
-            "content":"<button class='prevtab'>Previous</button><button class='nexttab'>Save and Next</button>"
+            "content":"<button class='prevtab'>Save and Previous</button><button class='nexttab'>Save and Next</button>"
         }
     ]
 }

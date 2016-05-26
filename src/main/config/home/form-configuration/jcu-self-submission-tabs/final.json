@@ -133,7 +133,7 @@
         },
         {
             "component-type":"native-html",
-            "content":"<button class='prevtab'>Previous</button>"
+            "content":"<button class='prevtab'>Save and Previous</button>"
         },
         {
             "component-type": "transition-control",

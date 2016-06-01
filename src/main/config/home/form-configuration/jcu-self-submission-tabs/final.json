@@ -83,7 +83,7 @@
                                  <li>I understand that the University reserves the right to remove content from JCU Research Data at any time for any reason.</li>
                              </ul>
                        <!-- For more information please read the JCU Research Data policy at URL -->
-                      <br>Clicking on the submit button indicates your agreement to these terms.<br><br>
+                      <br>Clicking on the Deposit button indicates your agreement to these terms.<br><br>
                       <input type='hidden' class='jaffa-field' id='jcu:data.depositedBy.text' />
                       <input type='hidden' class='jaffa-field' id='jcu:data.depositedBy.userId' />
                       <input type='hidden' class='jaffa-field' id='jcu:data.depositedBy.name' />
@@ -148,10 +148,15 @@
             ]
         },
         {
+          "component-type":"native-html",
+          "content":"<br>Clicking on the Deposit button submits your record for review by a Digital Librarian.<br>If requested, a DOI will be minted during the review process.<br>The record will be made public when the review is complete, unless an embargo has been set.<br>"
+        },
+        {
             "component-type": "transition-control",
+            "additional-classes": "depositBtn",
             "transitions": [
                 {
-                    "name": "Submit",
+                    "name": "Deposit",
                     "type": "button",
                     "form-submit-action": "save-next",
 					"close": "true",
@@ -159,7 +164,7 @@
                 }
              ]
         },
-        {
+      {
             "component-type":"native-html",
             "content":"<script>$(document).ready(function() {
                         wizardTabIdentifier='dmptTabs'; 

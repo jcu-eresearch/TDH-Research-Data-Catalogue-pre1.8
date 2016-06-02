@@ -70,7 +70,14 @@
             "content":"jcu-self-submission.field.label.swrc-supervisor.foaf-person"
             "help":"jcu-self-submission.field.help.swrc-supervisor.foaf-person",
             "additional-class":"jcuFieldLabel"
-        }
+        },
+        {
+            "component-type":"text-block",
+            "type":"label",
+            "content":"jcu-self-submission.field.label.dc-contributor.locrel-clb.foaf-Agent"
+            "help":"jcu-self-submission.field.help.dc-contributor.locrel-clb.foaf-Agent",
+            "additional-class":"jcuFieldLabel"
+        },
         {
             "component-type": "repeatable-container",
             "containter-for": "swrc:supervisor.foaf:Person",
@@ -81,13 +88,6 @@
             }
         },
         {
-            "component-type":"text-block",
-            "type":"label",
-            "content":"jcu-self-submission.field.label.dc-contributor.locrel-clb.foaf-Agent"
-            "help":"jcu-self-submission.field.help.dc-contributor.locrel-clb.foaf-Agent",
-            "additional-class":"jcuFieldLabel"
-        },
-        {
             "component-type":"repeatable-container",
             "containter-for":"dc:contributor.locrel:clb",
             "sub-elements":{"settings":[
@@ -95,6 +95,23 @@
                                 ]
                            },
             "add-item-text":"Add collaborator",
+            "additional-classes":"containerLayout"
+        },
+        {
+            "component-type":"text-block",
+            "type":"label",
+            "content":"jcu-self-submission.field.label.locrel-own.foaf-Agent.foaf-name"
+            "help":"jcu-self-submission.field.help.locrel-own.foaf-Agent.foaf-name",
+            "additional-class":"jcuFieldLabel"
+        },
+        {
+            "component-type":"repeatable-container",
+            "containter-for":"locrel:own.foaf:Agent",
+            "sub-elements":{"settings":[
+                {"jaffaText":{"label":"", "class-list":"jaffa-field", "suffix":"foaf:name", "size":"60", "default-value":"James Cook University"}}
+            ]
+            },
+            "add-item-text":"Add owner",
             "additional-classes":"containerLayout"
         },
         {

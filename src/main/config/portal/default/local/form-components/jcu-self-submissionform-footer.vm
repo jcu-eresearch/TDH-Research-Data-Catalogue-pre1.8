@@ -46,6 +46,12 @@ button.depositBtn {
     font-weight: bold;
 }
 
+.jcuSubHeading {
+    font-size: 120%;
+    text-decoration: underline;
+}
+
+
 </style>
 
 <script type="text/javascript">

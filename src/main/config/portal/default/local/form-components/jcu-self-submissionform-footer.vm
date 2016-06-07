@@ -60,7 +60,6 @@ button.depositBtn {
 
 .jcuSubHeading {
     font-size: 120%;
-    text-decoration: underline;
 }
 
 

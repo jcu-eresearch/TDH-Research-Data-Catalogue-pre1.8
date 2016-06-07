@@ -2,6 +2,11 @@
     "heading":"Final",
     "fields":[
         {
+          "component-type":"text-block",
+          "type":"p",
+          "content":"jcu-self-submission.asterisk"
+        },
+        {
             "component-type":"text-block",
             "type":"label",
             "content":"jcu-self-submission.field.label.redbox-embargo.heading",
@@ -50,7 +55,7 @@
             "component-type":"text-block",
             "type":"label",
             "content":"jcu-self-submission.heading.jcu-data.depositedBy",
-            "additional-class":"jcuFieldLabel"
+            "additional-class":"jcuFieldLabel required"
         },
         {
             "component-type":"native-html",

@@ -30,6 +30,18 @@ button.depositBtn {
 
 }
 
+.jcuFieldLabel.required {
+  position: relative;
+}
+
+.jcuFieldLabel.required:before {
+  content: '*';
+  color: red;
+  font-size: 110%;
+  position: absolute;
+  left: -1em;
+}
+
 .component-wrapper .peopleWidgetLabel{
     display:inline;
     padding-right:0.3em;

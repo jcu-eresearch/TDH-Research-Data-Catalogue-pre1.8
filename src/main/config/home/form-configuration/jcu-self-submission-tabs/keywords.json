@@ -3,10 +3,15 @@
     "fields":[
         {
             "component-type":"text-block",
+            "type":"p",
+            "content":"jcu-self-submission.asterisk"
+        },
+        {
+            "component-type":"text-block",
             "type":"label",
             "content":"jcu-self-submission.field.label.dc-subject.anzsrc-for",
             "help":"jcu-self-submission.field.help.dc-subject.anzsrc-for",
-            "additional-class":"jcuFieldLabel"
+            "additional-class":"jcuFieldLabel required"
         },
         {
             "component-type":"repeatable-anzsrc-selection",
@@ -36,7 +41,7 @@
             "type":"label",
             "content":"jcu-self-submission.field.label.jcu-research.themes",
             "help":"jcu-self-submission.field.help.jcu-research.themes",
-            "additional-class":"jcuFieldLabel"
+            "additional-class":"jcuFieldLabel required"
         },
         {
             "component-type": "checkbox2",
@@ -112,7 +117,7 @@
             "type":"label",
             "content":"jcu-self-submission.field.label.dc-subject.vivo-keyword",
             "help":"jcu-self-submission.field.help.dc-subject.vivo-keyword",
-            "additional-class":"jcuFieldLabel"
+            "additional-class":"jcuFieldLabel required"
         },                        
         {
             "component-type":"repeatable-container",

@@ -2,6 +2,11 @@
     "heading":"Data Management",
     "fields":[
         {
+          "component-type":"text-block",
+          "type":"p",
+          "content":"jcu-self-submission.asterisk"
+        },
+        {
             "component-type":"text-block",
             "type":"label",
             "content":"jcu-self-submission.field.label.question1",
@@ -80,7 +85,7 @@
           "type":"label",
           "content":"jcu-self-submission.field.label.redbox.retentionPeriod",
           "help":"jcu-self-submission.field.help.redbox.retentionPeriod",
-          "additional-class":"jcuFieldLabel"
+          "additional-class":"jcuFieldLabel required"
         },
         {
           "component-type":"dropdown-fixedvalue",

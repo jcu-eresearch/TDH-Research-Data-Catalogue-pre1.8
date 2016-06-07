@@ -3,10 +3,15 @@
     "fields":[
         {
             "component-type":"text-block",
+            "type":"p",
+            "content":"jcu-self-submission.asterisk"
+        },
+        {
+            "component-type":"text-block",
             "type":"label",
             "content":"jcu-self-submission.field.label.dc-creator.foaf-person"
             "help":"jcu-self-submission.field.help.dc-creator.foaf-person",
-            "additional-class":"jcuFieldLabel"
+            "additional-class":"jcuFieldLabel required"
         },
         {
             "component-type": "repeatable-container",
@@ -55,27 +60,20 @@
         {
             "component-type":"text-block",
             "type":"label",
-            "content":"jcu-self-submission.field.label.locrel-prc.foaf-person"
+            "content":"jcu-self-submission.field.label.locrel-prc.foaf-person",
             "help":"jcu-self-submission.field.help.locrel-prc.foaf-person",
             "additional-class":"jcuFieldLabel"
         },
         {
             "component-type": "person",
             "lookup-name": "locrel:prc.foaf:Person",
-            "lookup-only": "false",
+            "lookup-only": "false"
         },
         {
             "component-type":"text-block",
             "type":"label",
-            "content":"jcu-self-submission.field.label.swrc-supervisor.foaf-person"
+            "content":"jcu-self-submission.field.label.swrc-supervisor.foaf-person",
             "help":"jcu-self-submission.field.help.swrc-supervisor.foaf-person",
-            "additional-class":"jcuFieldLabel"
-        },
-        {
-            "component-type":"text-block",
-            "type":"label",
-            "content":"jcu-self-submission.field.label.dc-contributor.locrel-clb.foaf-Agent"
-            "help":"jcu-self-submission.field.help.dc-contributor.locrel-clb.foaf-Agent",
             "additional-class":"jcuFieldLabel"
         },
         {
@@ -86,6 +84,13 @@
                     {"jaffaPeople": {"source":"nla,mint", "label":"", "class-list":"jaffa-field", "suffix":""}},
                 ]
             }
+        },
+        {
+            "component-type":"text-block",
+            "type":"label",
+            "content":"jcu-self-submission.field.label.dc-contributor.locrel-clb.foaf-Agent",
+            "help":"jcu-self-submission.field.help.dc-contributor.locrel-clb.foaf-Agent",
+            "additional-class":"jcuFieldLabel"
         },
         {
             "component-type":"repeatable-container",
@@ -100,7 +105,7 @@
         {
             "component-type":"text-block",
             "type":"label",
-            "content":"jcu-self-submission.field.label.locrel-own.foaf-Agent.foaf-name"
+            "content":"jcu-self-submission.field.label.locrel-own.foaf-Agent.foaf-name",
             "help":"jcu-self-submission.field.help.locrel-own.foaf-Agent.foaf-name",
             "additional-class":"jcuFieldLabel"
         },

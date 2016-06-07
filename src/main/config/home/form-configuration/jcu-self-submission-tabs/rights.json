@@ -3,10 +3,15 @@
     "fields":[
         {
             "component-type":"text-block",
+            "type":"p",
+            "content":"jcu-self-submission.asterisk"
+        },
+        {
+            "component-type":"text-block",
             "type":"label",
             "content":"jcu-self-submission.field.label.dc-accessRights.heading",
             "help":"jcu-self-submission.field.help.dc-accessRights.heading",
-            "additional-class":"jcuFieldLabel"
+            "additional-class":"jcuFieldLabel required"
         },
         {
             "component-type":"text-block",

@@ -2,11 +2,16 @@
     "heading":"Content",
     "fields":[
         {
+          "component-type":"text-block",
+          "type":"p",
+          "content":"jcu-self-submission.asterisk"
+        },
+        {
             "component-type":"text-block",
             "type":"label",
             "content":"jcu-self-submission.field.label.dc-title",
             "help":"jcu-self-submission.field.help.dc-title",
-            "additional-class":"jcuFieldLabel"
+            "additional-class":"jcuFieldLabel required"
         },
         {
             "component-type": "textarea",
@@ -24,7 +29,7 @@
             "type":"label",
             "content":"jcu-self-submission.field.label.rif-description",
             "help":"jcu-self-submission.field.help.rif-description",
-            "additional-class":"jcuFieldLabel"
+            "additional-class":"jcuFieldLabel required"
         },
         {
             "component-type":"repeatable-container",
@@ -81,7 +86,7 @@
             "type":"label",
             "content":"jcu-self-submission.field.label.dc-type.rdf-PlainLiteral",
             "help":"jcu-self-submission.field.help.dc-type.rdf-PlainLiteral",
-            "additional-class":"jcuFieldLabel"
+            "additional-class":"jcuFieldLabel required"
         },
         {
             "component-type":"data-source-dropdown",

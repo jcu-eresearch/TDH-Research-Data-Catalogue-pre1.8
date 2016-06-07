@@ -158,6 +158,10 @@
           "additional-class":"jcuSubHeading"
         },
         {
+          "component-type":"native-html",
+          "content":"<hr>"
+        },
+        {
             "component-type":"text-block",
             "type":"label",
             "content":"jcu-self-submission.field.label.vivo-Location"

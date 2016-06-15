@@ -25,11 +25,6 @@ input:focus, textarea:focus, select:focus {
     display:block;
 }
 
-button.depositBtn {
-    font-size: larger;
-
-}
-
 .jcuFieldLabel.required {
   position: relative;
 }
@@ -417,10 +412,12 @@ function getDateTime(){
         submit_hidden: true,
         toggle_submit: function () {
             if($("[id='readyforreview']").attr('checked') == null) { 
-                $("[transition-name='Deposit']").prop('disabled', true);
+                $("[transition-name='Deposit']").prop('hidden', true);
+                $("[transition-name='SaveAndExit']").prop('hidden', false);
             } else {
                 if(validateAllTabs()){
-                    $("[transition-name='Deposit']").prop('disabled', false);
+                    $("[transition-name='Deposit']").prop('hidden', false);
+                    $("[transition-name='SaveAndExit']").prop('hidden', true);
 
                     var fullDate = new Date();
                     var twoDigitMonth = fullDate.getMonth()+1+"";if(twoDigitMonth.length==1)  twoDigitMonth="0" +twoDigitMonth;
@@ -452,7 +449,7 @@ function getDateTime(){
         });
 
         // hide Submit link until user acknowledges 
-        $("[transition-name='Deposit']").prop('disabled', true);
+        $("[transition-name='Deposit']").prop('hidden', true);
         $("[id='readyforreview']").change(selfSubmission.toggle_submit);  
         prepareHelps();
 

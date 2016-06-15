@@ -133,41 +133,16 @@
             "content":"<input type='hidden' class='jaffa-field' id='dc:created' />"
         },
         {
+          "component-type":"native-html",
+          "content":"<b><br>Clicking on the Deposit button submits your record for review by a data librarian.<br>If requested, a DOI will be minted during the review process.<br>The record will be made public when the review is complete, unless an embargo has been set.<br></b>"
+        },
+        {
             "component-type":"native-html",
             "content":"<hr />"
         },
         {
-            "component-type":"native-html",
-            "content":"<button class='prevtab'>Save and Previous</button>"
-        },
-        {
-            "component-type": "transition-control",
-            "transitions": [
-                {
-                    "name": "Save and Exit",
-                    "form-submit-action": "save",
-                    "type": "button",
-					"close": "true",
-					"closeUrl": "detail"
-                }
-            ]
-        },
-        {
           "component-type":"native-html",
-          "content":"<br>Clicking on the Deposit button submits your record for review by a Digital Librarian.<br>If requested, a DOI will be minted during the review process.<br>The record will be made public when the review is complete, unless an embargo has been set.<br>"
-        },
-        {
-            "component-type": "transition-control",
-            "additional-classes": "depositBtn",
-            "transitions": [
-                {
-                    "name": "Deposit",
-                    "type": "button",
-                    "form-submit-action": "save-next",
-					"close": "true",
-					"closeUrl": "detail"
-                }
-             ]
+          "content":"<button class='prevtab'>&lt;&lt; Save and Previous</button> <button transition-name='SaveAndExit' onclick='transition_click(this)' form-action='save' close-transition='$portalPath/detail/$oid'>Save and Exit</button> <button transition-name='Deposit' onclick='transition_click(this)' form-action='save-next' close-transition='$portalPath/detail/$oid' class='depositBtn'>Deposit</button>"
         },
       {
             "component-type":"native-html",

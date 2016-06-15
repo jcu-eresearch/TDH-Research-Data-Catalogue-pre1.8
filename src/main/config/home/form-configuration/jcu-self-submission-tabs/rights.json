@@ -190,24 +190,29 @@
             "placeholder":"licence url"
         },
         {
+            "component-type":"text-block",
+            "type":"label",
+            "content":"jcu-self-submission.field.label.locrel-own.foaf-Agent.foaf-name",
+            "help":"jcu-self-submission.field.help.locrel-own.foaf-Agent.foaf-name",
+            "additional-class":"jcuFieldLabel"
+        },
+        {
+            "component-type":"repeatable-container",
+            "containter-for":"locrel:own.foaf:Agent",
+            "sub-elements":{"settings":[
+                {"jaffaText":{"label":"", "class-list":"jaffa-field", "suffix":"foaf:name", "size":"60", "default-value":"James Cook University"}}
+            ]
+            },
+            "add-item-text":"Add owner",
+            "additional-classes":"containerLayout"
+        },
+        {
             "component-type":"native-html",
             "content":"<hr />"
         },
         {
-            "component-type": "transition-control",
-            "transitions": [
-                {
-                    "name": "Save and Exit",
-                    "form-submit-action": "save",
-                    "type": "button",
-					"close": "true",
-					"closeUrl": "detail"
-                }
-            ]
-        },
-        {
             "component-type":"native-html",
-            "content":"<button class='prevtab'>Save and Previous</button><button class='nexttab'>Save and Next</button>"
+            "content":"<button class='prevtab'>&lt;&lt; Save and Previous</button> <button transition-name='Save and Exit' onclick='transition_click(this)' form-action='save' close-transition='$portalPath/detail/$oid'>Save and Exit</button> <button class='nexttab'>Save and Next &gt;&gt;</button>"
         }
     ]
 }

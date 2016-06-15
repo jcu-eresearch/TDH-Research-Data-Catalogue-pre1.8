@@ -110,20 +110,8 @@
             "content":"<hr />"
         },
         {
-            "component-type": "transition-control",
-            "transitions": [
-                {
-                    "name": "Save and Exit",
-                    "form-submit-action": "save",
-                    "type": "button",
-					"close": "true",
-					"closeUrl": "detail"
-                }
-            ]
-        },
-        {
-            "component-type":"native-html",
-            "content":"<button class='nexttab'>Save and Next</button>"
+          "component-type":"native-html",
+          "content":"<button disabled>&lt;&lt; Save and Previous</button> <button transition-name='Save and Exit' onclick='transition_click(this)' form-action='save' close-transition='$portalPath/detail/$oid'>Save and Exit</button> <button class='nexttab'>Save and Next &gt;&gt;</button>"
         }
     ]
 }

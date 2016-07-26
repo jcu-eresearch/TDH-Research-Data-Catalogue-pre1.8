@@ -1,7 +1,7 @@
 Adding a new Research Data Record
 =================================
 
-To add a new research record to Research Data, you need to access the Dashboard. You can  access the Dashboard from the home page by clicking on Dashboard in the menu bar or be  going directly to http://research.jcu.edu.au/researchdata/dashboard. If you are not already logged into the site, the login box will appear at this point.
+To add a new research record to Research Data, you need to access 'My Research Data'. You can access 'My Research Data' from the home page by clicking on 'My Research Data' in the menu bar or by going directly to http://research.jcu.edu.au/researchdata/dashboard. If you are not already logged into the site, the login box will appear at this point.
 
 Logging In
 ----------
@@ -66,7 +66,7 @@ To create a new research record, click on “Add a new JCU Research Record”.
 
 The web form for a new research record consists of 8 tabs. You can save and close
 the form at any stage provided you have completed the required fields on the
-open tab. Require fields are marked by an asterisk (*). For example, the
+open tab. Required fields are marked by an asterisk (*). For example, the
 Content tab shown below has Title, Descriptions, and Collection Type as
 required fields. Provide these have some data in them, you could save the form
 at this point without completing any of the other tabs.
@@ -107,12 +107,12 @@ Descriptions
    The description is the **most** important part of your data record. It
    should be informative to other researchers and answer the what, why, and how
    questions relating to your data and your research. When your record is
-   reviewed, if it is decided that your description is insufficent, you
+   reviewed, if it is decided that your description is insufficient, you
    **will** be contacted for more information and your record will **not** be
    published until a more complete description is provided.
 
 
-Ideally, you should provide at least two descriptions: a `brief` description and a `full` description. Select the type of description you are adding from the **Type** drop down and provide the text in the **Description** box. To add another description, use the **Add description** button. Once more than one description is present, a **Remove** buttion appears at the end of each description allowing you to delete an entry.
+Ideally, you should provide at least two descriptions: a `brief` description and a `full` description. Select the type of description you are adding from the **Type** drop down and provide the text in the **Description** box. To add another description, use the **Add description** button. Once more than one description is present, a **Remove** button appears at the end of each description allowing you to delete an entry.
 
 Possible description types are:
 
@@ -131,7 +131,7 @@ Possible description types are:
 
 **Logo**
    If your dataset is associated with a project or organisation with a logo
-   that you would like displayed  on the dataset's page when it is displayed in
+   that you would like displayed on the dataset's page when it is displayed in
    Research Data Australia, you can include the url to the logo in this type.
 
 .. figure:: _static/Description-widget.png
@@ -146,9 +146,9 @@ Research data collections can be classified as a
 
 * Catalogue or Index
 * Collection
+* Dataset
 * Registry
 * Repository
-* Dataset
 
 .. figure:: _static/cpgdectree.png
    :width: 100%
@@ -164,7 +164,7 @@ The Coverage tab contains metadata that specifies the time span and location rel
 
 Date Coverage
 `````````````
-The date coverage allows you to specify the time period relevant to your date - to could be a start and end date for the data collection or it could be a time period such as *World War II* or *The Dark Ages*. For example, if your research data relates to samples you have collected and analysed (e.g. temperature readings, soil pH, blood tests, biological samples) then the date coverage would be:
+The date coverage allows you to specify the time period relevant to your date - this could be a start and end date for the data collection or it could be a time period such as *World War II* or *The Dark Ages*. For example, if your research data relates to samples you have collected and analysed (e.g. temperature readings, soil pH, blood tests, biological samples) then the date coverage would be:
 
 * start of data collection - 1st of October 2011 e.g. 2011-10-01
 * end of data analysis - 30th of November 2013 e.g. 2013-11-30
@@ -185,7 +185,7 @@ If your research was an analysis of the 1920s fashion then, rather than the date
    :figwidth: 50%
    :align: center
 
-   When a phrase describing the time period being consider is more appropriate then exact dates, use the Time Period field.
+   When a phrase describing the time period being considered is more appropriate than exact dates, use the Time Period field.
 
 So - use either the **From:** and **To:** fields *or* the **Time Period** field but not both!
 
@@ -196,15 +196,15 @@ Hints
    using the date picker widget if you prefer. Just ensure you use the
    YYYY-MM-DD or YYYY format.
 2. Not all research data collections have a
-   start and an end date. It may be that the research is ongoing and so you
+   start and end date. It may be that the research is ongoing and so you
    only have a start date. In this case, leave the **To:** field empty.
 
 Geospatial Location
 ````````````````````
 
 The Geospatial location is used to describe the region on Earth that is
-relevant to the research data. This is not a required field as not all datasets
-have a geospatial location. If this field is relevent to your research, there are three formats for adding geospatial data:
+relevant to the research data. This is an optional field as not all datasets
+have a geospatial location. If this field is relevant to your research, there are three formats for adding geospatial data:
 
 1. Provide a text description of the location - e.g. *30km SW of Port Douglas, Queensland, Australia*.
 2. Provide the ISO 3166-1 code for a country (http://www.iso.org/iso/home/standards/country_codes/iso-3166-1_decoding_table.htm).
@@ -213,7 +213,7 @@ have a geospatial location. If this field is relevent to your research, there ar
 Multiple geospatial locations can be provided for a single research record and any of the above methods can be used.
 
 
-Adding a text description of country code can be acheived by using the Location Type and Value field - these can be seen below the map widget.
+Adding a text description of country code can be achieved by using the Location Type and Value field - these can be seen below the map widget.
 
 
 
@@ -224,7 +224,7 @@ Using the map widget
 The table below explains the different tools available in the map and how to use them.
 
 +--------------+---------------------+-------------------------------------------+
-| Icon         |  Action             | Explaination                              |
+| Icon         |  Action             | Explanation                               |
 +==============+=====================+===========================================+
 | |drag|       | Drag map            | Click and hold the left mouse             |
 |              |                     | button key to drag the map.               |
@@ -251,7 +251,7 @@ The table below explains the different tools available in the map and how to use
 |              |                     | finish the shape.                         |
 +--------------+---------------------+-------------------------------------------+
 | |circle|     | Draw a circle       | Click (on the location you want to        |
-|              |                     | have as the centr of the circle) and      |
+|              |                     | have as the centre of the circle) and     |
 |              |                     | hold the left mouse button and drag to    |
 |              |                     | the desired size. Release the mouse button|
 +--------------+---------------------+-------------------------------------------+
@@ -284,16 +284,12 @@ As you add items to the map, entries will appear in the (Location Type, Value) a
 
 To edit the shape, select the |edit| icon and click on the shape you wish to edit.
 
+Another way to edit the shape is to click on the edit icon for the location (left of the trash can). This will automatically select the shape and zoom it to fix the window. Alter the shape by dragging the points as required. This will automatically update the points for the location.
 
-.. note:: There is currently a bug in the *Edit the map* feature. When you edit a shape it will create a new (Location Type, Value) line in the area below the map for every edit you make. When you are finished editing, delete all lines accept the last one. Your shape will disappear from the map but it is still there provided you have kept that last entry in the (Location Type, Value) area. If you do not do this, then when you save the record, a new shape for each line containing a POLYGON(...) value will be added.
-
-    .. raw:: html
-
-        <div style="text-align: center">
-        <video style="margin: 1em;" width="600" height="338" controls>
-            <source src="_static/Edit-map-1080p.mp4" type="video/mp4">
-        </video>
-        </div>
+.. figure:: _static/map-edit-shape-by-location.png
+   :width: 100%
+   :figwidth: 50%
+   :align: center
 
 
 People
@@ -315,7 +311,7 @@ Creators
 
 The Creators section is used to add JCU researchers who have contributed to the creation of the dataset. They may be data collectors, people who have helped clean the data or people who have contributed to make the data set better.
 
-Adding a person's details to this section can only be done using the **lookup** facitily. Clicking on **lookup** will open a *Name lookup* box. By default the *Mint* tab will be showing - this searches the JCU researcher database.
+Adding a person's details to this section can only be done using the **lookup** facility. Clicking on **lookup** will open a *Name lookup* box. By default the *James Cook University* tab will be showing - this searches the JCU researcher database.
 
 .. figure:: _static/name-lookup.png
     :width: 100%
@@ -332,7 +328,7 @@ If your search returns more than one person with the same name, you can click on
     :align: center
 
 
-Once you have selected the right person, check the box next to their name and hit *OK*. The person's details will now be added to the Creators section. In addition to completing the title, names and email fields, the Affiliations will also be completed with up to three internal JCU units. Unlike the title, name and email fields, the affiliations can be adjusted - just select your prefered unit from the drop down list. To unset an affiliation just set the affiliation to the default "Please select one..."
+Once you have selected the right person, check the box next to their name and hit *OK*. The person's details will now be added to the Creators section. In addition to completing the title, names and email fields, the Affiliations will also be completed with up to three internal JCU units. Unlike the title, name and email fields, the affiliations can be adjusted - just select your preferred unit from the drop down list. To unset an affiliation just set the affiliation to the default "Please select one..."
 
 To add additional people, use the **Add** button found under the set of three affiliations.
 
@@ -355,22 +351,34 @@ Data Management
 ---------------
 
 The *Data Management* tab contains information relating to
- * where the data lives - *Location*
+ * requesting a Digital Object Identifier  - *Request a DOI ?*
+ * other identifiers used to identify the dataset - *Other Known Identifiers*
+ * attaching files of up to 50 MB in total size - *Attachments*
  * how long the data should be kept for - *Retention Period*
  * size of the data - *Size of Data/Collection*
- * who owns the data - *Data Owner (IP)*
+ * where the data lives - *Location*
 
 .. figure:: _static/data-management.png
     :width: 100%
     :figwidth: 100%
     :align: center
 
-Location
-````````
+Request a DOI ?
+```````````````
 
-There are two options in the *Location* section; you can provide one or more *URL(s)* if your data already has a home that is accessible via the web, or you can provide an address or other information in the *Stored At* text box if your data has a physical location. For example, your data may be a collection of physical items located in a storage room at your place of work.
+A DOI provides you with a unique string to identify content and to provide a persistent link to its location on the internet. e.g. "10.4225/28/570F29840516A" To use the DOI in a url enter "http://dx.doi.org/" followed by the DOI in a browser. e.g. "http://dx.doi.org/10.4225/28/570F29840516A"
 
-.. note:: Please use the text box if your data doesn't have a permenant home and you need assistance with finding a suitable storage locations. For example, it may be you have your data stored on USB drives and you need assistance moving your data to a better long term home. Put this information in the *Stored At* text box and someone will contact you once your record has been submitted.
+Other Know Identifiers ?
+````````````````````````
+
+You may have already published your data on a website with your publication. Adding the URL to this location can help to increase the exposure of your dataset.
+
+Attachments
+```````````
+
+Use to attach your datasets up to a total size of 50 MB. Click on the 'Select file...' button, browse for you file and click 'Start Upload'. Multiple files can be uploaded.
+
+.. note:: This assumes your data will be made public. After submitting your record, it will be reviewed. If you indicate on the 'Rights' tab that access is restricted or private, the attached files will be stored in a private section of the 'Tropical Data Hub' where there is no public access. They will then be removed from this record. You will be contacted by a Digital Librarian to discuss this.
 
 Retention Period
 ````````````````
@@ -380,8 +388,7 @@ Retention Period
     :figwidth: 50%
     :figclass: float-right
 
-Where possible, in general the intention is to retain research data for as long as feasible. The Code for the Responsible Conduct of Research recommends some minimum  retention periods. Please choose from the drop down list the period that you believe to be most applicable for a minimum retention period.
-
+Where possible, in general the intention is to retain research data for as long as feasible. The Code for the Responsible Conduct of Research recommends some minimum retention periods. Please choose from the drop down list the period that you believe to be most applicable for a minimum retention period.
 
 Size of Data/Collection
 ```````````````````````
@@ -390,15 +397,13 @@ For electronic data, please provide the size of the data you want associated wit
 
 For physical data, provide a weight and/or volume or other information (e.g. count) that you think relevant.
 
-Data Owner (IP)
-```````````````
+Location
+````````
 
-By default, this is prefilled with *James Cook University*. For students, depending on how your PhD has been funded, it may be that you are the data owner. If the data collection was part of an externally funded activity, you may need to check the contract to see if your funder has made claims to the data. If you are a staff member and the data has been collected as part of the research you have undertaken as part of your employment at JCU, then *James Cook University* is the data owner. In the case where there is joint data ownership, use the **Add owner** button to add additonal lines and enter one owner per line.
+There are two options in the *Location* section; you can provide one or more *URL(s)* if your data already has a home that is accessible via the web, or you can provide an address or other information in the *Stored At* text box if your data has a physical location. For example, your data may be a collection of physical items located in a storage room at your place of work.
 
-.. figure:: _static/data-owner-ip.png
-    :width: 100%
-    :figwidth: 50%
-    :align: center
+.. note:: Please use the text box if your data doesn't have a permanent home and you need assistance with finding a suitable storage locations. For example, it may be you have your data stored on USB drives and you need assistance moving your data to a better long term home. Put this information in the *Stored At* text box and someone will contact you once your record has been submitted.
+
 
 
 Associations
@@ -417,7 +422,6 @@ Grants
 The *Grants* section is connected to RIMS (the Research Information Management System) that contains all the grants that have been processed through the Research Services office. You can search by the internal grant ID or by the title. To perform a search, type either the number or a part of the title in the **Number** box.
 
 .. hint:: If you are unsure of the title for a grant title, try searching the Research Portfolio (http://jcu.me) page of one of the investigating researchers. Alternatively, talk to Research Services or the eResearch Centre for assistance.
-
 
 
 .. figure:: _static/grant-search.png
@@ -439,7 +443,7 @@ The search returns a list of matches - this box is scrollable and the records ar
 Related Publications
 ````````````````````
 
-To help ensure people who have found your dataset also find the associated research, please provide the *URL* to any publications that have a relationship to the data. It may be the URL to the entry in `ResearchOnline@JCU`_ or the URL based on a doi (e.g. http://doi.org/xxxxxx)
+To help ensure people who have found your dataset also find the associated research, please provide the *URL* to any publications that have a relationship to the data. It may be the URL to the entry in `ResearchOnline@JCU`_ or the URL based on a doi (e.g. http://dx.doi.org/xxxxxx)
 
 .. _`ResearchOnline@JCU`: http://researchonline.jcu.edu.au
 
@@ -473,7 +477,7 @@ If you have used research infrastructure from another university, if you can fin
 Keywords
 --------
 
-This section of the form collects Fields of Research (FoR) and Socio-Economic Objective (SEO) codes, JCU Research Themes and any keyworks you would like associated with your research. Keywords, FoR and SEO codes are key search terms used by the various portals that store the research records.
+This section of the form collects Fields of Research (FoR) and Socio-Economic Objective (SEO) codes, JCU Research Themes and any keywords you would like associated with your research. Keywords, FoR and SEO codes are key search terms used by the various portals that store the research records.
 
 .. figure:: _static/keywords.png
   :width: 100%
@@ -492,11 +496,11 @@ To select a code, pick from the first drop down list to select the two digit Div
   :width: 100%
   :figwidth: 100%
 
-  Add as many FoR codes as you think are appropriate. You are required to add at least one. In this example, there is a four-digit group code and a six-digit field code.
+  Add as many FoR codes as you think are appropriate. You are required to add at least one. In this example, there is a six-digit group code and a four-digit field code.
 
 Socio-Economic Objectives
 `````````````````````````
-The SEO selecter works in a the same manner as the FoR codes. The key difference being that the SEO codes are optional.
+The SEO selector works in a the same manner as the FoR codes. The key difference being that the SEO codes are optional.
 
 Research Themes
 ```````````````
@@ -557,3 +561,12 @@ Licence - Other
 ```````````````
 In the event that you have constraints on your data set that need to be fulfilled before sharing of data can take place then the AusGOAL framework provides a Restricted Licence template that can be used to specify the restrictions and/or additional conditions that need to be complied with. This will then need to go to the University Legal unit for checking. After this process, the licence can be attached to the Research Data record.
 
+Data Owner (IP)
+```````````````
+
+By default, this is pre-filled with *James Cook University*. For students, depending on how your PhD has been funded, it may be that you are the data owner. If the data collection was part of an externally funded activity, you may need to check the contract to see if your funder has made claims to the data. If you are a staff member and the data has been collected as part of the research you have undertaken as part of your employment at JCU, then *James Cook University* is the data owner. In the case where there is joint data ownership, use the **Add owner** button to add additonal lines and enter one owner per line.
+
+.. figure:: _static/data-owner-ip.png
+    :width: 100%
+    :figwidth: 50%
+    :align: center

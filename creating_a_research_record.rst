@@ -49,7 +49,7 @@ Then authenticate at the normal JCU login page. Once you have logged in you will
 Creating a new JCU Research Record
 ----------------------------------
 
-The Researcher Dashboard provides you with the facility to create a research record. A research record contains information about your research data:
+'My Research Data' provides you with the facility to create a research record. A research record contains information about your research data:
 
 * Who collected the data
 * Why it was collected
@@ -176,7 +176,7 @@ In this case you would use the date picker widgets to enter in these exact dates
    :figwidth: 50%
    :align: center
 
-   When exact dates are relevant to the research dataset being describe, use the From and To fields.
+   When exact dates are relevant to the research dataset being described, use the From and To fields.
 
 If your research was an analysis of the 1920s fashion then, rather than the dates you collected your material, the relevant time period would be "The 1920s" and you would leave the **From:** and **To:** fields empty and enter "The 1920s" into the **Time Period** field.
 
@@ -187,7 +187,7 @@ If your research was an analysis of the 1920s fashion then, rather than the date
 
    When a phrase describing the time period being considered is more appropriate than exact dates, use the Time Period field.
 
-So - use either the **From:** and **To:** fields *or* the **Time Period** field but not both!
+So - use either the **From:** and **To:** fields *or*  the **Time Period** field but not both!
 
 Hints
 ~~~~~
@@ -277,7 +277,7 @@ As you add items to the map, entries will appear in the (Location Type, Value) a
 
 .. figure:: _static/add-shape-to-map.png
    :width: 100%
-   :figwidth: 50%
+   :figwidth: 75%
    :align: center
 
    When you add a shape to the map, a **Location Type** of *free text* is added with a **Value** of *POLYGON(....)*.
@@ -288,7 +288,7 @@ Another way to edit the shape is to click on the edit icon for the location (lef
 
 .. figure:: _static/map-edit-shape-by-location.png
    :width: 100%
-   :figwidth: 50%
+   :figwidth: 75%
    :align: center
 
 
